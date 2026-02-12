@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "625917332119",
+    "project_id": "glucobpm",
+    "storage_bucket": "glucobpm.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:625917332119:android:c524284ea5ecbf837a77d2",
+        "android_client_info": {
+          "package_name": "com.bpm.gloco"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "625917332119-7u45mmknhb20qk5g9tb8f2t0u2h9ul6f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCwtnCh-p3hklYnRL7QYI0L-L2ClonzXPk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "625917332119-7u45mmknhb20qk5g9tb8f2t0u2h9ul6f.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "625917332119-nbdm0mssr6al1g7r0hb5hp7hicu6qqru.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.bpm.gloco",
+                "app_store_id": "6756905038"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
