@@ -71,7 +71,7 @@ class _HealthpermissionCheckState extends State<HealthpermissionCheck>
   // ----------------------------------------------------------
   // CORRECT PERMISSION CHECK FLOW
   // ----------------------------------------------------------
-  Future<void> _checkAllPermissions() async {
+  /*Future<void> _checkAllPermissions() async {
     try {
       final types = _permissions.keys.toList();
 
@@ -98,6 +98,41 @@ class _HealthpermissionCheckState extends State<HealthpermissionCheck>
             );
 
             granted = data.isNotEmpty;
+          }
+        } catch (e) {
+          granted = false;
+        }
+
+        _permissions[type] = granted;
+      }
+    } catch (e) {
+      debugPrint("❌ Permission check error: $e");
+    }
+
+    _updateAppState();
+  }*/
+  Future<void> _checkAllPermissions() async {
+    try {
+      final types = _permissions.keys.toList();
+
+      for (final type in types) {
+        bool granted = false;
+
+        try {
+          if (Platform.isAndroid) {
+            // ✅ Android supports direct permission check
+            granted = await _health.hasPermissions([type]) ?? false;
+          } else {
+            // ⚠️ iOS has NO direct permission check API
+            // We validate by attempting to read minimal data
+            final data = await _health.getHealthDataFromTypes(
+              types: [type],
+              startTime: DateTime.now().subtract(const Duration(days: 1)),
+              endTime: DateTime.now(),
+            );
+
+            // If no exception thrown → permission exists
+            granted = true;
           }
         } catch (e) {
           granted = false;

@@ -705,9 +705,12 @@ class _AicareWidgetState extends State<AicareWidget>
                                                     .fromSTEB(
                                                         0.0, 15.0, 0.0, 0.0),
                                                 child: FFButtonWidget(
-                                                  onPressed: () {
-                                                    print('Button pressed ...');
-                                                  },
+                                                  onPressed: true
+                                                      ? null
+                                                      : () {
+                                                          print(
+                                                              'Button pressed ...');
+                                                        },
                                                   text: 'Analyze',
                                                   options: FFButtonOptions(
                                                     width: 120.0,

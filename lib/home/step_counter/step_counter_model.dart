@@ -8,6 +8,8 @@ class StepCounterModel extends FlutterFlowModel<StepCounterWidget> {
 
   // Stores action output result for [Custom Action - fetchInfo] action in StepCounter widget.
   List<HealthInfoStruct>? healthInfo;
+  // Stores action output result for [Custom Action - fetchInfo] action in Button widget.
+  List<HealthInfoStruct>? healthInfoNew;
 
   @override
   void initState(BuildContext context) {}

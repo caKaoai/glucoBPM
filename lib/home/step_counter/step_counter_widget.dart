@@ -985,6 +985,15 @@ class _StepCounterWidgetState extends State<StepCounterWidget>
                           await actions.redirectSetting(
                             1,
                           );
+                          if (FFAppState().HealthPermission.steps) {
+                            _model.healthInfoNew = await actions.fetchInfo();
+                            FFAppState().healthInfo = _model.healthInfoNew!
+                                .toList()
+                                .cast<HealthInfoStruct>();
+                            safeSetState(() {});
+                          }
+
+                          safeSetState(() {});
                         },
                         text: 'Go To Settings',
                         options: FFButtonOptions(
