@@ -4,6 +4,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/custom_code/actions/index.dart' as actions;
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -602,7 +603,7 @@ class _ExportDataWidgetState extends State<ExportDataWidget>
                                                     )
                                                   : dateTimeFormat(
                                                       "dd MMM, y",
-                                                      getCurrentTimestamp,
+                                                      functions.dateRetun(2),
                                                       locale:
                                                           FFLocalizations.of(
                                                                   context)
@@ -787,15 +788,37 @@ class _ExportDataWidgetState extends State<ExportDataWidget>
                   onPressed: () async {
                     await actions.exportPdf(
                       context,
-                      dateTimeFormat(
-                        "d/M/y",
-                        _model.datePicked1,
-                        locale: FFLocalizations.of(context).languageCode,
+                      valueOrDefault<String>(
+                        _model.datePicked1 != null
+                            ? dateTimeFormat(
+                                "d/M/y",
+                                _model.datePicked1,
+                                locale:
+                                    FFLocalizations.of(context).languageCode,
+                              )
+                            : dateTimeFormat(
+                                "d/M/y",
+                                functions.dateRetun(2),
+                                locale:
+                                    FFLocalizations.of(context).languageCode,
+                              ),
+                        'dd MMM, y',
                       ),
-                      dateTimeFormat(
-                        "d/M/y",
-                        _model.datePicked2,
-                        locale: FFLocalizations.of(context).languageCode,
+                      valueOrDefault<String>(
+                        _model.datePicked2 != null
+                            ? dateTimeFormat(
+                                "d/M/y",
+                                _model.datePicked2,
+                                locale:
+                                    FFLocalizations.of(context).languageCode,
+                              )
+                            : dateTimeFormat(
+                                "d/M/y",
+                                getCurrentTimestamp,
+                                locale:
+                                    FFLocalizations.of(context).languageCode,
+                              ),
+                        'dd MMM, y',
                       ),
                     );
                   },

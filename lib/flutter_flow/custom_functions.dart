@@ -745,3 +745,11 @@ BPMinfoStruct? bpmStatusColor(
 
   return null;
 }
+
+DateTime? dateRetun(int? howmanyDaysabove) {
+  if (howmanyDaysabove == null) return DateTime.now();
+
+  return DateTime.now().subtract(
+    Duration(days: howmanyDaysabove),
+  );
+}
