@@ -18,6 +18,7 @@ import 'package:share_plus/share_plus.dart';
 import 'package:path_provider/path_provider.dart';
 
 Future exportPdf(
+  BuildContext context,
   String? startDate,
   String? endDate,
 ) async {
@@ -46,7 +47,24 @@ Future exportPdf(
     }).toList();
 
     if (filtered.isEmpty) {
-      print("No data available");
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            "No heart rate data available for selected date range",
+            style: FlutterFlowTheme.of(context).bodyMedium.override(
+                  fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
+                  color: FlutterFlowTheme.of(context).primary,
+                  fontSize: 14.0,
+                  letterSpacing: 0.0,
+                  fontWeight: FontWeight.w500,
+                  useGoogleFonts:
+                      !FlutterFlowTheme.of(context).bodyMediumIsCustom,
+                ),
+          ),
+          duration: Duration(seconds: 2),
+          backgroundColor: FlutterFlowTheme.of(context).secondary,
+        ),
+      );
       return;
     }
 

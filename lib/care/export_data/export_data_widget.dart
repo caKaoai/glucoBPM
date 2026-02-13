@@ -786,6 +786,7 @@ class _ExportDataWidgetState extends State<ExportDataWidget>
                 FFButtonWidget(
                   onPressed: () async {
                     await actions.exportPdf(
+                      context,
                       dateTimeFormat(
                         "d/M/y",
                         _model.datePicked1,
