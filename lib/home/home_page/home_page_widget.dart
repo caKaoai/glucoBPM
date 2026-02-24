@@ -2824,6 +2824,10 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                       ),
                                       Expanded(
                                         child: Builder(
+                                          key: ValueKey(FFAppState()
+                                              .HealthPermission
+                                              .steps
+                                              .toString()),
                                           builder: (context) {
                                             if ((FFAppState()
                                                         .HealthPermission !=

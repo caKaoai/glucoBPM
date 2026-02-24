@@ -139,12 +139,15 @@ class _SplashScreenWidgetState extends State<SplashScreenWidget>
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Lottie.asset(
-              'assets/jsons/Heart_Rate.json',
-              width: 216.58,
-              height: 206.8,
-              fit: BoxFit.cover,
-              animate: true,
+            Align(
+              alignment: AlignmentDirectional(0.0, 0.0),
+              child: Lottie.asset(
+                'assets/jsons/Heart_Rate.json',
+                width: 216.58,
+                height: 206.8,
+                fit: BoxFit.cover,
+                animate: true,
+              ),
             ),
             Align(
               alignment: AlignmentDirectional(0.0, 1.0),
@@ -184,10 +187,7 @@ class _SplashScreenWidgetState extends State<SplashScreenWidget>
                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                           fontFamily:
                               FlutterFlowTheme.of(context).bodyMediumFamily,
-                          color: FlutterFlowTheme.of(context).primaryText,
-                          fontSize: 20.0,
                           letterSpacing: 0.0,
-                          fontWeight: FontWeight.normal,
                           useGoogleFonts:
                               !FlutterFlowTheme.of(context).bodyMediumIsCustom,
                         ),

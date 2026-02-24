@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 // Begin custom widget code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
+import '../../bpm/heartage/heartage_widget.dart';
 import '../../auth/supabase_auth/auth_util.dart';
 import '../../flutter_flow/flutter_flow_icon_button.dart';
 import 'dart:math';
@@ -28,10 +29,12 @@ class HeartMeasureScreen extends StatefulWidget {
     super.key,
     this.width,
     this.height,
+    this.stateWidget,
   });
 
   final double? width;
   final double? height;
+  final Widget Function()? stateWidget;
 
   @override
   State<HeartMeasureScreen> createState() => _HeartMeasureScreenState();
@@ -64,7 +67,7 @@ class _HeartMeasureScreenState extends State<HeartMeasureScreen>
   List<int> _pulseTimestamps = [];
   bool _fingerDetected = false;
   bool _validPulse = false;
-  int _steadyPulseCount = 0;
+  int _steadyPulseCount = 0; // kept, though stability gate now stronger
 
   // ✅ iOS-only HR finger detection
   static const int _recentWindow = 30;
@@ -77,6 +80,9 @@ class _HeartMeasureScreenState extends State<HeartMeasureScreen>
   // --- HRV Metrics ---
   double? _rmssd; // ms
   double? _sdnn; // ms
+  double? _pnn50;
+  double? _cov;
+
   double? _stressScore; // 0 - 100
   double? _energyScore; // 0 - 100
   double? _heartScore; // 0 - 100
@@ -90,6 +96,23 @@ class _HeartMeasureScreenState extends State<HeartMeasureScreen>
   late Animation<double> _fadeAnimation;
   late AnimationController _scaleController;
   late Animation<double> _scaleAnimation;
+
+  // --- PPG buffer for signal trace ---
+  static const int _ppgWindowMs = 15000; // show last 15s
+  static const int _ppgKeepMs = 45000; // keep extra to be safe
+
+  final List<_PPGSample> _ppgBuffer = [];
+  List<double> _ppgTrace = const [];
+
+  // --- Stability gating (like iCardiac-style) ---
+  static const int _minRrForStart = 8; // min RR intervals before starting
+  static const int _minStableBpmSamples = 5; // recent BPM samples needed
+  static const int _maxBpmJumpForStable = 8; // max (max-min) BPM in window
+  final List<int> _recentBpmWindow = [];
+
+  // ============================================================
+  //                      INIT / DISPOSE
+  // ============================================================
 
   @override
   void initState() {
@@ -123,7 +146,6 @@ class _HeartMeasureScreenState extends State<HeartMeasureScreen>
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.resumed) {
       print("🔄 App resumed — checking camera permission");
-
       _handlePermissionOnResume();
     }
   }
@@ -143,23 +165,23 @@ class _HeartMeasureScreenState extends State<HeartMeasureScreen>
     super.dispose();
   }
 
+  // ============================================================
+  //              PERMISSION / CAMERA INITIALIZATION
+  // ============================================================
+
   Future<void> _handlePermissionOnResume() async {
     if (!mounted) return;
 
     final status = await Permission.camera.status;
-
     print("📷 Resume permission status: $status");
 
     if (status.isGranted) {
-      // If camera not initialized, re-init
       if (_controller == null || !_controller!.value.isInitialized) {
         print("📷 Re-initializing camera after settings");
-
         setState(() {
           _loadingCamera = true;
           _hasPermission = true;
         });
-
         await _initCamera();
       }
     } else {
@@ -207,7 +229,6 @@ class _HeartMeasureScreenState extends State<HeartMeasureScreen>
     }
 
     print("✅ Permission granted — initializing camera");
-
     await _initializeCameraController();
   }
 
@@ -218,9 +239,6 @@ class _HeartMeasureScreenState extends State<HeartMeasureScreen>
     });
 
     await openAppSettings();
-
-    if (!mounted) return;
-
     // When user comes back, lifecycle will re-check permission
   }
 
@@ -266,7 +284,6 @@ class _HeartMeasureScreenState extends State<HeartMeasureScreen>
       });
 
       await _controller?.startImageStream(_processImage);
-
       print("✅ Camera fully ready");
     } catch (e) {
       print("❌ Camera init error: $e");
@@ -279,7 +296,6 @@ class _HeartMeasureScreenState extends State<HeartMeasureScreen>
 
   void _addCameraListeners() {
     _controller?.addListener(() {
-      // Called on orientation changes and session interruptions
       if (_controller?.value.isInitialized == true &&
           _controller?.value.isStreamingImages == true) {
         if (_torchSupported &&
@@ -290,53 +306,12 @@ class _HeartMeasureScreenState extends State<HeartMeasureScreen>
     });
   }
 
-  void _showPermissionDialog() {
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (context) => AlertDialog(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        title: Row(
-          children: const [
-            Icon(Icons.camera_alt, color: Colors.pink, size: 28),
-            SizedBox(width: 12),
-            Text('Camera Permission Required'),
-          ],
-        ),
-        content: const Text(
-          'This app needs camera access to measure your heart rate and SpO₂ using the camera flash and lens. '
-          'Please enable camera permission in Settings.',
-          style: TextStyle(fontSize: 16),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () {
-              Navigator.pop(context);
-              Navigator.pop(context);
-            },
-            child: const Text('Cancel', style: TextStyle(color: Colors.grey)),
-          ),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.pink,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
-              ),
-            ),
-            onPressed: () {
-              openAppSettings();
-              Navigator.pop(context);
-            },
-            child: const Text('Open Settings'),
-          ),
-        ],
-      ),
-    );
-  }
+  // ============================================================
+  //                      IMAGE STREAM
+  // ============================================================
 
   void _processImage(CameraImage image) {
     if (_navigatingAway) return;
-
     _processHeartRateImage(image);
   }
 
@@ -381,23 +356,20 @@ class _HeartMeasureScreenState extends State<HeartMeasureScreen>
         return false;
       }
 
-      // Sample the ENTIRE circular area densely
       final int centerX = width ~/ 2;
       final int centerY = height ~/ 2;
       final int minDim = width < height ? width : height;
-      final double radius = minDim * 0.42; // Match your camera circle UI
+      final double radius = minDim * 0.42;
 
-      int redOrangeSamples = 0; // Count pixels that are red/orange
+      int redOrangeSamples = 0;
       int totalSamples = 0;
 
       double sumR = 0, sumG = 0, sumB = 0;
 
-      // Dense sampling - step of 6 for thorough coverage
       const int step = 6;
 
       for (int y = 0; y < height; y += step) {
         for (int x = 0; x < width; x += step) {
-          // Only sample points inside the circle
           final dx = (x - centerX).toDouble();
           final dy = (y - centerY).toDouble();
           final distanceSquared = dx * dx + dy * dy;
@@ -428,7 +400,6 @@ class _HeartMeasureScreenState extends State<HeartMeasureScreen>
             }
           }
 
-          // Convert YUV to RGB
           final double yf = Y.toDouble();
           final double uf = U.toDouble() - 128.0;
           final double vf = V.toDouble() - 128.0;
@@ -446,19 +417,12 @@ class _HeartMeasureScreenState extends State<HeartMeasureScreen>
           sumB += b;
           totalSamples++;
 
-          // STRICT RED/ORANGE CHECK:
-          // 1. Red must be dominant: R > G and R > B
-          // 2. Must have warm tone: R - B > 20 (clear separation)
-          // 3. Not too dark: R > 60
-          // 4. Not too bright/washed out: R < 240
-          // 5. Green should be less than red: G < R (avoids yellow/white)
-
           final bool isRedOrOrange = (r > g) &&
               (r > b) &&
               (r - b > 20.0) &&
               (r > 60.0) &&
               (r < 240.0) &&
-              (g < r * 0.9); // G must be at least 10% less than R
+              (g < r * 0.9);
 
           if (isRedOrOrange) {
             redOrangeSamples++;
@@ -473,16 +437,11 @@ class _HeartMeasureScreenState extends State<HeartMeasureScreen>
       final double avgB = sumB / totalSamples;
       final double coveragePercent = (redOrangeSamples / totalSamples) * 100.0;
 
-      // STRICT REQUIREMENT:
-      // - At least 85% of the circle must be red/orange
-      // - Overall average must also be red-dominant
-      // - Clear warm tone in averages
       final bool isFullyCovered = coveragePercent >= 85.0 &&
           avgR > avgG &&
           avgR > avgB &&
           (avgR - avgB) > 15.0;
 
-      // Debug output every 20 frames
       if (_redDebugCounter++ % 20 == 0) {
         print(
             '🔴 RED COVERAGE: ${coveragePercent.toStringAsFixed(1)}% ($redOrangeSamples/$totalSamples) '
@@ -498,14 +457,35 @@ class _HeartMeasureScreenState extends State<HeartMeasureScreen>
     }
   }
 
-  // ======================= HEART RATE ======================= //
+  // ============================================================
+  //                    HEART RATE PROCESSING
+  // ============================================================
+
+  void _resetAllSignalBuffers() {
+    _pulseTimestamps.clear();
+    _waveformPoints.clear();
+    _brightnessHistory.clear();
+    _recent.clear();
+    _holdFrames = 0;
+    _recentBpmWindow.clear();
+  }
+
+  void _pushPpgSample(double brightness) {
+    final now = DateTime.now().millisecondsSinceEpoch;
+    _ppgBuffer.add(_PPGSample(now, brightness));
+
+    final cutoff = now - _ppgKeepMs;
+    while (_ppgBuffer.isNotEmpty && _ppgBuffer.first.t < cutoff) {
+      _ppgBuffer.removeAt(0);
+    }
+  }
+
   void _processHeartRateImage(CameraImage image) {
     if (_measurementComplete) return;
 
     // 🔴 Update red detection for this frame
     _redDetected = _updateRedDetection(image);
 
-    // ⚠️ CRITICAL: If red is not detected, immediately stop/prevent finger detection
     if (!_redDetected) {
       if (_fingerDetected) {
         print('❌ RED COVERAGE LOST - stopping measurement');
@@ -514,25 +494,19 @@ class _HeartMeasureScreenState extends State<HeartMeasureScreen>
           _validPulse = false;
           _currentBpm = null;
           _steadyPulseCount = 0;
-          _progress = 0.0; // 👈 RESET progress completely (optional)
+          _progress = 0.0;
         });
-        _stopProgress(
-            pause: false); // 👈 pause: false = complete stop, not pause
-        _pulseTimestamps.clear();
-        _waveformPoints.clear();
-        _brightnessHistory.clear(); // Android
-        _recent.clear(); // iOS
-        _holdFrames = 0; // iOS
+        _stopProgress(pause: false);
+        _resetAllSignalBuffers();
         _stopHaptics();
       }
-      return; // Exit early - no red means no processing
+      return;
     }
 
     // Calculate brightness
     double brightness;
 
     if (Platform.isIOS) {
-      // iOS: sample every 20th byte
       final bytes = image.planes.first.bytes;
       double sum = 0;
       const step = 20;
@@ -541,16 +515,12 @@ class _HeartMeasureScreenState extends State<HeartMeasureScreen>
       }
       brightness = sum / (bytes.length / step);
     } else {
-      // Android: full average of Y plane
       double total = 0;
       int n = 0;
-      for (final plane in image.planes) {
-        final bytes = plane.bytes;
-        for (int i = 0; i < bytes.length; i++) {
-          total += bytes[i];
-          n++;
-        }
-        break;
+      final bytes = image.planes[0].bytes; // Y plane enough
+      for (int i = 0; i < bytes.length; i += 4) {
+        total += bytes[i];
+        n++;
       }
       if (n == 0) return;
       brightness = total / n;
@@ -560,7 +530,6 @@ class _HeartMeasureScreenState extends State<HeartMeasureScreen>
     bool fingerNow = false;
 
     if (isIOS) {
-      // ============== iOS finger detection ==============
       _recent.add(brightness);
       if (_recent.length > _recentWindow) _recent.removeAt(0);
 
@@ -575,7 +544,6 @@ class _HeartMeasureScreenState extends State<HeartMeasureScreen>
       }
       variance /= _recent.length;
 
-      // Check if finger is detected based on darkness and low variance
       fingerNow = mean < _darkThreshold && variance < _varThreshold;
 
       if (fingerNow) {
@@ -594,8 +562,7 @@ class _HeartMeasureScreenState extends State<HeartMeasureScreen>
           print(
               '👋 [iOS] HR finger LOST (mean=$mean, var=$variance, bright=$brightness, red=$_redDetected)');
           _stopProgress(pause: true);
-          _pulseTimestamps.clear();
-          _waveformPoints.clear();
+          _resetAllSignalBuffers();
           setState(() {
             _fingerDetected = false;
             _validPulse = false;
@@ -605,12 +572,11 @@ class _HeartMeasureScreenState extends State<HeartMeasureScreen>
         _holdFrames = 0;
       }
     } else {
-      // ============== Android finger detection ==============
       _brightnessHistory.add(brightness);
       if (_brightnessHistory.length > 50) _brightnessHistory.removeAt(0);
 
       if (_brightnessHistory.length < 25) {
-        return; // Need minimum samples
+        return;
       }
 
       final double avg = _brightnessHistory.reduce((a, b) => a + b) /
@@ -640,13 +606,16 @@ class _HeartMeasureScreenState extends State<HeartMeasureScreen>
           _validPulse = false;
           _steadyPulseCount = 0;
           _stopProgress(pause: true);
-          _pulseTimestamps.clear();
-          _waveformPoints.clear();
+          _resetAllSignalBuffers();
+          _currentBpm = null;
         }
       }
     }
 
-    // If finger is not detected, reset everything and exit
+    if (_fingerDetected) {
+      _pushPpgSample(brightness);
+    }
+
     if (!_fingerDetected) {
       setState(() {
         _validPulse = false;
@@ -658,11 +627,9 @@ class _HeartMeasureScreenState extends State<HeartMeasureScreen>
 
     // ============== Pulse Detection & BPM Calculation ==============
 
-    // Add brightness to waveform for pulse detection
     _waveformPoints.add(brightness);
     if (_waveformPoints.length > 150) _waveformPoints.removeAt(0);
 
-    // Detect pulse peaks/valleys
     bool foundPulse = false;
     if (_waveformPoints.length > 12) {
       int idx = _waveformPoints.length - 6;
@@ -673,7 +640,6 @@ class _HeartMeasureScreenState extends State<HeartMeasureScreen>
         double nxt0 = _waveformPoints[idx + 1];
         double nxt1 = _waveformPoints[idx + 2];
 
-        // Detect local minimum = pulse valley
         if (cur < pre1 && cur < pre0 && cur < nxt0 && cur < nxt1) {
           final now = DateTime.now().millisecondsSinceEpoch;
           if (_pulseTimestamps.isEmpty || now - _pulseTimestamps.last > 400) {
@@ -687,64 +653,94 @@ class _HeartMeasureScreenState extends State<HeartMeasureScreen>
       }
     }
 
-    // Handle pulse detection
     if (foundPulse) {
-      if (!_validPulse) {
-        // Need steady pulses before starting measurement
-        _steadyPulseCount++;
-        if (_steadyPulseCount >= 3) {
-          setState(() => _validPulse = true);
-          print("✅ Valid HR pulse found, starting HR progress");
-          _startProgress();
+      // compute BPM candidate only when enough pulses collected
+      if (_pulseTimestamps.length >= 6) {
+        final intervals = <int>[];
+        for (int i = 1; i < _pulseTimestamps.length; i++) {
+          intervals.add(_pulseTimestamps[i] - _pulseTimestamps[i - 1]);
         }
-      } else {
-        // ✅ Calculate realtime BPM using trimmed mean of RR intervals
-        if (_pulseTimestamps.length >= 6) {
-          final intervals = <int>[];
-          for (int i = 1; i < _pulseTimestamps.length; i++) {
-            intervals.add(_pulseTimestamps[i] - _pulseTimestamps[i - 1]);
+
+        if (intervals.isNotEmpty) {
+          final sorted = [...intervals]..sort();
+
+          int start = (sorted.length * 0.25).floor();
+          int end = (sorted.length * 0.75).ceil();
+          if (end <= start) {
+            start = 0;
+            end = sorted.length;
           }
+          final trimmed = sorted.sublist(start, end);
 
-          if (intervals.isNotEmpty) {
-            final sorted = [...intervals]..sort();
+          final avgInterval = trimmed.reduce((a, b) => a + b) / trimmed.length;
+          final bpm = (60000 / avgInterval).round();
 
-            // Use trimmed mean (remove outliers)
-            int start = (sorted.length * 0.25).floor();
-            int end = (sorted.length * 0.75).ceil();
-            if (end <= start) {
-              start = 0;
-              end = sorted.length;
-            }
-            final trimmed = sorted.sublist(start, end);
-
-            final avgInterval =
-                trimmed.reduce((a, b) => a + b) / trimmed.length;
-            final bpm = (60000 / avgInterval).round();
-
-            // Validate BPM range
-            if (bpm > 40 && bpm < 200) {
-              setState(() {
-                _currentBpm = bpm;
-              });
+          if (bpm > 40 && bpm < 200) {
+            // Update stability window
+            _recentBpmWindow.add(bpm);
+            if (_recentBpmWindow.length > 12) {
+              _recentBpmWindow.removeAt(0);
             }
 
-            // Debug output every 5 pulses
+            final stable = _isBpmWindowStable();
+            final stableBpm = _stableBpmFromWindow();
+
+            if (!_validPulse) {
+              // Need enough RR + stable BPM before starting measurement
+              if (_pulseTimestamps.length >= _minRrForStart &&
+                  _recentBpmWindow.length >= _minStableBpmSamples &&
+                  stable) {
+                setState(() {
+                  _validPulse = true;
+                  _currentBpm = stableBpm;
+                });
+                print(
+                    "✅ Valid HR pulse found (stable), starting HR progress | bpmWindow=$_recentBpmWindow");
+                _startProgress();
+              }
+            } else {
+              // Already measuring: just update current BPM smoothly
+              if (_currentBpm != stableBpm) {
+                setState(() {
+                  _currentBpm = stableBpm;
+                });
+              }
+            }
+
             if (_pulseTimestamps.length % 5 == 0) {
               print(
-                  '📈 HR realtime -> intervals=$intervals trimmed=$trimmed bpm=$bpm');
+                  '📈 HR realtime -> intervals=$intervals trimmed=$trimmed bpm=$bpm stableBpm=$stableBpm stable=$stable');
             }
           }
         }
       }
     }
 
-    // Stop progress if finger is detected but pulse is not valid
     if (_measuring && (!_fingerDetected || !_validPulse)) {
       _stopProgress(pause: true);
     }
   }
 
-  // ======================= HAPTIC HELPERS ======================= //
+  bool _isBpmWindowStable() {
+    if (_recentBpmWindow.length < _minStableBpmSamples) return false;
+    int minBpm = _recentBpmWindow.first;
+    int maxBpm = _recentBpmWindow.first;
+    for (final v in _recentBpmWindow) {
+      if (v < minBpm) minBpm = v;
+      if (v > maxBpm) maxBpm = v;
+    }
+    return (maxBpm - minBpm).abs() <= _maxBpmJumpForStable;
+  }
+
+  int _stableBpmFromWindow() {
+    if (_recentBpmWindow.isEmpty) return _currentBpm ?? 0;
+    final sum = _recentBpmWindow.reduce((a, b) => a + b);
+    return (sum / _recentBpmWindow.length).round();
+  }
+
+  // ============================================================
+  //                     HAPTIC HELPERS
+  // ============================================================
 
   void _startHaptics() {
     _hapticTimer?.cancel();
@@ -779,7 +775,9 @@ class _HeartMeasureScreenState extends State<HeartMeasureScreen>
     }
   }
 
-  // ======================= HR PROGRESS ======================= //
+  // ============================================================
+  //                      HR PROGRESS
+  // ============================================================
 
   void _startProgress() {
     if (_measuring) return;
@@ -789,6 +787,9 @@ class _HeartMeasureScreenState extends State<HeartMeasureScreen>
     });
 
     _startHaptics();
+
+    _progressTimer?.cancel();
+    _progress = 0.0;
 
     _progressTimer = Timer.periodic(const Duration(milliseconds: 80), (timer) {
       if (!_fingerDetected || !_validPulse || !_measuring) return;
@@ -814,7 +815,9 @@ class _HeartMeasureScreenState extends State<HeartMeasureScreen>
     });
   }
 
-  // ======================= HRV HELPERS ======================= //
+  // ============================================================
+  //                      HRV HELPERS
+  // ============================================================
 
   List<double> _getRrIntervalsMs(List<int> timestamps) {
     if (timestamps.length < 2) return [];
@@ -879,7 +882,132 @@ class _HeartMeasureScreenState extends State<HeartMeasureScreen>
     return score.clamp(0.0, 100.0);
   }
 
-  // ======================= RESULTS ======================= //
+  List<double> _filterRr(List<double> rr) {
+    if (rr.isEmpty) return [];
+
+    final mean = rr.reduce((a, b) => a + b) / rr.length;
+
+    return rr.where((r) {
+      return r > mean * 0.6 && r < mean * 1.4;
+    }).toList();
+  }
+
+  /// pNN50 (%) = % of successive RR differences > 50ms
+  double _computePnn50(List<double> rrMs) {
+    if (rrMs.length < 2) return 0.0;
+    int count = 0;
+    for (int i = 1; i < rrMs.length; i++) {
+      final diff = (rrMs[i] - rrMs[i - 1]).abs();
+      if (diff > 50.0) count++;
+    }
+    return (count / (rrMs.length - 1)) * 100.0;
+  }
+
+  double _mean(List<double> x) {
+    if (x.isEmpty) return 0.0;
+    return x.reduce((a, b) => a + b) / x.length;
+  }
+
+  double _std(List<double> x) {
+    if (x.length < 2) return 0.0;
+    final m = _mean(x);
+    double sum = 0.0;
+    for (final v in x) {
+      final d = v - m;
+      sum += d * d;
+    }
+    return math.sqrt(sum / x.length);
+  }
+
+  /// CoV (%) = (SDNN / meanRR) * 100
+  double _computeCovPercent(List<double> rrMs) {
+    if (rrMs.length < 2) return 0.0;
+    final m = _mean(rrMs);
+    if (m <= 0) return 0.0;
+    final s = _std(rrMs);
+    return (s / m) * 100.0;
+  }
+
+  // ============================================================
+  //                     PPG TRACE (15s)
+  // ============================================================
+
+  List<double> _computePpgTrace15s() {
+    if (_ppgBuffer.length < 20) return const [];
+
+    final end = _ppgBuffer.last.t;
+    final start = end - _ppgWindowMs;
+
+    final window = _ppgBuffer.where((s) => s.t >= start).toList();
+    if (window.length < 20) return const [];
+
+    const int N = 240; // ~16Hz for 15s
+    final int stepMs = (_ppgWindowMs / (N - 1)).round();
+
+    final List<double> resampled = List.filled(N, 0.0);
+    int j = 0;
+    for (int i = 0; i < N; i++) {
+      final targetT = start + stepMs * i;
+
+      while (j + 1 < window.length && window[j + 1].t < targetT) {
+        j++;
+      }
+
+      if (j + 1 >= window.length) {
+        resampled[i] = window.last.v;
+      } else {
+        final a = window[j];
+        final b = window[j + 1];
+        final dt = (b.t - a.t).toDouble();
+        if (dt <= 0) {
+          resampled[i] = a.v;
+        } else {
+          final alpha = ((targetT - a.t) / dt).clamp(0.0, 1.0);
+          resampled[i] = a.v + (b.v - a.v) * alpha;
+        }
+      }
+    }
+
+    List<double> detrended = List.filled(N, 0.0);
+    const int win = 15;
+    for (int i = 0; i < N; i++) {
+      double sum = 0;
+      int c = 0;
+      for (int k = i - win; k <= i + win; k++) {
+        if (k >= 0 && k < N) {
+          sum += resampled[k];
+          c++;
+        }
+      }
+      final baseline = (c == 0) ? resampled[i] : (sum / c);
+      detrended[i] = resampled[i] - baseline;
+    }
+
+    List<double> smooth = List.filled(N, 0.0);
+    for (int i = 0; i < N; i++) {
+      final a = detrended[(i - 1).clamp(0, N - 1)];
+      final b = detrended[i];
+      final c = detrended[(i + 1).clamp(0, N - 1)];
+      smooth[i] = (a + b + c) / 3.0;
+    }
+
+    double minV = smooth.first;
+    double maxV = smooth.first;
+    for (final v in smooth) {
+      if (v < minV) minV = v;
+      if (v > maxV) maxV = v;
+    }
+    final range = (maxV - minV).abs();
+    if (range < 1e-6) {
+      return List.filled(N, 0.5);
+    }
+
+    return smooth.map((v) => ((v - minV) / range).clamp(0.0, 1.0)).toList();
+  }
+
+  // ============================================================
+  //                           RESULT
+  // ============================================================
 
   void _openResultBottomSheet() {
     if (!mounted) return;
@@ -904,17 +1032,7 @@ class _HeartMeasureScreenState extends State<HeartMeasureScreen>
     );
   }
 
-  List<double> _filterRr(List<double> rr) {
-    if (rr.isEmpty) return [];
-
-    final mean = rr.reduce((a, b) => a + b) / rr.length;
-
-    return rr.where((r) {
-      return r > mean * 0.6 && r < mean * 1.4;
-    }).toList();
-  }
-
-  void _showResult() async {
+  Future<void> _showResult() async {
     _progressTimer?.cancel();
     _stopHaptics();
     setState(() {
@@ -923,7 +1041,6 @@ class _HeartMeasureScreenState extends State<HeartMeasureScreen>
 
     int bpmToShow = _currentBpm ?? 0;
 
-    // same trimmed-mean RR logic for final BPM
     if (_pulseTimestamps.length > 5) {
       final intervals = <int>[];
       for (int i = 1; i < _pulseTimestamps.length; i++) {
@@ -960,7 +1077,6 @@ class _HeartMeasureScreenState extends State<HeartMeasureScreen>
     double rmssd = 0.0;
     double sdnn = 0.0;
 
-    // Default neutral scores if not enough data
     double stress = 50.0;
     double energy = 50.0;
 
@@ -979,6 +1095,10 @@ class _HeartMeasureScreenState extends State<HeartMeasureScreen>
 
     final double heartScore = _computeHeartScore(bpmToShow, stress, energy);
 
+    final trace = _computePpgTrace15s();
+    final pnn50 = _computePnn50(rr);
+    final cov = _computeCovPercent(rr);
+
     setState(() {
       _finalBpm = bpmToShow;
       _rmssd = rmssd;
@@ -986,10 +1106,13 @@ class _HeartMeasureScreenState extends State<HeartMeasureScreen>
       _stressScore = stress;
       _energyScore = energy;
       _heartScore = heartScore;
+      _pnn50 = pnn50;
+      _cov = cov;
+      _ppgTrace = trace;
     });
 
     print(
-        '✅ RESULT -> BPM=$_finalBpm, RMSSD=$_rmssd ms, SDNN=$_sdnn ms, stress=$_stressScore, energy=$_energyScore, heartScore=$_heartScore');
+        '✅ RESULT -> BPM=$_finalBpm, RMSSD=$_rmssd ms, SDNN=$_sdnn ms, pNN50=$_pnn50, CoV=$_cov, stress=$_stressScore, energy=$_energyScore, heartScore=$_heartScore');
 
     await _fadeController.forward();
 
@@ -1009,7 +1132,8 @@ class _HeartMeasureScreenState extends State<HeartMeasureScreen>
 
     WakelockPlus.disable();
     _scaleController.forward();
-    // 🔥 OPEN RESULT SCREEN
+
+    // 🔥 tracking + DB same as before
     if (loggedIn) {
       FFAppState().updateUserTrackingStruct(
         (e) => e
@@ -1017,7 +1141,9 @@ class _HeartMeasureScreenState extends State<HeartMeasureScreen>
           ..bpmTrackToday = true,
       );
     }
+
     _openResultBottomSheet();
+
     if (loggedIn) {
       await UserBPMTable().insert({
         'pluse': _finalBpm,
@@ -1029,7 +1155,9 @@ class _HeartMeasureScreenState extends State<HeartMeasureScreen>
     }
   }
 
-  // ======================= UI ======================= //
+  // ============================================================
+  //                           UI
+  // ============================================================
 
   @override
   Widget build(BuildContext context) {
@@ -1138,8 +1266,6 @@ class _HeartMeasureScreenState extends State<HeartMeasureScreen>
             child: Stack(
               alignment: Alignment.center,
               children: [
-                // CAMERA CIRCLE
-
                 ClipOval(
                   child: SizedBox(
                     width: circleSize * 0.8,
@@ -1159,8 +1285,6 @@ class _HeartMeasureScreenState extends State<HeartMeasureScreen>
                           ),
                   ),
                 ),
-
-                // BPM TEXT
                 Align(
                   alignment: Alignment.center,
                   child: SizedBox(
@@ -1201,13 +1325,12 @@ class _HeartMeasureScreenState extends State<HeartMeasureScreen>
                   ),
                 ),
                 CustomPaint(
-                  size: Size(250, 250),
+                  size: const Size(250, 250),
                   painter: ProgressArcPainter(
                     progress: _progress,
                     color: Colors.pink,
                   ),
                 ),
-                // OUTER PROGRESS RING
               ],
             ),
           ),
@@ -1249,8 +1372,8 @@ class _HeartMeasureScreenState extends State<HeartMeasureScreen>
                   animate: true,
                 )
               : SizedBox(
-                  key: ValueKey('ecg_hidden'),
-                  child: Image(
+                  key: const ValueKey('ecg_hidden'),
+                  child: const Image(
                     image: NetworkImage(
                         'https://tmypgcoijrkezcsmuogy.supabase.co/storage/v1/object/public/user/plan_faq/guid.png'),
                   ),
@@ -1265,7 +1388,6 @@ class _HeartMeasureScreenState extends State<HeartMeasureScreen>
     required double rmssd,
     required double stress,
   }) {
-    // Status logic (simple + readable)
     String status;
     if (stress <= 35) {
       status = 'GOOD';
@@ -1281,7 +1403,7 @@ class _HeartMeasureScreenState extends State<HeartMeasureScreen>
       width: double.infinity,
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        gradient: LinearGradient(
+        gradient: const LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
           colors: [
@@ -1294,7 +1416,7 @@ class _HeartMeasureScreenState extends State<HeartMeasureScreen>
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // ── Header
+          // Header
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -1324,10 +1446,7 @@ class _HeartMeasureScreenState extends State<HeartMeasureScreen>
               ),
             ],
           ),
-
           const SizedBox(height: 12),
-
-          // ── Message
           Text(
             'Normal heart rate—a positive sign.\n'
             'Continue the good work to maintain a healthy heart!',
@@ -1341,18 +1460,12 @@ class _HeartMeasureScreenState extends State<HeartMeasureScreen>
                       !FlutterFlowTheme.of(context).bodyMediumIsCustom,
                 ),
           ),
-
           const SizedBox(height: 16),
-
-          // ── Divider
           Container(
             height: 1,
             color: Colors.white.withOpacity(0.4),
           ),
-
           const SizedBox(height: 16),
-
-          // ── Metrics Row
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -1449,15 +1562,7 @@ class _HeartMeasureScreenState extends State<HeartMeasureScreen>
   }
 
   Widget _buildResultScreen(Size screenSize) {
-    final Color bpmColor = (_finalBpm ?? 0) < 55 || (_finalBpm ?? 0) > 120
-        ? Colors.orange
-        : Colors.pink;
-
-    final double rmssd = _rmssd ?? 0.0;
-    final double sdnn = _sdnn ?? 0.0;
     final double stress = _stressScore ?? 0.0;
-    final double energy = _energyScore ?? 0.0;
-    final double heartScore = _heartScore ?? 0.0;
 
     String stressLabel;
     if (stress <= 0) {
@@ -1479,71 +1584,84 @@ class _HeartMeasureScreenState extends State<HeartMeasureScreen>
               physics: const BouncingScrollPhysics(),
               child: ConstrainedBox(
                 constraints: BoxConstraints(minHeight: constraints.maxHeight),
-                child: Container(
-                  width: double.infinity,
-                  color: Colors.transparent,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      // Generated code for this Row Widget...
-                      Row(
-                        mainAxisSize: MainAxisSize.max,
+                child: Column(
+                  children: [
+                    Container(
+                      width: double.infinity,
+                      color: Colors.transparent,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 24, vertical: 12),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          FlutterFlowIconButton(
-                            borderRadius: 8,
-                            buttonSize: 40,
-                            icon: Icon(
-                              Icons.clear,
-                              color: FlutterFlowTheme.of(context).customColor1,
-                              size: 30,
-                            ),
-                            onPressed: () async {
-                              Navigator.pop(context);
-                              Navigator.pop(context);
-                            },
+                          Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              FlutterFlowIconButton(
+                                borderRadius: 8,
+                                buttonSize: 40,
+                                icon: Icon(
+                                  Icons.clear,
+                                  color:
+                                      FlutterFlowTheme.of(context).customColor1,
+                                  size: 30,
+                                ),
+                                onPressed: () async {
+                                  Navigator.pop(context);
+                                  Navigator.pop(context);
+                                },
+                              ),
+                              Expanded(
+                                child: Text(
+                                  'Measure Result',
+                                  textAlign: TextAlign.center,
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: FlutterFlowTheme.of(context)
+                                            .bodyMediumFamily,
+                                        fontSize: 20,
+                                        letterSpacing: 0.0,
+                                        fontWeight: FontWeight.w600,
+                                        useGoogleFonts:
+                                            !FlutterFlowTheme.of(context)
+                                                .bodyMediumIsCustom,
+                                      ),
+                                ),
+                              ),
+                              FlutterFlowIconButton(
+                                borderRadius: 8,
+                                buttonSize: 40,
+                                icon: Icon(
+                                  Icons.clear,
+                                  color: FlutterFlowTheme.of(context).secondary,
+                                  size: 24,
+                                ),
+                                onPressed: null,
+                              ),
+                            ],
                           ),
-                          Expanded(
-                            child: Text(
-                              'Measure Result',
-                              textAlign: TextAlign.center,
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: FlutterFlowTheme.of(context)
-                                        .bodyMediumFamily,
-                                    fontSize: 20,
-                                    letterSpacing: 0.0,
-                                    fontWeight: FontWeight.w600,
-                                    useGoogleFonts:
-                                        !FlutterFlowTheme.of(context)
-                                            .bodyMediumIsCustom,
-                                  ),
-                            ),
-                          ),
-                          FlutterFlowIconButton(
-                            borderRadius: 8,
-                            buttonSize: 40,
-                            icon: Icon(
-                              Icons.clear,
-                              color: FlutterFlowTheme.of(context).secondary,
-                              size: 24,
-                            ),
-                            onPressed: null,
+                          const SizedBox(height: 25),
+                          heartResultSummaryCard(
+                            bpm: _finalBpm ?? 0,
+                            rmssd: _rmssd ?? 0,
+                            stress: _stressScore ?? 50,
                           ),
                         ],
                       ),
-                      const SizedBox(
-                        height: 25,
-                      ),
-                      heartResultSummaryCard(
-                        bpm: _finalBpm ?? 0,
-                        rmssd: _rmssd ?? 0,
-                        stress: _stressScore ?? 50,
-                      ),
-                    ],
-                  ),
+                    ),
+                    HeartageWidget(),
+                    PpgSignalCard(
+                      trace: _ppgTrace,
+                    ),
+                    if (widget.stateWidget != null) widget.stateWidget!(),
+                    HrvMetricGrid(
+                      sdnn: _sdnn ?? 0,
+                      rmssd: _rmssd ?? 0,
+                      pnn50: _pnn50 ?? 0,
+                      cov: _cov ?? 0,
+                    ),
+                  ],
                 ),
               ),
             );
@@ -1589,8 +1707,8 @@ class ProgressArcPainter extends CustomPainter {
     canvas.drawCircle(center, radius, bg);
 
     final fg = Paint()
-      ..shader = LinearGradient(
-        colors: [color.withOpacity(0.9), color],
+      ..shader = const LinearGradient(
+        colors: [Color(0xFFE91E63), Color(0xFFE91E63)],
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
       ).createShader(Rect.fromCircle(center: center, radius: radius))
@@ -1598,10 +1716,10 @@ class ProgressArcPainter extends CustomPainter {
       ..strokeCap = StrokeCap.round
       ..style = PaintingStyle.stroke;
 
-    final sweep = 2 * pi * progress;
+    final sweep = 2 * math.pi * progress;
     canvas.drawArc(
       Rect.fromCircle(center: center, radius: radius),
-      -pi / 2,
+      -math.pi / 2,
       sweep,
       false,
       fg,
@@ -1611,4 +1729,466 @@ class ProgressArcPainter extends CustomPainter {
   @override
   bool shouldRepaint(covariant ProgressArcPainter old) =>
       old.progress != progress || old.color != color;
+}
+
+class PpgSignalCard extends StatelessWidget {
+  const PpgSignalCard({
+    super.key,
+    required this.trace,
+  });
+
+  final List<double> trace;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 10.0),
+      width: double.infinity,
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            blurRadius: 18,
+            offset: const Offset(0, 8),
+            color: Colors.black.withOpacity(0.06),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Text(
+                'PPG Signal:',
+                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                      fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w700,
+                      useGoogleFonts:
+                          !FlutterFlowTheme.of(context).bodyMediumIsCustom,
+                    ),
+              ),
+              const SizedBox(width: 8),
+              Container(
+                width: 18,
+                height: 18,
+                decoration: BoxDecoration(
+                  color: Colors.blue.withOpacity(0.12),
+                  shape: BoxShape.circle,
+                ),
+                child: const Icon(
+                  Icons.info,
+                  size: 14,
+                  color: Colors.blue,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 6),
+          Text(
+            'The 15sec heart rhythm trace',
+            style: FlutterFlowTheme.of(context).bodyMedium.override(
+                  fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
+                  fontSize: 12,
+                  color: Colors.black.withOpacity(0.55),
+                  fontWeight: FontWeight.w500,
+                  useGoogleFonts:
+                      !FlutterFlowTheme.of(context).bodyMediumIsCustom,
+                ),
+          ),
+          const SizedBox(height: 10),
+          Container(
+            height: 120,
+            width: double.infinity,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(color: Colors.black.withOpacity(0.08)),
+            ),
+            child: CustomPaint(
+              painter: _PpgTracePainter(trace: trace),
+            ),
+          ),
+          const SizedBox(height: 8),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              _axisLabel(context, '0s'),
+              _axisLabel(context, '5s'),
+              _axisLabel(context, '10s'),
+              _axisLabel(context, '15s'),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _axisLabel(BuildContext context, String t) {
+    return Text(
+      t,
+      style: FlutterFlowTheme.of(context).bodyMedium.override(
+            fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
+            fontSize: 11,
+            color: Colors.black.withOpacity(0.45),
+            fontWeight: FontWeight.w600,
+            useGoogleFonts: !FlutterFlowTheme.of(context).bodyMediumIsCustom,
+          ),
+    );
+  }
+}
+
+class _PpgTracePainter extends CustomPainter {
+  _PpgTracePainter({required this.trace});
+
+  final List<double> trace;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final w = size.width;
+    final h = size.height;
+
+    final bg = Paint()..color = Colors.white;
+    canvas.drawRect(Offset.zero & size, bg);
+
+    final gridPaint = Paint()
+      ..color = Colors.black.withOpacity(0.08)
+      ..strokeWidth = 1;
+
+    for (int i = 0; i <= 3; i++) {
+      final x = w * (i / 3);
+      _drawDashedLine(canvas, Offset(x, 0), Offset(x, h), gridPaint);
+    }
+
+    for (int i = 0; i <= 4; i++) {
+      final y = h * (i / 4);
+      _drawDashedLine(canvas, Offset(0, y), Offset(w, y), gridPaint);
+    }
+
+    final linePaint = Paint()
+      ..color = Colors.red
+      ..strokeWidth = 2
+      ..style = PaintingStyle.stroke
+      ..strokeCap = StrokeCap.round
+      ..strokeJoin = StrokeJoin.round;
+
+    if (trace.isEmpty) {
+      final mid = Path()
+        ..moveTo(0, h * 0.5)
+        ..lineTo(w, h * 0.5);
+      canvas.drawPath(mid, linePaint..color = Colors.red.withOpacity(0.35));
+      return;
+    }
+
+    final path = Path();
+    for (int i = 0; i < trace.length; i++) {
+      final x = (i / (trace.length - 1)) * w;
+      final y = h - (trace[i].clamp(0.0, 1.0) * h);
+      if (i == 0) {
+        path.moveTo(x, y);
+      } else {
+        path.lineTo(x, y);
+      }
+    }
+    canvas.drawPath(path, linePaint);
+  }
+
+  void _drawDashedLine(Canvas canvas, Offset a, Offset b, Paint p) {
+    const dash = 4.0;
+    const gap = 4.0;
+
+    final dx = b.dx - a.dx;
+    final dy = b.dy - a.dy;
+    final dist = math.sqrt(dx * dx + dy * dy);
+    if (dist <= 0) return;
+
+    final dirX = dx / dist;
+    final dirY = dy / dist;
+
+    double t = 0;
+    while (t < dist) {
+      final from = Offset(a.dx + dirX * t, a.dy + dirY * t);
+      final to = Offset(
+        a.dx + dirX * math.min(t + dash, dist),
+        a.dy + dirY * math.min(t + dash, dist),
+      );
+      canvas.drawLine(from, to, p);
+      t += dash + gap;
+    }
+  }
+
+  @override
+  bool shouldRepaint(covariant _PpgTracePainter oldDelegate) {
+    return oldDelegate.trace != trace;
+  }
+}
+
+class _PPGSample {
+  final int t; // ms
+  final double v;
+  _PPGSample(this.t, this.v);
+}
+
+// ======================= HRV GRID UI ======================= //
+
+class HrvMetricGrid extends StatelessWidget {
+  const HrvMetricGrid({
+    super.key,
+    required this.sdnn,
+    required this.rmssd,
+    required this.pnn50,
+    required this.cov,
+  });
+
+  final double sdnn;
+  final double rmssd;
+  final double pnn50;
+  final double cov;
+
+  double _toPercent(double value, double max) {
+    if (max <= 0) return 0.0;
+    if (value.isNaN || value.isInfinite) return 0.0;
+    final capped = value.clamp(0.0, max);
+    return (capped / max).clamp(0.0, 1.0);
+  }
+
+  String _fmtClamped(double value, double max) {
+    if (value.isNaN || value.isInfinite || value <= 0) return '--';
+    final capped = value.clamp(0.0, max);
+    return capped.toStringAsFixed(0);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    const sdnnMax = 200.0;
+    const rmssdMax = 200.0;
+    const pnn50Max = 100.0;
+    const covMax = 20.0;
+
+    final sdnnP = _toPercent(sdnn, sdnnMax);
+    final rmssdP = _toPercent(rmssd, rmssdMax);
+    final pnn50P = _toPercent(pnn50, pnn50Max);
+    final covP = _toPercent(cov, covMax);
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10.0),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              Expanded(
+                child: HrvMetricCard(
+                  title: 'SDNN',
+                  valueText: _fmtClamped(sdnn, sdnnMax),
+                  unitText: 'ms',
+                  percent: sdnnP,
+                ),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: HrvMetricCard(
+                  title: 'RMSSD',
+                  valueText: _fmtClamped(rmssd, rmssdMax),
+                  unitText: 'ms',
+                  percent: rmssdP,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          Row(
+            children: [
+              Expanded(
+                child: HrvMetricCard(
+                  title: 'PNN50',
+                  valueText: _fmtClamped(pnn50, pnn50Max),
+                  unitText: '%',
+                  percent: pnn50P,
+                ),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: HrvMetricCard(
+                  title: 'CoV',
+                  valueText: _fmtClamped(cov, covMax),
+                  unitText: '%',
+                  percent: covP,
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class HrvMetricCard extends StatelessWidget {
+  const HrvMetricCard({
+    super.key,
+    required this.title,
+    required this.valueText,
+    required this.unitText,
+    required this.percent,
+  });
+
+  final String title;
+  final String valueText;
+  final String unitText;
+  final double percent;
+
+  @override
+  Widget build(BuildContext context) {
+    final textStyle = FlutterFlowTheme.of(context).bodyMedium;
+
+    return Container(
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(18),
+        boxShadow: [
+          BoxShadow(
+            blurRadius: 18,
+            offset: const Offset(0, 8),
+            color: Colors.black.withOpacity(0.06),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                title,
+                style: textStyle.override(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w700,
+                  useGoogleFonts:
+                      !FlutterFlowTheme.of(context).bodyMediumIsCustom,
+                ),
+              ),
+              Icon(
+                Icons.chevron_right,
+                size: 18,
+                color: Colors.black.withOpacity(0.45),
+              ),
+            ],
+          ),
+          Stack(
+            alignment: Alignment.center,
+            children: [
+              Center(
+                child: SizedBox(
+                  width: 110,
+                  height: 70,
+                  child: CustomPaint(
+                    painter: _SemiGaugePainter(
+                      percent: percent,
+                      baseColor: Colors.black.withOpacity(0.08),
+                      fillColor: const Color(0xFF22C55E),
+                    ),
+                  ),
+                ),
+              ),
+              const Padding(
+                padding: EdgeInsets.only(top: 20.0),
+                child: SizedBox(),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 20.0),
+                child: Center(
+                  child: RichText(
+                    text: TextSpan(
+                      children: [
+                        TextSpan(
+                          text: valueText,
+                          style: textStyle.override(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w800,
+                            color: const Color(0xFF22C55E),
+                            useGoogleFonts: !FlutterFlowTheme.of(context)
+                                .bodyMediumIsCustom,
+                          ),
+                        ),
+                        TextSpan(
+                          text: unitText.isNotEmpty ? ' $unitText' : '',
+                          style: textStyle.override(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w700,
+                            color: const Color(0xFF22C55E),
+                            useGoogleFonts: !FlutterFlowTheme.of(context)
+                                .bodyMediumIsCustom,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _SemiGaugePainter extends CustomPainter {
+  _SemiGaugePainter({
+    required this.percent,
+    required this.baseColor,
+    required this.fillColor,
+  });
+
+  final double percent; // 0..1
+  final Color baseColor;
+  final Color fillColor;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final p = percent.clamp(0.0, 1.0);
+
+    const stroke = 10.0;
+    final center = Offset(size.width / 2, size.height);
+    final radius = size.width / 2;
+
+    final base = Paint()
+      ..color = baseColor
+      ..strokeWidth = stroke
+      ..style = PaintingStyle.stroke
+      ..strokeCap = StrokeCap.round;
+
+    final fill = Paint()
+      ..color = fillColor
+      ..strokeWidth = stroke
+      ..style = PaintingStyle.stroke
+      ..strokeCap = StrokeCap.round;
+
+    canvas.drawArc(
+      Rect.fromCircle(center: center, radius: radius),
+      math.pi,
+      math.pi,
+      false,
+      base,
+    );
+
+    canvas.drawArc(
+      Rect.fromCircle(center: center, radius: radius),
+      math.pi,
+      math.pi * p,
+      false,
+      fill,
+    );
+  }
+
+  @override
+  bool shouldRepaint(covariant _SemiGaugePainter oldDelegate) {
+    return oldDelegate.percent != percent ||
+        oldDelegate.baseColor != baseColor ||
+        oldDelegate.fillColor != fillColor;
+  }
 }
