@@ -90,7 +90,7 @@ class _SugarChartState extends State<SugarChart> {
 
     // 2️⃣ Time-only (HH:mm) → attach to date
     try {
-      // Expecting date like "31/1/2026" or "Jan 31"
+      // Expecting date is like "31/1/2026" or "Jan 31"
       final dateStr = b.date ?? '';
       if (dateStr.isNotEmpty) {
         DateTime baseDate;

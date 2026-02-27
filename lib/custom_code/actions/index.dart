@@ -1,4 +1,3 @@
-export 'bpm_tracking.dart' show bpmTracking;
 export 'change_status_bar_color.dart' show changeStatusBarColor;
 export 'pre_load_network_image.dart' show preLoadNetworkImage;
 export 'device_token.dart' show deviceToken;

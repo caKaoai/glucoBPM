@@ -135,37 +135,41 @@ class _StepCounterWidgetState extends State<StepCounterWidget>
             ],
           ),
           actions: [
-            FlutterFlowIconButton(
-              borderRadius: 8.0,
-              buttonSize: 40.0,
-              icon: Icon(
-                Icons.edit_sharp,
-                color: Color(0xFFFFA63D),
-                size: 24.0,
-              ),
-              onPressed: () async {
-                await showModalBottomSheet(
-                  isScrollControlled: true,
-                  backgroundColor: Colors.transparent,
-                  isDismissible: false,
-                  enableDrag: false,
-                  context: context,
-                  builder: (context) {
-                    return WebViewAware(
-                      child: GestureDetector(
-                        onTap: () {
-                          FocusScope.of(context).unfocus();
-                          FocusManager.instance.primaryFocus?.unfocus();
-                        },
-                        child: Padding(
-                          padding: MediaQuery.viewInsetsOf(context),
-                          child: MoveGoalWidget(),
+            Visibility(
+              visible: (FFAppState().HealthPermission != null) &&
+                  FFAppState().HealthPermission.steps,
+              child: FlutterFlowIconButton(
+                borderRadius: 8.0,
+                buttonSize: 40.0,
+                icon: Icon(
+                  Icons.edit_sharp,
+                  color: Color(0xFFFFA63D),
+                  size: 24.0,
+                ),
+                onPressed: () async {
+                  await showModalBottomSheet(
+                    isScrollControlled: true,
+                    backgroundColor: Colors.transparent,
+                    isDismissible: false,
+                    enableDrag: false,
+                    context: context,
+                    builder: (context) {
+                      return WebViewAware(
+                        child: GestureDetector(
+                          onTap: () {
+                            FocusScope.of(context).unfocus();
+                            FocusManager.instance.primaryFocus?.unfocus();
+                          },
+                          child: Padding(
+                            padding: MediaQuery.viewInsetsOf(context),
+                            child: MoveGoalWidget(),
+                          ),
                         ),
-                      ),
-                    );
-                  },
-                ).then((value) => safeSetState(() {}));
-              },
+                      );
+                    },
+                  ).then((value) => safeSetState(() {}));
+                },
+              ),
             ),
           ],
           centerTitle: true,

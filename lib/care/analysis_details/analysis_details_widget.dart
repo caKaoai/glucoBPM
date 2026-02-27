@@ -379,7 +379,7 @@ class _AnalysisDetailsWidgetState extends State<AnalysisDetailsWidget>
                 ),
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 35.0),
+                padding: EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 20.0),
                 child: FFButtonWidget(
                   onPressed: () {
                     print('Button pressed ...');

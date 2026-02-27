@@ -186,11 +186,10 @@ class _PersonalizedAnalysis1WidgetState
                                   decoration: BoxDecoration(
                                     color: FlutterFlowTheme.of(context)
                                         .secondaryBackground,
-                                    borderRadius: BorderRadius.circular(12.0),
+                                    borderRadius: BorderRadius.circular(8.0),
                                   ),
                                   child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        10.0, 8.0, 10.0, 8.0),
+                                    padding: EdgeInsets.all(10.0),
                                     child: Row(
                                       mainAxisSize: MainAxisSize.max,
                                       children: [
@@ -266,11 +265,10 @@ class _PersonalizedAnalysis1WidgetState
                                   decoration: BoxDecoration(
                                     color: FlutterFlowTheme.of(context)
                                         .secondaryBackground,
-                                    borderRadius: BorderRadius.circular(12.0),
+                                    borderRadius: BorderRadius.circular(8.0),
                                   ),
                                   child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        10.0, 8.0, 10.0, 8.0),
+                                    padding: EdgeInsets.all(10.0),
                                     child: Row(
                                       mainAxisSize: MainAxisSize.max,
                                       children: [

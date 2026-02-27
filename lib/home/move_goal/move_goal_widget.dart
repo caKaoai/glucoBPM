@@ -242,7 +242,7 @@ class _MoveGoalWidgetState extends State<MoveGoalWidget>
                                   .override(
                                     fontFamily: FlutterFlowTheme.of(context)
                                         .bodyMediumFamily,
-                                    fontSize: 26.0,
+                                    fontSize: 28.0,
                                     letterSpacing: 0.0,
                                     fontWeight: FontWeight.w500,
                                     useGoogleFonts:
@@ -257,6 +257,7 @@ class _MoveGoalWidgetState extends State<MoveGoalWidget>
                                   .override(
                                     fontFamily: FlutterFlowTheme.of(context)
                                         .bodyMediumFamily,
+                                    fontSize: 16.0,
                                     letterSpacing: 0.0,
                                     fontWeight: FontWeight.w500,
                                     useGoogleFonts:

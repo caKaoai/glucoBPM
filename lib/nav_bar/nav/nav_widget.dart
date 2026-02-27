@@ -129,8 +129,7 @@ class _NavWidgetState extends State<NavWidget> {
                           Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(
                                 0.0, 4.0, 0.0, 0.0),
-                            child: Text(
-                              'Home',
+                            child: AnimatedDefaultTextStyle(
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
@@ -154,6 +153,11 @@ class _NavWidgetState extends State<NavWidget> {
                                         .bodyMedium
                                         .fontStyle,
                                   ),
+                              duration: Duration(milliseconds: 300),
+                              curve: Curves.easeOut,
+                              child: Text(
+                                'Home',
+                              ),
                             ),
                           ),
                         ],
@@ -199,8 +203,7 @@ class _NavWidgetState extends State<NavWidget> {
                             ),
                             size: 26.0,
                           ),
-                          Text(
-                            'AI Care',
+                          AnimatedDefaultTextStyle(
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
@@ -224,6 +227,11 @@ class _NavWidgetState extends State<NavWidget> {
                                       .bodyMedium
                                       .fontStyle,
                                 ),
+                            duration: Duration(milliseconds: 300),
+                            curve: Curves.easeOut,
+                            child: Text(
+                              'AI Care',
+                            ),
                           ),
                         ],
                       ),
@@ -297,8 +305,7 @@ class _NavWidgetState extends State<NavWidget> {
                           Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(
                                 0.0, 4.0, 0.0, 0.0),
-                            child: Text(
-                              'Plan',
+                            child: AnimatedDefaultTextStyle(
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
@@ -322,6 +329,11 @@ class _NavWidgetState extends State<NavWidget> {
                                         .bodyMedium
                                         .fontStyle,
                                   ),
+                              duration: Duration(milliseconds: 300),
+                              curve: Curves.easeOut,
+                              child: Text(
+                                'Plan',
+                              ),
                             ),
                           ),
                         ],
@@ -370,8 +382,7 @@ class _NavWidgetState extends State<NavWidget> {
                           Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(
                                 0.0, 4.0, 0.0, 0.0),
-                            child: Text(
-                              'Settings',
+                            child: AnimatedDefaultTextStyle(
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
@@ -391,6 +402,11 @@ class _NavWidgetState extends State<NavWidget> {
                                         !FlutterFlowTheme.of(context)
                                             .bodyMediumIsCustom,
                                   ),
+                              duration: Duration(milliseconds: 300),
+                              curve: Curves.easeOut,
+                              child: Text(
+                                'Settings',
+                              ),
                             ),
                           ),
                         ],

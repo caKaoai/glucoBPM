@@ -72,7 +72,7 @@ class _HeartageWidgetState extends State<HeartageWidget> {
                 Expanded(
                   child: Container(
                     width: 100.0,
-                    height: 132.99,
+                    height: 120.0,
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
                         colors: [Color(0xFFF9AAAA), Color(0x19F9AAAA)],
@@ -141,7 +141,7 @@ class _HeartageWidgetState extends State<HeartageWidget> {
                 Expanded(
                   child: Container(
                     width: 100.0,
-                    height: 133.0,
+                    height: 120.0,
                     decoration: BoxDecoration(
                       color: Color(0xFFF4F8FF),
                       borderRadius: BorderRadius.circular(14.0),
