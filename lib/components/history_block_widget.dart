@@ -74,8 +74,7 @@ class _HistoryBlockWidgetState extends State<HistoryBlockWidget> {
                               .override(
                                 fontFamily: FlutterFlowTheme.of(context)
                                     .bodyMediumFamily,
-                                color:
-                                    FlutterFlowTheme.of(context).customColor1,
+                                color: FlutterFlowTheme.of(context).text1,
                                 letterSpacing: 0.0,
                                 fontWeight: FontWeight.w500,
                                 useGoogleFonts: !FlutterFlowTheme.of(context)
@@ -118,8 +117,7 @@ class _HistoryBlockWidgetState extends State<HistoryBlockWidget> {
                               .override(
                                 fontFamily: FlutterFlowTheme.of(context)
                                     .bodyMediumFamily,
-                                color:
-                                    FlutterFlowTheme.of(context).customColor1,
+                                color: FlutterFlowTheme.of(context).text1,
                                 letterSpacing: 0.0,
                                 fontWeight: FontWeight.w500,
                                 useGoogleFonts: !FlutterFlowTheme.of(context)
@@ -180,8 +178,7 @@ class _HistoryBlockWidgetState extends State<HistoryBlockWidget> {
                                   .override(
                                     fontFamily: FlutterFlowTheme.of(context)
                                         .bodyMediumFamily,
-                                    color: FlutterFlowTheme.of(context)
-                                        .customColor1,
+                                    color: FlutterFlowTheme.of(context).text1,
                                     letterSpacing: 0.0,
                                     fontWeight: FontWeight.w500,
                                     useGoogleFonts:
@@ -203,8 +200,7 @@ class _HistoryBlockWidgetState extends State<HistoryBlockWidget> {
                               .override(
                                 fontFamily: FlutterFlowTheme.of(context)
                                     .bodyMediumFamily,
-                                color:
-                                    FlutterFlowTheme.of(context).customColor1,
+                                color: FlutterFlowTheme.of(context).text1,
                                 letterSpacing: 0.0,
                                 fontWeight: FontWeight.w500,
                                 useGoogleFonts: !FlutterFlowTheme.of(context)
@@ -234,8 +230,7 @@ class _HistoryBlockWidgetState extends State<HistoryBlockWidget> {
                               .override(
                                 fontFamily: FlutterFlowTheme.of(context)
                                     .bodyMediumFamily,
-                                color:
-                                    FlutterFlowTheme.of(context).customColor1,
+                                color: FlutterFlowTheme.of(context).text1,
                                 letterSpacing: 0.0,
                                 fontWeight: FontWeight.w500,
                                 useGoogleFonts: !FlutterFlowTheme.of(context)
@@ -282,8 +277,7 @@ class _HistoryBlockWidgetState extends State<HistoryBlockWidget> {
                               .override(
                                 fontFamily: FlutterFlowTheme.of(context)
                                     .bodyMediumFamily,
-                                color:
-                                    FlutterFlowTheme.of(context).customColor1,
+                                color: FlutterFlowTheme.of(context).text1,
                                 letterSpacing: 0.0,
                                 fontWeight: FontWeight.w500,
                                 useGoogleFonts: !FlutterFlowTheme.of(context)
@@ -345,8 +339,7 @@ class _HistoryBlockWidgetState extends State<HistoryBlockWidget> {
                                   .override(
                                     fontFamily: FlutterFlowTheme.of(context)
                                         .bodyMediumFamily,
-                                    color: FlutterFlowTheme.of(context)
-                                        .customColor1,
+                                    color: FlutterFlowTheme.of(context).text1,
                                     letterSpacing: 0.0,
                                     fontWeight: FontWeight.w500,
                                     useGoogleFonts:
@@ -368,8 +361,7 @@ class _HistoryBlockWidgetState extends State<HistoryBlockWidget> {
                               .override(
                                 fontFamily: FlutterFlowTheme.of(context)
                                     .bodyMediumFamily,
-                                color:
-                                    FlutterFlowTheme.of(context).customColor1,
+                                color: FlutterFlowTheme.of(context).text1,
                                 letterSpacing: 0.0,
                                 fontWeight: FontWeight.w500,
                                 useGoogleFonts: !FlutterFlowTheme.of(context)
@@ -399,8 +391,7 @@ class _HistoryBlockWidgetState extends State<HistoryBlockWidget> {
                               .override(
                                 fontFamily: FlutterFlowTheme.of(context)
                                     .bodyMediumFamily,
-                                color:
-                                    FlutterFlowTheme.of(context).customColor1,
+                                color: FlutterFlowTheme.of(context).text1,
                                 letterSpacing: 0.0,
                                 fontWeight: FontWeight.w500,
                                 useGoogleFonts: !FlutterFlowTheme.of(context)
@@ -444,8 +435,7 @@ class _HistoryBlockWidgetState extends State<HistoryBlockWidget> {
                               .override(
                                 fontFamily: FlutterFlowTheme.of(context)
                                     .bodyMediumFamily,
-                                color:
-                                    FlutterFlowTheme.of(context).customColor1,
+                                color: FlutterFlowTheme.of(context).text1,
                                 letterSpacing: 0.0,
                                 fontWeight: FontWeight.w500,
                                 useGoogleFonts: !FlutterFlowTheme.of(context)
@@ -489,8 +479,7 @@ class _HistoryBlockWidgetState extends State<HistoryBlockWidget> {
                               .override(
                                 fontFamily: FlutterFlowTheme.of(context)
                                     .bodyMediumFamily,
-                                color:
-                                    FlutterFlowTheme.of(context).customColor1,
+                                color: FlutterFlowTheme.of(context).text1,
                                 letterSpacing: 0.0,
                                 fontWeight: FontWeight.w500,
                                 useGoogleFonts: !FlutterFlowTheme.of(context)
@@ -551,8 +540,7 @@ class _HistoryBlockWidgetState extends State<HistoryBlockWidget> {
                                   .override(
                                     fontFamily: FlutterFlowTheme.of(context)
                                         .bodyMediumFamily,
-                                    color: FlutterFlowTheme.of(context)
-                                        .customColor1,
+                                    color: FlutterFlowTheme.of(context).text1,
                                     letterSpacing: 0.0,
                                     fontWeight: FontWeight.w500,
                                     useGoogleFonts:
@@ -574,8 +562,7 @@ class _HistoryBlockWidgetState extends State<HistoryBlockWidget> {
                               .override(
                                 fontFamily: FlutterFlowTheme.of(context)
                                     .bodyMediumFamily,
-                                color:
-                                    FlutterFlowTheme.of(context).customColor1,
+                                color: FlutterFlowTheme.of(context).text1,
                                 letterSpacing: 0.0,
                                 fontWeight: FontWeight.w500,
                                 useGoogleFonts: !FlutterFlowTheme.of(context)

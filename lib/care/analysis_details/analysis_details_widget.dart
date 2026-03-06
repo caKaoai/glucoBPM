@@ -294,7 +294,7 @@ class _AnalysisDetailsWidgetState extends State<AnalysisDetailsWidget>
                                               FlutterFlowTheme.of(context)
                                                   .bodyMediumFamily,
                                           color: FlutterFlowTheme.of(context)
-                                              .customColor1,
+                                              .text1,
                                           letterSpacing: 0.0,
                                           fontWeight: FontWeight.normal,
                                           useGoogleFonts:
@@ -333,7 +333,7 @@ class _AnalysisDetailsWidgetState extends State<AnalysisDetailsWidget>
                                               FlutterFlowTheme.of(context)
                                                   .bodyMediumFamily,
                                           color: FlutterFlowTheme.of(context)
-                                              .customColor1,
+                                              .text1,
                                           letterSpacing: 0.0,
                                           fontWeight: FontWeight.normal,
                                           useGoogleFonts:

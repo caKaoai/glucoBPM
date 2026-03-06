@@ -1602,8 +1602,7 @@ class _HeartMeasureScreenState extends State<HeartMeasureScreen>
                                 buttonSize: 40,
                                 icon: Icon(
                                   Icons.clear,
-                                  color:
-                                      FlutterFlowTheme.of(context).customColor1,
+                                  color: FlutterFlowTheme.of(context).primary,
                                   size: 30,
                                 ),
                                 onPressed: () async {

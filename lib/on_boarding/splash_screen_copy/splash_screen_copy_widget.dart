@@ -185,7 +185,7 @@ class _SplashScreenCopyWidgetState extends State<SplashScreenCopyWidget>
                             ),
                       ),
                       TextSpan(
-                        text: 'GlucoBPM',
+                        text: 'glucoPal',
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily:
                                   FlutterFlowTheme.of(context).bodyMediumFamily,

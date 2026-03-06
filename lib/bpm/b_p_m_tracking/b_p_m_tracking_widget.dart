@@ -164,8 +164,7 @@ class _BPMTrackingWidgetState extends State<BPMTrackingWidget>
                                 .titleMediumIsCustom,
                           ),
                       labelColor: FlutterFlowTheme.of(context).secondary,
-                      unselectedLabelColor:
-                          FlutterFlowTheme.of(context).customColor1,
+                      unselectedLabelColor: FlutterFlowTheme.of(context).text1,
                       backgroundColor: FlutterFlowTheme.of(context).primary,
                       unselectedBackgroundColor: Color(0xB2E0E3E7),
                       borderColor: Color(0xB2E0E3E7),

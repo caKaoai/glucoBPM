@@ -280,8 +280,7 @@ class _OxygenDetailsWidgetState extends State<OxygenDetailsWidget>
                                   .override(
                                     fontFamily: FlutterFlowTheme.of(context)
                                         .bodyMediumFamily,
-                                    color: FlutterFlowTheme.of(context)
-                                        .customColor1,
+                                    color: FlutterFlowTheme.of(context).text1,
                                     fontSize: 14.0,
                                     letterSpacing: 0.0,
                                     fontWeight: FontWeight.w500,
@@ -312,7 +311,7 @@ class _OxygenDetailsWidgetState extends State<OxygenDetailsWidget>
                                               FlutterFlowTheme.of(context)
                                                   .bodyMediumFamily,
                                           color: FlutterFlowTheme.of(context)
-                                              .customColor1,
+                                              .text1,
                                           letterSpacing: 0.0,
                                           fontWeight: FontWeight.w500,
                                           useGoogleFonts:
@@ -374,8 +373,7 @@ class _OxygenDetailsWidgetState extends State<OxygenDetailsWidget>
                                     .override(
                                       fontFamily: FlutterFlowTheme.of(context)
                                           .bodyMediumFamily,
-                                      color: FlutterFlowTheme.of(context)
-                                          .customColor1,
+                                      color: FlutterFlowTheme.of(context).text1,
                                       letterSpacing: 0.0,
                                       useGoogleFonts:
                                           !FlutterFlowTheme.of(context)
@@ -443,8 +441,8 @@ class _OxygenDetailsWidgetState extends State<OxygenDetailsWidget>
                                       .override(
                                         fontFamily: FlutterFlowTheme.of(context)
                                             .bodyMediumFamily,
-                                        color: FlutterFlowTheme.of(context)
-                                            .customColor1,
+                                        color:
+                                            FlutterFlowTheme.of(context).text1,
                                         fontSize: 12.5,
                                         letterSpacing: 0.0,
                                         fontWeight: FontWeight.normal,
@@ -589,7 +587,7 @@ class _OxygenDetailsWidgetState extends State<OxygenDetailsWidget>
                                                         .bodyMediumFamily,
                                                 color:
                                                     FlutterFlowTheme.of(context)
-                                                        .customColor1,
+                                                        .text1,
                                                 fontSize: 15.0,
                                                 letterSpacing: 0.0,
                                                 fontWeight: FontWeight.w500,
@@ -723,7 +721,7 @@ class _OxygenDetailsWidgetState extends State<OxygenDetailsWidget>
                                                         .bodyMediumFamily,
                                                 color:
                                                     FlutterFlowTheme.of(context)
-                                                        .customColor1,
+                                                        .text1,
                                                 fontSize: 15.0,
                                                 letterSpacing: 0.0,
                                                 fontWeight: FontWeight.w500,

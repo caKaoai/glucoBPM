@@ -221,7 +221,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                 FlutterFlowTheme.of(context)
                                                     .bodyMediumFamily,
                                             color: FlutterFlowTheme.of(context)
-                                                .customColor1,
+                                                .text1,
                                             fontSize: 16.0,
                                             letterSpacing: 0.0,
                                             useGoogleFonts:
@@ -359,7 +359,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                       color:
                                                           FlutterFlowTheme.of(
                                                                   context)
-                                                              .customColor1,
+                                                              .text1,
                                                       letterSpacing: 0.0,
                                                       fontWeight:
                                                           FontWeight.w500,
@@ -464,7 +464,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                       color:
                                                           FlutterFlowTheme.of(
                                                                   context)
-                                                              .customColor1,
+                                                              .text1,
                                                       letterSpacing: 0.0,
                                                       fontWeight:
                                                           FontWeight.w500,
@@ -566,7 +566,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                       color:
                                                           FlutterFlowTheme.of(
                                                                   context)
-                                                              .customColor1,
+                                                              .text1,
                                                       letterSpacing: 0.0,
                                                       fontWeight:
                                                           FontWeight.w500,
@@ -841,7 +841,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                           .bodyMediumFamily,
                                                   color: FlutterFlowTheme.of(
                                                           context)
-                                                      .customColor1,
+                                                      .text1,
                                                   letterSpacing: 0.0,
                                                   useGoogleFonts:
                                                       !FlutterFlowTheme.of(
@@ -896,7 +896,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                                       0
                                                                   ? FlutterFlowTheme.of(
                                                                           context)
-                                                                      .customColor1
+                                                                      .text1
                                                                   : Color(
                                                                       0xFF51C654),
                                                               Color(0xFF51C654),
@@ -935,7 +935,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                                       0
                                                                   ? FlutterFlowTheme.of(
                                                                           context)
-                                                                      .customColor1
+                                                                      .text1
                                                                   : Color(
                                                                       0xFF51C654),
                                                               Color(0xFF51C654),
@@ -989,7 +989,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                           .bodyMediumFamily,
                                                   color: FlutterFlowTheme.of(
                                                           context)
-                                                      .customColor1,
+                                                      .text1,
                                                   letterSpacing: 0.0,
                                                   useGoogleFonts:
                                                       !FlutterFlowTheme.of(
@@ -1038,7 +1038,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                                       0
                                                                   ? FlutterFlowTheme.of(
                                                                           context)
-                                                                      .customColor1
+                                                                      .text1
                                                                   : Color(
                                                                       0xFF51C654),
                                                               Color(0xFF51C654),
@@ -1074,7 +1074,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                               0
                                                           ? FlutterFlowTheme.of(
                                                                   context)
-                                                              .customColor1
+                                                              .text1
                                                           : Color(0xFF51C654),
                                                       Color(0xFF51C654),
                                                     ),
@@ -1432,7 +1432,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                           .bodyMediumFamily,
                                                   color: FlutterFlowTheme.of(
                                                           context)
-                                                      .customColor1,
+                                                      .text1,
                                                   letterSpacing: 0.0,
                                                   useGoogleFonts:
                                                       !FlutterFlowTheme.of(
@@ -1474,7 +1474,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                                       0
                                                                   ? FlutterFlowTheme.of(
                                                                           context)
-                                                                      .customColor1
+                                                                      .text1
                                                                   : Color(
                                                                       0xFFA985E5),
                                                               Color(0xFFA985E5),
@@ -1529,7 +1529,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                           .bodyMediumFamily,
                                                   color: FlutterFlowTheme.of(
                                                           context)
-                                                      .customColor1,
+                                                      .text1,
                                                   letterSpacing: 0.0,
                                                   useGoogleFonts:
                                                       !FlutterFlowTheme.of(
@@ -1597,7 +1597,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                               0
                                                           ? FlutterFlowTheme.of(
                                                                   context)
-                                                              .customColor1
+                                                              .text1
                                                           : Color(0xFFA985E5),
                                                       Color(0xFFA985E5),
                                                     ),
@@ -1957,7 +1957,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                           .bodyMediumFamily,
                                                   color: FlutterFlowTheme.of(
                                                           context)
-                                                      .customColor1,
+                                                      .text1,
                                                   letterSpacing: 0.0,
                                                   useGoogleFonts:
                                                       !FlutterFlowTheme.of(
@@ -2007,7 +2007,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                                       0
                                                                   ? FlutterFlowTheme.of(
                                                                           context)
-                                                                      .customColor1
+                                                                      .text1
                                                                   : Color(
                                                                       0xFFFF8972),
                                                               Color(0xFFFF8972),
@@ -2046,7 +2046,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                                       0
                                                                   ? FlutterFlowTheme.of(
                                                                           context)
-                                                                      .customColor1
+                                                                      .text1
                                                                   : Color(
                                                                       0xFFFF8972),
                                                               Color(0xFFFF8972),
@@ -2100,7 +2100,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                           .bodyMediumFamily,
                                                   color: FlutterFlowTheme.of(
                                                           context)
-                                                      .customColor1,
+                                                      .text1,
                                                   letterSpacing: 0.0,
                                                   useGoogleFonts:
                                                       !FlutterFlowTheme.of(
@@ -2149,7 +2149,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                                       0
                                                                   ? FlutterFlowTheme.of(
                                                                           context)
-                                                                      .customColor1
+                                                                      .text1
                                                                   : Color(
                                                                       0xFFFF8972),
                                                               Color(0xFFFF8972),
@@ -2513,7 +2513,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                             .bodyMediumFamily,
                                                     color: FlutterFlowTheme.of(
                                                             context)
-                                                        .customColor1,
+                                                        .text1,
                                                     letterSpacing: 0.0,
                                                     useGoogleFonts:
                                                         !FlutterFlowTheme.of(
@@ -2620,7 +2620,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                       color:
                                                           FlutterFlowTheme.of(
                                                                   context)
-                                                              .customColor1,
+                                                              .text1,
                                                       letterSpacing: 0.0,
                                                       useGoogleFonts:
                                                           !FlutterFlowTheme.of(
@@ -2728,7 +2728,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                       color:
                                                           FlutterFlowTheme.of(
                                                                   context)
-                                                              .customColor1,
+                                                              .text1,
                                                       letterSpacing: 0.0,
                                                       useGoogleFonts:
                                                           !FlutterFlowTheme.of(

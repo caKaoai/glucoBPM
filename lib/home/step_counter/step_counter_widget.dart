@@ -240,7 +240,7 @@ class _StepCounterWidgetState extends State<StepCounterWidget>
                                                             .bodyMediumFamily,
                                                     color: FlutterFlowTheme.of(
                                                             context)
-                                                        .customColor1,
+                                                        .text1,
                                                     letterSpacing: 0.0,
                                                     useGoogleFonts:
                                                         !FlutterFlowTheme.of(
@@ -347,7 +347,7 @@ class _StepCounterWidgetState extends State<StepCounterWidget>
                                                       color:
                                                           FlutterFlowTheme.of(
                                                                   context)
-                                                              .customColor1,
+                                                              .text1,
                                                       letterSpacing: 0.0,
                                                       useGoogleFonts:
                                                           !FlutterFlowTheme.of(
@@ -455,7 +455,7 @@ class _StepCounterWidgetState extends State<StepCounterWidget>
                                                       color:
                                                           FlutterFlowTheme.of(
                                                                   context)
-                                                              .customColor1,
+                                                              .text1,
                                                       letterSpacing: 0.0,
                                                       useGoogleFonts:
                                                           !FlutterFlowTheme.of(
@@ -775,7 +775,7 @@ class _StepCounterWidgetState extends State<StepCounterWidget>
                                                       color:
                                                           FlutterFlowTheme.of(
                                                                   context)
-                                                              .customColor1,
+                                                              .text1,
                                                       letterSpacing: 0.0,
                                                       useGoogleFonts:
                                                           !FlutterFlowTheme.of(
@@ -881,7 +881,7 @@ class _StepCounterWidgetState extends State<StepCounterWidget>
                                                       color:
                                                           FlutterFlowTheme.of(
                                                                   context)
-                                                              .customColor1,
+                                                              .text1,
                                                       letterSpacing: 0.0,
                                                       useGoogleFonts:
                                                           !FlutterFlowTheme.of(

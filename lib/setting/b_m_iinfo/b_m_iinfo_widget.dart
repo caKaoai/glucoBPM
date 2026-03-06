@@ -115,7 +115,7 @@ class _BMIinfoWidgetState extends State<BMIinfoWidget>
                       buttonSize: 40.0,
                       icon: Icon(
                         Icons.clear,
-                        color: FlutterFlowTheme.of(context).customColor1,
+                        color: FlutterFlowTheme.of(context).text1,
                         size: 24.0,
                       ),
                       onPressed: () async {
@@ -174,8 +174,7 @@ class _BMIinfoWidgetState extends State<BMIinfoWidget>
                               .override(
                                 fontFamily: FlutterFlowTheme.of(context)
                                     .bodyMediumFamily,
-                                color:
-                                    FlutterFlowTheme.of(context).customColor1,
+                                color: FlutterFlowTheme.of(context).text1,
                                 letterSpacing: 0.0,
                                 useGoogleFonts: !FlutterFlowTheme.of(context)
                                     .bodyMediumIsCustom,
@@ -215,8 +214,7 @@ class _BMIinfoWidgetState extends State<BMIinfoWidget>
                               .override(
                                 fontFamily: FlutterFlowTheme.of(context)
                                     .bodyMediumFamily,
-                                color:
-                                    FlutterFlowTheme.of(context).customColor1,
+                                color: FlutterFlowTheme.of(context).text1,
                                 letterSpacing: 0.0,
                                 useGoogleFonts: !FlutterFlowTheme.of(context)
                                     .bodyMediumIsCustom,
@@ -240,7 +238,7 @@ class _BMIinfoWidgetState extends State<BMIinfoWidget>
                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                           fontFamily:
                               FlutterFlowTheme.of(context).bodyMediumFamily,
-                          color: FlutterFlowTheme.of(context).customColor1,
+                          color: FlutterFlowTheme.of(context).text1,
                           letterSpacing: 0.0,
                           useGoogleFonts:
                               !FlutterFlowTheme.of(context).bodyMediumIsCustom,

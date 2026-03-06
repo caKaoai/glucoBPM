@@ -145,8 +145,7 @@ class _PersonalizedAnalysis2WidgetState
                                 .override(
                                   fontFamily: FlutterFlowTheme.of(context)
                                       .bodyMediumFamily,
-                                  color:
-                                      FlutterFlowTheme.of(context).customColor1,
+                                  color: FlutterFlowTheme.of(context).text1,
                                   letterSpacing: 0.0,
                                   useGoogleFonts: !FlutterFlowTheme.of(context)
                                       .bodyMediumIsCustom,
@@ -531,7 +530,7 @@ class _PersonalizedAnalysis2WidgetState
                               !FlutterFlowTheme.of(context).titleSmallIsCustom,
                         ),
                     elevation: 0.0,
-                    borderRadius: BorderRadius.circular(12.0),
+                    borderRadius: BorderRadius.circular(100.0),
                   ),
                 ),
               ],

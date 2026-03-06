@@ -307,8 +307,7 @@ class _SettingPageWidgetState extends State<SettingPageWidget>
                                     .override(
                                       fontFamily: FlutterFlowTheme.of(context)
                                           .bodyMediumFamily,
-                                      color: FlutterFlowTheme.of(context)
-                                          .customColor1,
+                                      color: FlutterFlowTheme.of(context).text1,
                                       fontSize: 16.0,
                                       letterSpacing: 0.0,
                                       fontWeight: FontWeight.w500,
@@ -497,8 +496,7 @@ class _SettingPageWidgetState extends State<SettingPageWidget>
                                     .override(
                                       fontFamily: FlutterFlowTheme.of(context)
                                           .bodyMediumFamily,
-                                      color: FlutterFlowTheme.of(context)
-                                          .customColor1,
+                                      color: FlutterFlowTheme.of(context).text1,
                                       fontSize: 16.0,
                                       letterSpacing: 0.0,
                                       fontWeight: FontWeight.w500,

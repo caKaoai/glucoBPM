@@ -267,8 +267,8 @@ class _PressureDetailsWidgetState extends State<PressureDetailsWidget>
                                       .override(
                                         fontFamily: FlutterFlowTheme.of(context)
                                             .bodyMediumFamily,
-                                        color: FlutterFlowTheme.of(context)
-                                            .customColor1,
+                                        color:
+                                            FlutterFlowTheme.of(context).text1,
                                         fontSize: 12.5,
                                         letterSpacing: 0.0,
                                         fontWeight: FontWeight.normal,
@@ -430,7 +430,7 @@ class _PressureDetailsWidgetState extends State<PressureDetailsWidget>
                                                         .bodyMediumFamily,
                                                 color:
                                                     FlutterFlowTheme.of(context)
-                                                        .customColor1,
+                                                        .text1,
                                                 fontSize: 15.0,
                                                 letterSpacing: 0.0,
                                                 fontWeight: FontWeight.w500,
@@ -535,7 +535,7 @@ class _PressureDetailsWidgetState extends State<PressureDetailsWidget>
                                                       .bodyMediumFamily,
                                               color:
                                                   FlutterFlowTheme.of(context)
-                                                      .customColor1,
+                                                      .text1,
                                               fontSize: 15.0,
                                               letterSpacing: 0.0,
                                               fontWeight: FontWeight.w500,
@@ -684,7 +684,7 @@ class _PressureDetailsWidgetState extends State<PressureDetailsWidget>
                                                         .bodyMediumFamily,
                                                 color:
                                                     FlutterFlowTheme.of(context)
-                                                        .customColor1,
+                                                        .text1,
                                                 fontSize: 15.0,
                                                 letterSpacing: 0.0,
                                                 fontWeight: FontWeight.w500,
@@ -789,7 +789,7 @@ class _PressureDetailsWidgetState extends State<PressureDetailsWidget>
                                                       .bodyMediumFamily,
                                               color:
                                                   FlutterFlowTheme.of(context)
-                                                      .customColor1,
+                                                      .text1,
                                               fontSize: 15.0,
                                               letterSpacing: 0.0,
                                               fontWeight: FontWeight.w500,

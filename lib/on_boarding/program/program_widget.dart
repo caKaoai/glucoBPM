@@ -196,7 +196,7 @@ class _ProgramWidgetState extends State<ProgramWidget>
                                                       .bodyMediumFamily,
                                               color:
                                                   FlutterFlowTheme.of(context)
-                                                      .customColor1,
+                                                      .text1,
                                               letterSpacing: 0.0,
                                               fontWeight: FontWeight.w500,
                                               useGoogleFonts:
@@ -274,7 +274,7 @@ class _ProgramWidgetState extends State<ProgramWidget>
                                                       .bodyMediumFamily,
                                               color:
                                                   FlutterFlowTheme.of(context)
-                                                      .customColor1,
+                                                      .text1,
                                               letterSpacing: 0.0,
                                               fontWeight: FontWeight.w500,
                                               useGoogleFonts:
@@ -352,7 +352,7 @@ class _ProgramWidgetState extends State<ProgramWidget>
                                                       .bodyMediumFamily,
                                               color:
                                                   FlutterFlowTheme.of(context)
-                                                      .customColor1,
+                                                      .text1,
                                               letterSpacing: 0.0,
                                               fontWeight: FontWeight.w500,
                                               useGoogleFonts:

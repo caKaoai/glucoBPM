@@ -165,8 +165,8 @@ class _PlanDetailsWidgetState extends State<PlanDetailsWidget> {
                                       .override(
                                         fontFamily: FlutterFlowTheme.of(context)
                                             .bodyMediumFamily,
-                                        color: FlutterFlowTheme.of(context)
-                                            .customColor1,
+                                        color:
+                                            FlutterFlowTheme.of(context).text1,
                                         letterSpacing: 0.0,
                                         useGoogleFonts:
                                             !FlutterFlowTheme.of(context)
@@ -292,8 +292,8 @@ class _PlanDetailsWidgetState extends State<PlanDetailsWidget> {
                                       .override(
                                         fontFamily: FlutterFlowTheme.of(context)
                                             .bodyMediumFamily,
-                                        color: FlutterFlowTheme.of(context)
-                                            .customColor1,
+                                        color:
+                                            FlutterFlowTheme.of(context).text1,
                                         fontSize: 16.0,
                                         letterSpacing: 0.0,
                                         fontWeight: FontWeight.w600,

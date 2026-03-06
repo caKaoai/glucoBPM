@@ -256,7 +256,7 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget>
                                                         .bodyMediumFamily,
                                                 color:
                                                     FlutterFlowTheme.of(context)
-                                                        .customColor1,
+                                                        .text1,
                                                 fontSize: 14.0,
                                                 letterSpacing: 0.0,
                                                 fontWeight: FontWeight.w500,
@@ -309,7 +309,7 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget>
                                                         .bodyMediumFamily,
                                                 color:
                                                     FlutterFlowTheme.of(context)
-                                                        .customColor1,
+                                                        .text1,
                                                 fontSize: 14.0,
                                                 letterSpacing: 0.0,
                                                 fontWeight: FontWeight.w500,
@@ -362,7 +362,7 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget>
                                                         .bodyMediumFamily,
                                                 color:
                                                     FlutterFlowTheme.of(context)
-                                                        .customColor1,
+                                                        .text1,
                                                 fontSize: 14.0,
                                                 letterSpacing: 0.0,
                                                 fontWeight: FontWeight.w500,
@@ -415,7 +415,7 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget>
                                                         .bodyMediumFamily,
                                                 color:
                                                     FlutterFlowTheme.of(context)
-                                                        .customColor1,
+                                                        .text1,
                                                 fontSize: 14.0,
                                                 letterSpacing: 0.0,
                                                 fontWeight: FontWeight.w500,
@@ -468,7 +468,7 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget>
                                                         .bodyMediumFamily,
                                                 color:
                                                     FlutterFlowTheme.of(context)
-                                                        .customColor1,
+                                                        .text1,
                                                 fontSize: 14.0,
                                                 letterSpacing: 0.0,
                                                 fontWeight: FontWeight.w500,

@@ -11,6 +11,7 @@ class FFIcons {
   static const String _icon2Family = 'Icon2';
   static const String _footFamily = 'Foot';
   static const String _playbackFamily = 'Playback';
+  static const String _ic1Family = 'Ic1';
 
   // navicon
   static const IconData kclipboard =
@@ -66,4 +67,11 @@ class FFIcons {
   static const IconData kprevious =
       IconData(0xe900, fontFamily: _playbackFamily);
   static const IconData knext = IconData(0xe901, fontFamily: _playbackFamily);
+
+  // IC1
+  static const IconData kicon4 = IconData(0xe900, fontFamily: _ic1Family);
+  static const IconData kicon3 = IconData(0xe901, fontFamily: _ic1Family);
+  static const IconData kicon2 = IconData(0xe902, fontFamily: _ic1Family);
+  static const IconData kicon1 = IconData(0xe903, fontFamily: _ic1Family);
+  static const IconData kicon5 = IconData(0xe904, fontFamily: _ic1Family);
 }

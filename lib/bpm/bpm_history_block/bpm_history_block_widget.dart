@@ -62,7 +62,7 @@ class _BpmHistoryBlockWidgetState extends State<BpmHistoryBlockWidget> {
                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                           fontFamily:
                               FlutterFlowTheme.of(context).bodyMediumFamily,
-                          color: FlutterFlowTheme.of(context).customColor1,
+                          color: FlutterFlowTheme.of(context).text1,
                           fontSize: 13.0,
                           letterSpacing: 0.0,
                           fontWeight: FontWeight.w500,
@@ -101,7 +101,7 @@ class _BpmHistoryBlockWidgetState extends State<BpmHistoryBlockWidget> {
                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                           fontFamily:
                               FlutterFlowTheme.of(context).bodyMediumFamily,
-                          color: FlutterFlowTheme.of(context).customColor1,
+                          color: FlutterFlowTheme.of(context).text1,
                           fontSize: 13.0,
                           letterSpacing: 0.0,
                           fontWeight: FontWeight.w500,
@@ -140,7 +140,7 @@ class _BpmHistoryBlockWidgetState extends State<BpmHistoryBlockWidget> {
                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                           fontFamily:
                               FlutterFlowTheme.of(context).bodyMediumFamily,
-                          color: FlutterFlowTheme.of(context).customColor1,
+                          color: FlutterFlowTheme.of(context).text1,
                           fontSize: 13.0,
                           letterSpacing: 0.0,
                           fontWeight: FontWeight.w500,
@@ -173,7 +173,7 @@ class _BpmHistoryBlockWidgetState extends State<BpmHistoryBlockWidget> {
                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                           fontFamily:
                               FlutterFlowTheme.of(context).bodyMediumFamily,
-                          color: FlutterFlowTheme.of(context).customColor1,
+                          color: FlutterFlowTheme.of(context).text1,
                           fontSize: 13.0,
                           letterSpacing: 0.0,
                           fontWeight: FontWeight.w500,
@@ -219,7 +219,7 @@ class _BpmHistoryBlockWidgetState extends State<BpmHistoryBlockWidget> {
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily:
                                   FlutterFlowTheme.of(context).bodyMediumFamily,
-                              color: FlutterFlowTheme.of(context).customColor1,
+                              color: FlutterFlowTheme.of(context).text1,
                               fontSize: 13.0,
                               letterSpacing: 0.0,
                               fontWeight: FontWeight.w500,
@@ -241,7 +241,7 @@ class _BpmHistoryBlockWidgetState extends State<BpmHistoryBlockWidget> {
                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                           fontFamily:
                               FlutterFlowTheme.of(context).bodyMediumFamily,
-                          color: FlutterFlowTheme.of(context).customColor1,
+                          color: FlutterFlowTheme.of(context).text1,
                           fontSize: 13.0,
                           letterSpacing: 0.0,
                           fontWeight: FontWeight.w500,

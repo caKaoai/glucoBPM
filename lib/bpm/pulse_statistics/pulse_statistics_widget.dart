@@ -169,8 +169,7 @@ class _PulseStatisticsWidgetState extends State<PulseStatisticsWidget>
                                   .override(
                                     fontFamily: FlutterFlowTheme.of(context)
                                         .bodyMediumFamily,
-                                    color: FlutterFlowTheme.of(context)
-                                        .customColor1,
+                                    color: FlutterFlowTheme.of(context).text1,
                                     letterSpacing: 0.0,
                                     useGoogleFonts:
                                         !FlutterFlowTheme.of(context)
@@ -207,8 +206,7 @@ class _PulseStatisticsWidgetState extends State<PulseStatisticsWidget>
                                   .override(
                                     fontFamily: FlutterFlowTheme.of(context)
                                         .bodyMediumFamily,
-                                    color: FlutterFlowTheme.of(context)
-                                        .customColor1,
+                                    color: FlutterFlowTheme.of(context).text1,
                                     letterSpacing: 0.0,
                                     useGoogleFonts:
                                         !FlutterFlowTheme.of(context)
@@ -245,8 +243,7 @@ class _PulseStatisticsWidgetState extends State<PulseStatisticsWidget>
                                   .override(
                                     fontFamily: FlutterFlowTheme.of(context)
                                         .bodyMediumFamily,
-                                    color: FlutterFlowTheme.of(context)
-                                        .customColor1,
+                                    color: FlutterFlowTheme.of(context).text1,
                                     letterSpacing: 0.0,
                                     useGoogleFonts:
                                         !FlutterFlowTheme.of(context)
@@ -283,8 +280,7 @@ class _PulseStatisticsWidgetState extends State<PulseStatisticsWidget>
                                   .override(
                                     fontFamily: FlutterFlowTheme.of(context)
                                         .bodyMediumFamily,
-                                    color: FlutterFlowTheme.of(context)
-                                        .customColor1,
+                                    color: FlutterFlowTheme.of(context).text1,
                                     letterSpacing: 0.0,
                                     useGoogleFonts:
                                         !FlutterFlowTheme.of(context)
@@ -321,8 +317,7 @@ class _PulseStatisticsWidgetState extends State<PulseStatisticsWidget>
                                   .override(
                                     fontFamily: FlutterFlowTheme.of(context)
                                         .bodyMediumFamily,
-                                    color: FlutterFlowTheme.of(context)
-                                        .customColor1,
+                                    color: FlutterFlowTheme.of(context).text1,
                                     letterSpacing: 0.0,
                                     useGoogleFonts:
                                         !FlutterFlowTheme.of(context)
@@ -359,8 +354,7 @@ class _PulseStatisticsWidgetState extends State<PulseStatisticsWidget>
                                   .override(
                                     fontFamily: FlutterFlowTheme.of(context)
                                         .bodyMediumFamily,
-                                    color: FlutterFlowTheme.of(context)
-                                        .customColor1,
+                                    color: FlutterFlowTheme.of(context).text1,
                                     letterSpacing: 0.0,
                                     useGoogleFonts:
                                         !FlutterFlowTheme.of(context)
@@ -430,7 +424,7 @@ class _PulseStatisticsWidgetState extends State<PulseStatisticsWidget>
                                                       .bodyMediumFamily,
                                               color:
                                                   FlutterFlowTheme.of(context)
-                                                      .customColor1,
+                                                      .text1,
                                               fontSize: 12.0,
                                               letterSpacing: 0.0,
                                               useGoogleFonts:
