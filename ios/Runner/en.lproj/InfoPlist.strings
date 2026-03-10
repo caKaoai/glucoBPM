@@ -1,0 +1,11 @@
+NSCameraUsageDescription = "Allow camera to snap food and see nutrition info.";
+NSMicrophoneUsageDescription = "This app does not record audio. Microphone access is not used.";
+NSPhotoLibraryUsageDescription = "Allow gallery to snap or pick food and see nutrition info.";
+NSHealthShareUsageDescriptionActiveEnergyBurned = "Track your active calories burned during physical activities to monitor your energy expenditure.";
+NSHealthShareUsageDescriptionBloodGlucose = "Monitor your blood glucose levels to help manage your diabetes and maintain healthy blood sugar.";
+NSHealthShareUsageDescriptionBloodPressureSystolic = "Monitor your systolic blood pressure to track your cardiovascular health.";
+NSHealthShareUsageDescriptionBodyTemperature = "Track your body temperature to monitor your overall health and detect potential fever.";
+NSHealthShareUsageDescriptionHeartRate = "Monitor your heart rate to track your cardiovascular fitness and detect irregular patterns.";
+NSHealthShareUsageDescriptionBasalEnergyBurned = "Track your resting calories burned to understand your basal metabolic rate.";
+NSHealthShareUsageDescriptionStepCount = "Count your daily steps to track your physical activity and maintain an active lifestyle.";
+NSHealthShareUsageDescriptionDistanceWalkingRunning = "Track the distance you walk and run to monitor your physical activity levels.";

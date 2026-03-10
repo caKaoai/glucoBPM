@@ -218,10 +218,16 @@ dynamic deserializeParam<T>(
         switch (T) {
           case AlAnalysisInfoRow:
             return AlAnalysisInfoRow(data);
+          case TranslationRow:
+            return TranslationRow(data);
           case UserBloodTrackRow:
             return UserBloodTrackRow(data);
+          case LanguageRow:
+            return LanguageRow(data);
           case PlanFaqRow:
             return PlanFaqRow(data);
+          case ConfigRow:
+            return ConfigRow(data);
           case HeartHealthRow:
             return HeartHealthRow(data);
           case UsersRow:

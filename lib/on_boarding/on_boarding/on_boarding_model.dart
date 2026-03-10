@@ -6,10 +6,6 @@ import 'package:flutter/material.dart';
 class OnBoardingModel extends FlutterFlowModel<OnBoardingWidget> {
   ///  Local state fields for this page.
 
-  String title = 'Measure Heartbeat';
-
-  String desc = 'Measure anytime and anywhere with just your phone';
-
   int? index = 0;
 
   ///  State fields for stateful widgets in this page.

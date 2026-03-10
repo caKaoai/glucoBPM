@@ -11,7 +11,6 @@ import 'package:flutter/material.dart';
 // Begin custom widget code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
-import '../../bpm/heartage/heartage_widget.dart';
 import '../../auth/supabase_auth/auth_util.dart';
 import '../../flutter_flow/flutter_flow_icon_button.dart';
 import 'dart:math';
@@ -1135,11 +1134,11 @@ class _HeartMeasureScreenState extends State<HeartMeasureScreen>
 
     // 🔥 tracking + DB same as before
     if (loggedIn) {
-      FFAppState().updateUserTrackingStruct(
-        (e) => e
-          ..date = DateTime.now().toUtc()
-          ..bpmTrackToday = true,
-      );
+      // FFAppState().updateUserTrackingStruct(
+      //   (e) => e
+      //     ..date = DateTime.now().toUtc()
+      //     ..bpmTrackToday = true,
+      // );
     }
 
     _openResultBottomSheet();
@@ -1151,7 +1150,7 @@ class _HeartMeasureScreenState extends State<HeartMeasureScreen>
         'user_id': currentUserUid,
         'created_at': supaSerialize<DateTime>(DateTime.now().toUtc()),
       });
-      await action_blocks.bpmInfo(context);
+      // await action_blocks.bpmInfo(context);
     }
   }
 
@@ -1649,7 +1648,6 @@ class _HeartMeasureScreenState extends State<HeartMeasureScreen>
                         ],
                       ),
                     ),
-                    HeartageWidget(),
                     PpgSignalCard(
                       trace: _ppgTrace,
                     ),

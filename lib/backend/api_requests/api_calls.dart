@@ -22,14 +22,13 @@ class AllCommandTableGroup {
     'Authorization': 'Bearer [token]',
     'apikey': '[token]',
   };
-  static AIAnalysisCall aIAnalysisCall = AIAnalysisCall();
-  static HeartHealthCall heartHealthCall = HeartHealthCall();
-  static PlanFAQCall planFAQCall = PlanFAQCall();
-  static BloodInfoCall bloodInfoCall = BloodInfoCall();
+  static LanguageCall languageCall = LanguageCall();
+  static ConfigCall configCall = ConfigCall();
 }
 
-class AIAnalysisCall {
+class LanguageCall {
   Future<ApiCallResponse> call({
+    String? countryCode = '',
     String? token =
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRteXBnY29panJrZXpjc211b2d5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njg3OTgzMDcsImV4cCI6MjA4NDM3NDMwN30.6X7i6W_-qReXpcQghKn8oRv1QaPOYD3MvUETstEksak',
   }) async {
@@ -38,8 +37,8 @@ class AIAnalysisCall {
     );
 
     return ApiManager.instance.makeApiCall(
-      callName: 'AI Analysis',
-      apiUrl: '${baseUrl}/al_analysisInfo',
+      callName: 'Language',
+      apiUrl: '${baseUrl}/language?country_code=eq.${countryCode}',
       callType: ApiCallType.GET,
       headers: {
         'Content-type': 'application/json',
@@ -57,7 +56,7 @@ class AIAnalysisCall {
   }
 }
 
-class HeartHealthCall {
+class ConfigCall {
   Future<ApiCallResponse> call({
     String? token =
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRteXBnY29panJrZXpjc211b2d5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njg3OTgzMDcsImV4cCI6MjA4NDM3NDMwN30.6X7i6W_-qReXpcQghKn8oRv1QaPOYD3MvUETstEksak',
@@ -67,67 +66,8 @@ class HeartHealthCall {
     );
 
     return ApiManager.instance.makeApiCall(
-      callName: 'Heart Health',
-      apiUrl: '${baseUrl}/heart_health',
-      callType: ApiCallType.GET,
-      headers: {
-        'Content-type': 'application/json',
-        'Authorization': 'Bearer ${token}',
-        'apikey': '${token}',
-      },
-      params: {},
-      returnBody: true,
-      encodeBodyUtf8: false,
-      decodeUtf8: false,
-      cache: false,
-      isStreamingApi: false,
-      alwaysAllowBody: false,
-    );
-  }
-}
-
-class PlanFAQCall {
-  Future<ApiCallResponse> call({
-    String? token =
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRteXBnY29panJrZXpjc211b2d5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njg3OTgzMDcsImV4cCI6MjA4NDM3NDMwN30.6X7i6W_-qReXpcQghKn8oRv1QaPOYD3MvUETstEksak',
-  }) async {
-    final baseUrl = AllCommandTableGroup.getBaseUrl(
-      token: token,
-    );
-
-    return ApiManager.instance.makeApiCall(
-      callName: 'Plan FAQ',
-      apiUrl: '${baseUrl}/plan_faq',
-      callType: ApiCallType.GET,
-      headers: {
-        'Content-type': 'application/json',
-        'Authorization': 'Bearer ${token}',
-        'apikey': '${token}',
-      },
-      params: {},
-      returnBody: true,
-      encodeBodyUtf8: false,
-      decodeUtf8: false,
-      cache: false,
-      isStreamingApi: false,
-      alwaysAllowBody: false,
-    );
-  }
-}
-
-class BloodInfoCall {
-  Future<ApiCallResponse> call({
-    String? id = '',
-    String? token =
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRteXBnY29panJrZXpjc211b2d5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njg3OTgzMDcsImV4cCI6MjA4NDM3NDMwN30.6X7i6W_-qReXpcQghKn8oRv1QaPOYD3MvUETstEksak',
-  }) async {
-    final baseUrl = AllCommandTableGroup.getBaseUrl(
-      token: token,
-    );
-
-    return ApiManager.instance.makeApiCall(
-      callName: 'Blood Info',
-      apiUrl: '${baseUrl}/user_bloodTrack?user_id=eq.${id}',
+      callName: 'Config',
+      apiUrl: '${baseUrl}/config',
       callType: ApiCallType.GET,
       headers: {
         'Content-type': 'application/json',
@@ -161,7 +101,6 @@ class UserGroup {
     'apikey': '[token]',
   };
   static UserInfoCall userInfoCall = UserInfoCall();
-  static BPMInfoCall bPMInfoCall = BPMInfoCall();
 }
 
 class UserInfoCall {
@@ -245,36 +184,6 @@ class UserInfoCall {
         response,
         r'''$[:].emi''',
       ));
-}
-
-class BPMInfoCall {
-  Future<ApiCallResponse> call({
-    String? id = '',
-    String? token =
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRteXBnY29panJrZXpjc211b2d5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njg3OTgzMDcsImV4cCI6MjA4NDM3NDMwN30.6X7i6W_-qReXpcQghKn8oRv1QaPOYD3MvUETstEksak',
-  }) async {
-    final baseUrl = UserGroup.getBaseUrl(
-      token: token,
-    );
-
-    return ApiManager.instance.makeApiCall(
-      callName: 'BPMInfo',
-      apiUrl: '${baseUrl}/user_BPM?user_id=eq.${id}',
-      callType: ApiCallType.GET,
-      headers: {
-        'Content-type': 'application/json',
-        'Authorization': 'Bearer ${token}',
-        'apikey': '${token}',
-      },
-      params: {},
-      returnBody: true,
-      encodeBodyUtf8: false,
-      decodeUtf8: false,
-      cache: false,
-      isStreamingApi: false,
-      alwaysAllowBody: false,
-    );
-  }
 }
 
 /// End User Group Code

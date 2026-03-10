@@ -1,0 +1,11 @@
+NSCameraUsageDescription = "Cho phép camera chụp ảnh thức ăn và xem thông tin dinh dưỡng.";
+NSMicrophoneUsageDescription = "Ứng dụng này không ghi âm. Quyền truy cập micro không được sử dụng.";
+NSPhotoLibraryUsageDescription = "Cho phép chụp ảnh hoặc chọn thực phẩm và xem thông tin dinh dưỡng.";
+NSHealthShareUsageDescriptionActiveEnergyBurned = "Theo dõi lượng calo tiêu hao trong các hoạt động thể chất để giám sát mức tiêu hao năng lượng của bạn.";
+NSHealthShareUsageDescriptionBloodGlucose = "Theo dõi lượng đường trong máu để giúp kiểm soát bệnh tiểu đường và duy trì lượng đường trong máu ở mức khỏe mạnh.";
+NSHealthShareUsageDescriptionBloodPressureSystolic = "Theo dõi huyết áp tâm thu để đánh giá sức khỏe tim mạch của bạn.";
+NSHealthShareUsageDescriptionBodyTemperature = "Theo dõi nhiệt độ cơ thể để giám sát sức khỏe tổng thể và phát hiện sớm nguy cơ sốt.";
+NSHealthShareUsageDescriptionHeartRate = "Theo dõi nhịp tim để đánh giá sức khỏe tim mạch và phát hiện các bất thường.";
+NSHealthShareUsageDescriptionBasalEnergyBurned = "Theo dõi lượng calo tiêu hao khi nghỉ ngơi để hiểu rõ tỷ lệ trao đổi chất cơ bản của bạn.";
+NSHealthShareUsageDescriptionStepCount = "Hãy đếm số bước đi hàng ngày để theo dõi hoạt động thể chất và duy trì lối sống năng động.";
+NSHealthShareUsageDescriptionDistanceWalkingRunning = "Theo dõi quãng đường bạn đi bộ và chạy để giám sát mức độ hoạt động thể chất của mình.";

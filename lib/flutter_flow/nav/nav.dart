@@ -105,166 +105,26 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => SplashScreenCopyWidget(),
         ),
         FFRoute(
+          name: PrimaryGoalPageWidget.routeName,
+          path: PrimaryGoalPageWidget.routePath,
+          builder: (context, params) => PrimaryGoalPageWidget(),
+        ),
+        FFRoute(
+          name: LogInWidget.routeName,
+          path: LogInWidget.routePath,
+          builder: (context, params) => LogInWidget(),
+        ),
+        FFRoute(
           name: HomePageWidget.routeName,
           path: HomePageWidget.routePath,
           builder: (context, params) => HomePageWidget(),
         ),
         FFRoute(
-          name: PersonalizedAnalysis1Widget.routeName,
-          path: PersonalizedAnalysis1Widget.routePath,
-          builder: (context, params) => PersonalizedAnalysis1Widget(),
-        ),
-        FFRoute(
-          name: PersonalizedAnalysis2Widget.routeName,
-          path: PersonalizedAnalysis2Widget.routePath,
-          builder: (context, params) => PersonalizedAnalysis2Widget(),
-        ),
-        FFRoute(
-          name: ProgramWidget.routeName,
-          path: ProgramWidget.routePath,
-          builder: (context, params) => ProgramWidget(),
-        ),
-        FFRoute(
-          name: SettingPageWidget.routeName,
-          path: SettingPageWidget.routePath,
-          builder: (context, params) => SettingPageWidget(),
-        ),
-        FFRoute(
-          name: AicareWidget.routeName,
-          path: AicareWidget.routePath,
-          builder: (context, params) => AicareWidget(),
-        ),
-        FFRoute(
-          name: AnalysisDetailsWidget.routeName,
-          path: AnalysisDetailsWidget.routePath,
-          builder: (context, params) => AnalysisDetailsWidget(
-            analysisInfo: params.getParam(
-              'analysisInfo',
-              ParamType.DataStruct,
-              isList: false,
-              structBuilder: AIAnalysisStruct.fromSerializableMap,
-            ),
-          ),
-        ),
-        FFRoute(
-          name: HealthPlanWidget.routeName,
-          path: HealthPlanWidget.routePath,
-          builder: (context, params) => HealthPlanWidget(),
-        ),
-        FFRoute(
-          name: MoreViewWidget.routeName,
-          path: MoreViewWidget.routePath,
-          builder: (context, params) => MoreViewWidget(
-            infoOfPaln: params.getParam<AIAnalysisStruct>(
-              'infoOfPaln',
-              ParamType.DataStruct,
-              isList: true,
-              structBuilder: AIAnalysisStruct.fromSerializableMap,
-            ),
-            title: params.getParam(
-              'title',
-              ParamType.String,
-            ),
-          ),
-        ),
-        FFRoute(
-          name: ProfilePageWidget.routeName,
-          path: ProfilePageWidget.routePath,
-          builder: (context, params) => ProfilePageWidget(),
-        ),
-        FFRoute(
-          name: EditProfileWidget.routeName,
-          path: EditProfileWidget.routePath,
-          builder: (context, params) => EditProfileWidget(),
-        ),
-        FFRoute(
-          name: PlanOnBoardingWidget.routeName,
-          path: PlanOnBoardingWidget.routePath,
-          builder: (context, params) => PlanOnBoardingWidget(),
-        ),
-        FFRoute(
-          name: PlanFQStartWidget.routeName,
-          path: PlanFQStartWidget.routePath,
-          builder: (context, params) => PlanFQStartWidget(),
-        ),
-        FFRoute(
-          name: BPMTrackingWidget.routeName,
-          path: BPMTrackingWidget.routePath,
-          builder: (context, params) => BPMTrackingWidget(),
-        ),
-        FFRoute(
-          name: PulseStatisticsWidget.routeName,
-          path: PulseStatisticsWidget.routePath,
-          builder: (context, params) => PulseStatisticsWidget(),
-        ),
-        FFRoute(
-          name: TermsWidget.routeName,
-          path: TermsWidget.routePath,
-          builder: (context, params) => TermsWidget(),
-        ),
-        FFRoute(
-          name: PrivacyPolicyWidget.routeName,
-          path: PrivacyPolicyWidget.routePath,
-          builder: (context, params) => PrivacyPolicyWidget(),
-        ),
-        FFRoute(
-          name: PlanDetailsWidget.routeName,
-          path: PlanDetailsWidget.routePath,
-          builder: (context, params) => PlanDetailsWidget(
-            type: params.getParam(
-              'type',
-              ParamType.String,
-            ),
-            info: params.getParam(
-              'info',
-              ParamType.DataStruct,
-              isList: false,
-              structBuilder: AIAnalysisStruct.fromSerializableMap,
-            ),
-          ),
-        ),
-        FFRoute(
-          name: PressureDetailsWidget.routeName,
-          path: PressureDetailsWidget.routePath,
-          builder: (context, params) => PressureDetailsWidget(),
-        ),
-        FFRoute(
-          name: OxygenDetailsWidget.routeName,
-          path: OxygenDetailsWidget.routePath,
-          builder: (context, params) => OxygenDetailsWidget(),
-        ),
-        FFRoute(
-          name: ExportDataWidget.routeName,
-          path: ExportDataWidget.routePath,
-          builder: (context, params) => ExportDataWidget(),
-        ),
-        FFRoute(
-          name: StepCounterWidget.routeName,
-          path: StepCounterWidget.routePath,
-          builder: (context, params) => StepCounterWidget(),
-        ),
-        FFRoute(
-          name: HistoryPageWidget.routeName,
-          path: HistoryPageWidget.routePath,
-          builder: (context, params) => HistoryPageWidget(
-            calltype: params.getParam(
-              'calltype',
-              ParamType.int,
-            ),
-          ),
-        ),
-        FFRoute(
-          name: SugarDetailsPageWidget.routeName,
-          path: SugarDetailsPageWidget.routePath,
-          builder: (context, params) => SugarDetailsPageWidget(),
-        ),
-        FFRoute(
-          name: BPMhistoryPageWidget.routeName,
-          path: BPMhistoryPageWidget.routePath,
-          builder: (context, params) => BPMhistoryPageWidget(),
+          name: FoodPageWidget.routeName,
+          path: FoodPageWidget.routePath,
+          builder: (context, params) => FoodPageWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
-      observers: [routeObserver],
     );
 
 extension NavParamExtensions on Map<String, String?> {
@@ -449,9 +309,13 @@ class FFRoute {
           final child = appStateNotifier.loading
               ? Container(
                   color: FlutterFlowTheme.of(context).secondary,
-                  child: Image.asset(
-                    'assets/images/img111.png',
-                    fit: BoxFit.contain,
+                  child: Center(
+                    child: Image.asset(
+                      'assets/images/logo.png',
+                      width: 144.0,
+                      height: 144.0,
+                      fit: BoxFit.contain,
+                    ),
                   ),
                 )
               : page;

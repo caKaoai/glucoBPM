@@ -1,0 +1,11 @@
+NSCameraUsageDescription = "कैमरे को भोजन की तस्वीर लेने दें और पोषण संबंधी जानकारी देखें।";
+NSMicrophoneUsageDescription = "यह ऐप ऑडियो रिकॉर्ड नहीं करता है। इसमें माइक्रोफ़ोन का उपयोग नहीं किया जाता है।";
+NSPhotoLibraryUsageDescription = "गैलरी को भोजन की तस्वीर खींचने या चुनने और पोषण संबंधी जानकारी देखने की अनुमति दें।";
+NSHealthShareUsageDescriptionActiveEnergyBurned = "अपनी ऊर्जा खपत पर नज़र रखने के लिए शारीरिक गतिविधियों के दौरान खर्च की गई सक्रिय कैलोरी को ट्रैक करें।";
+NSHealthShareUsageDescriptionBloodGlucose = "अपने मधुमेह को नियंत्रित करने और स्वस्थ रक्त शर्करा स्तर बनाए रखने के लिए अपने रक्त शर्करा के स्तर की निगरानी करें।";
+NSHealthShareUsageDescriptionBloodPressureSystolic = "अपने हृदय संबंधी स्वास्थ्य पर नज़र रखने के लिए अपने सिस्टोलिक रक्तचाप की निगरानी करें।";
+NSHealthShareUsageDescriptionBodyTemperature = "अपने शरीर के तापमान पर नज़र रखें ताकि आप अपने समग्र स्वास्थ्य की निगरानी कर सकें और संभावित बुखार का पता लगा सकें।";
+NSHealthShareUsageDescriptionHeartRate = "अपनी हृदय गति पर नज़र रखें ताकि आप अपनी हृदय संबंधी फिटनेस का पता लगा सकें और अनियमित पैटर्न का पता लगा सकें।";
+NSHealthShareUsageDescriptionBasalEnergyBurned = "अपनी बेसल मेटाबोलिक दर को समझने के लिए, आराम करते समय खर्च होने वाली कैलोरी की मात्रा पर नज़र रखें।";
+NSHealthShareUsageDescriptionStepCount = "अपनी शारीरिक गतिविधि पर नज़र रखने और सक्रिय जीवनशैली बनाए रखने के लिए प्रतिदिन अपने कदमों की गिनती करें।";
+NSHealthShareUsageDescriptionDistanceWalkingRunning = "अपनी शारीरिक गतिविधि के स्तर पर नज़र रखने के लिए, आप जितनी दूरी पैदल चलते हैं और दौड़ते हैं, उसे रिकॉर्ड करें।";

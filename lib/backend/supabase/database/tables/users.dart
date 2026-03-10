@@ -58,4 +58,16 @@ class UsersRow extends SupabaseDataRow {
 
   int? get goalSteps => getField<int>('goalSteps');
   set goalSteps(int? value) => setField<int>('goalSteps', value);
+
+  String? get ipAddress => getField<String>('ipAddress');
+  set ipAddress(String? value) => setField<String>('ipAddress', value);
+
+  String? get country => getField<String>('country');
+  set country(String? value) => setField<String>('country', value);
+
+  List<String> get goal => getListField<String>('goal');
+  set goal(List<String>? value) => setListField<String>('goal', value);
+
+  String? get daibType => getField<String>('daibType');
+  set daibType(String? value) => setField<String>('daibType', value);
 }

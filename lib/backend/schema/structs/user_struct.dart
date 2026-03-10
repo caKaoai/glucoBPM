@@ -19,7 +19,10 @@ class UserStruct extends BaseStruct {
     String? heightUnit,
     String? weightUnit,
     String? authProvider,
-    int? goalSteps,
+    String? ipAddress,
+    String? country,
+    List<String>? goal,
+    String? daibType,
   })  : _name = name,
         _email = email,
         _profileUrl = profileUrl,
@@ -32,7 +35,10 @@ class UserStruct extends BaseStruct {
         _heightUnit = heightUnit,
         _weightUnit = weightUnit,
         _authProvider = authProvider,
-        _goalSteps = goalSteps;
+        _ipAddress = ipAddress,
+        _country = country,
+        _goal = goal,
+        _daibType = daibType;
 
   // "name" field.
   String? _name;
@@ -126,14 +132,37 @@ class UserStruct extends BaseStruct {
 
   bool hasAuthProvider() => _authProvider != null;
 
-  // "goalSteps" field.
-  int? _goalSteps;
-  int get goalSteps => _goalSteps ?? 0;
-  set goalSteps(int? val) => _goalSteps = val;
+  // "ipAddress" field.
+  String? _ipAddress;
+  String get ipAddress => _ipAddress ?? '';
+  set ipAddress(String? val) => _ipAddress = val;
 
-  void incrementGoalSteps(int amount) => goalSteps = goalSteps + amount;
+  bool hasIpAddress() => _ipAddress != null;
 
-  bool hasGoalSteps() => _goalSteps != null;
+  // "country" field.
+  String? _country;
+  String get country => _country ?? '';
+  set country(String? val) => _country = val;
+
+  bool hasCountry() => _country != null;
+
+  // "goal" field.
+  List<String>? _goal;
+  List<String> get goal => _goal ?? const [];
+  set goal(List<String>? val) => _goal = val;
+
+  void updateGoal(Function(List<String>) updateFn) {
+    updateFn(_goal ??= []);
+  }
+
+  bool hasGoal() => _goal != null;
+
+  // "daibType" field.
+  String? _daibType;
+  String get daibType => _daibType ?? '';
+  set daibType(String? val) => _daibType = val;
+
+  bool hasDaibType() => _daibType != null;
 
   static UserStruct fromMap(Map<String, dynamic> data) => UserStruct(
         name: data['name'] as String?,
@@ -148,7 +177,10 @@ class UserStruct extends BaseStruct {
         heightUnit: data['heightUnit'] as String?,
         weightUnit: data['weightUnit'] as String?,
         authProvider: data['auth_provider'] as String?,
-        goalSteps: castToType<int>(data['goalSteps']),
+        ipAddress: data['ipAddress'] as String?,
+        country: data['country'] as String?,
+        goal: getDataList(data['goal']),
+        daibType: data['daibType'] as String?,
       );
 
   static UserStruct? maybeFromMap(dynamic data) =>
@@ -167,7 +199,10 @@ class UserStruct extends BaseStruct {
         'heightUnit': _heightUnit,
         'weightUnit': _weightUnit,
         'auth_provider': _authProvider,
-        'goalSteps': _goalSteps,
+        'ipAddress': _ipAddress,
+        'country': _country,
+        'goal': _goal,
+        'daibType': _daibType,
       }.withoutNulls;
 
   @override
@@ -220,9 +255,22 @@ class UserStruct extends BaseStruct {
           _authProvider,
           ParamType.String,
         ),
-        'goalSteps': serializeParam(
-          _goalSteps,
-          ParamType.int,
+        'ipAddress': serializeParam(
+          _ipAddress,
+          ParamType.String,
+        ),
+        'country': serializeParam(
+          _country,
+          ParamType.String,
+        ),
+        'goal': serializeParam(
+          _goal,
+          ParamType.String,
+          isList: true,
+        ),
+        'daibType': serializeParam(
+          _daibType,
+          ParamType.String,
         ),
       }.withoutNulls;
 
@@ -288,9 +336,24 @@ class UserStruct extends BaseStruct {
           ParamType.String,
           false,
         ),
-        goalSteps: deserializeParam(
-          data['goalSteps'],
-          ParamType.int,
+        ipAddress: deserializeParam(
+          data['ipAddress'],
+          ParamType.String,
+          false,
+        ),
+        country: deserializeParam(
+          data['country'],
+          ParamType.String,
+          false,
+        ),
+        goal: deserializeParam<String>(
+          data['goal'],
+          ParamType.String,
+          true,
+        ),
+        daibType: deserializeParam(
+          data['daibType'],
+          ParamType.String,
           false,
         ),
       );
@@ -300,6 +363,7 @@ class UserStruct extends BaseStruct {
 
   @override
   bool operator ==(Object other) {
+    const listEquality = ListEquality();
     return other is UserStruct &&
         name == other.name &&
         email == other.email &&
@@ -313,7 +377,10 @@ class UserStruct extends BaseStruct {
         heightUnit == other.heightUnit &&
         weightUnit == other.weightUnit &&
         authProvider == other.authProvider &&
-        goalSteps == other.goalSteps;
+        ipAddress == other.ipAddress &&
+        country == other.country &&
+        listEquality.equals(goal, other.goal) &&
+        daibType == other.daibType;
   }
 
   @override
@@ -330,7 +397,10 @@ class UserStruct extends BaseStruct {
         heightUnit,
         weightUnit,
         authProvider,
-        goalSteps
+        ipAddress,
+        country,
+        goal,
+        daibType
       ]);
 }
 
@@ -347,7 +417,9 @@ UserStruct createUserStruct({
   String? heightUnit,
   String? weightUnit,
   String? authProvider,
-  int? goalSteps,
+  String? ipAddress,
+  String? country,
+  String? daibType,
 }) =>
     UserStruct(
       name: name,
@@ -362,5 +434,7 @@ UserStruct createUserStruct({
       heightUnit: heightUnit,
       weightUnit: weightUnit,
       authProvider: authProvider,
-      goalSteps: goalSteps,
+      ipAddress: ipAddress,
+      country: country,
+      daibType: daibType,
     );

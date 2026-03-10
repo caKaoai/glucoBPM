@@ -12,6 +12,9 @@ class FFIcons {
   static const String _footFamily = 'Foot';
   static const String _playbackFamily = 'Playback';
   static const String _ic1Family = 'Ic1';
+  static const String _ic2Family = 'Ic2';
+  static const String _ic3Family = 'Ic3';
+  static const String _ic4Family = 'Ic4';
 
   // navicon
   static const IconData kclipboard =
@@ -74,4 +77,36 @@ class FFIcons {
   static const IconData kicon2 = IconData(0xe902, fontFamily: _ic1Family);
   static const IconData kicon1 = IconData(0xe903, fontFamily: _ic1Family);
   static const IconData kicon5 = IconData(0xe904, fontFamily: _ic1Family);
+
+  // IC2
+  static const IconData k21 = IconData(0xe901, fontFamily: _ic2Family);
+  static const IconData k22 = IconData(0xe902, fontFamily: _ic2Family);
+  static const IconData k23 = IconData(0xe903, fontFamily: _ic2Family);
+  static const IconData k24 = IconData(0xe904, fontFamily: _ic2Family);
+  static const IconData k25 = IconData(0xe905, fontFamily: _ic2Family);
+  static const IconData k26 = IconData(0xe906, fontFamily: _ic2Family);
+  static const IconData k27 = IconData(0xe907, fontFamily: _ic2Family);
+  static const IconData k28 = IconData(0xe908, fontFamily: _ic2Family);
+  static const IconData k29 = IconData(0xe909, fontFamily: _ic2Family);
+  static const IconData k30 = IconData(0xe90a, fontFamily: _ic2Family);
+  static const IconData k31 = IconData(0xe90b, fontFamily: _ic2Family);
+  static const IconData k32 = IconData(0xe90c, fontFamily: _ic2Family);
+  static const IconData k33 = IconData(0xe900, fontFamily: _ic2Family);
+
+  // IC3
+  static const IconData kicon40 = IconData(0xe903, fontFamily: _ic3Family);
+  static const IconData kicon41 = IconData(0xe904, fontFamily: _ic3Family);
+  static const IconData kicon42 = IconData(0xe905, fontFamily: _ic3Family);
+  static const IconData kicon47 = IconData(0xe906, fontFamily: _ic3Family);
+  static const IconData kicon48 = IconData(0xe907, fontFamily: _ic3Family);
+  static const IconData kicon49 = IconData(0xe908, fontFamily: _ic3Family);
+  static const IconData kicon44 = IconData(0xe909, fontFamily: _ic3Family);
+  static const IconData kicon45 = IconData(0xe90a, fontFamily: _ic3Family);
+  static const IconData kicon46 = IconData(0xe90b, fontFamily: _ic3Family);
+  static const IconData kicon51 = IconData(0xe900, fontFamily: _ic3Family);
+  static const IconData kicon52 = IconData(0xe901, fontFamily: _ic3Family);
+  static const IconData kicon53 = IconData(0xe902, fontFamily: _ic3Family);
+
+  // IC4
+  static const IconData kiI1 = IconData(0xe900, fontFamily: _ic4Family);
 }

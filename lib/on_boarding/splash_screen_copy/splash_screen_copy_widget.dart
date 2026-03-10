@@ -1,15 +1,11 @@
-import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import 'dart:async';
 import '/actions/actions.dart' as action_blocks;
-import '/custom_code/actions/index.dart' as actions;
+import '/custom_code/widgets/index.dart' as custom_widgets;
 import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter_animate/flutter_animate.dart';
-import 'package:lottie/lottie.dart';
-import 'package:provider/provider.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'splash_screen_copy_model.dart';
 export 'splash_screen_copy_model.dart';
 
@@ -23,13 +19,10 @@ class SplashScreenCopyWidget extends StatefulWidget {
   State<SplashScreenCopyWidget> createState() => _SplashScreenCopyWidgetState();
 }
 
-class _SplashScreenCopyWidgetState extends State<SplashScreenCopyWidget>
-    with TickerProviderStateMixin {
+class _SplashScreenCopyWidgetState extends State<SplashScreenCopyWidget> {
   late SplashScreenCopyModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
-
-  final animationsMap = <String, AnimationInfo>{};
 
   @override
   void initState() {
@@ -47,61 +40,7 @@ class _SplashScreenCopyWidgetState extends State<SplashScreenCopyWidget>
           );
         }),
         Future(() async {
-          await action_blocks.aiAnalysisInfo(context);
-        }),
-        Future(() async {
-          await action_blocks.heartHealth(context);
-        }),
-        Future(() async {
-          await action_blocks.planFAQ(context);
-        }),
-      ]);
-      await Future.wait([
-        Future(() async {
-          await actions.preLoadNetworkImage(
-            context,
-            FFAppState().aiAnalysisInfo.map((e) => e.photo).toList().toList(),
-          );
-        }),
-        Future(() async {
-          unawaited(
-            () async {
-              await actions.preLoadNetworkImage(
-                context,
-                FFAppState().hearthHealth.map((e) => e.photo).toList().toList(),
-              );
-            }(),
-          );
-        }),
-        Future(() async {
-          unawaited(
-            () async {
-              await actions.preLoadNetworkImage(
-                context,
-                FFAppState().PlanFAQ.map((e) => e.photo).toList().toList(),
-              );
-            }(),
-          );
-        }),
-        Future(() async {
-          await action_blocks.bpmInfo(context);
-        }),
-        Future(() async {
-          if (dateTimeFormat(
-                "d/M/y",
-                FFAppState().UserTracking.date,
-                locale: FFLocalizations.of(context).languageCode,
-              ) !=
-              dateTimeFormat(
-                "d/M/y",
-                getCurrentTimestamp,
-                locale: FFLocalizations.of(context).languageCode,
-              )) {
-            FFAppState().updateUserTrackingStruct(
-              (e) => e..bpmTrackToday = false,
-            );
-            safeSetState(() {});
-          }
+          await action_blocks.config(context);
         }),
       ]);
 
@@ -116,21 +55,6 @@ class _SplashScreenCopyWidgetState extends State<SplashScreenCopyWidget>
         },
       );
     });
-
-    animationsMap.addAll({
-      'richTextOnPageLoadAnimation': AnimationInfo(
-        trigger: AnimationTrigger.onPageLoad,
-        effectsBuilder: () => [
-          ScaleEffect(
-            curve: Curves.easeInOut,
-            delay: 280.0.ms,
-            duration: 920.0.ms,
-            begin: Offset(0.2, 0.2),
-            end: Offset(1.0, 1.0),
-          ),
-        ],
-      ),
-    });
   }
 
   @override
@@ -142,8 +66,6 @@ class _SplashScreenCopyWidgetState extends State<SplashScreenCopyWidget>
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -156,62 +78,81 @@ class _SplashScreenCopyWidgetState extends State<SplashScreenCopyWidget>
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Lottie.asset(
-              'assets/jsons/Heart_Rate.json',
-              width: 216.6,
-              height: 206.8,
-              fit: BoxFit.cover,
-              animate: true,
+            Container(
+              width: 144.0,
+              height: 144.0,
+              child: custom_widgets.AnimatedLogo(
+                width: 144.0,
+                height: 144.0,
+                callTypes: 0,
+              ),
             ),
             Align(
               alignment: AlignmentDirectional(0.0, 1.0),
               child: Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(54.0, 0.0, 53.0, 40.0),
+                padding: EdgeInsetsDirectional.fromSTEB(54.0, 33.0, 53.0, 0.0),
                 child: RichText(
                   textScaler: MediaQuery.of(context).textScaler,
                   text: TextSpan(
                     children: [
                       TextSpan(
-                        text: 'Welcome to\n',
-                        style: FlutterFlowTheme.of(context).bodyMedium.override(
-                              fontFamily:
-                                  FlutterFlowTheme.of(context).bodyMediumFamily,
-                              color: FlutterFlowTheme.of(context).primaryText,
-                              fontSize: 32.0,
-                              letterSpacing: 0.0,
-                              fontWeight: FontWeight.w500,
-                              useGoogleFonts: !FlutterFlowTheme.of(context)
-                                  .bodyMediumIsCustom,
-                            ),
-                      ),
-                      TextSpan(
                         text: 'glucoPal',
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
-                              fontFamily:
-                                  FlutterFlowTheme.of(context).bodyMediumFamily,
-                              color: FlutterFlowTheme.of(context).primary,
-                              fontSize: 32.0,
+                              font: GoogleFonts.inter(
+                                fontWeight: FontWeight.w600,
+                                fontStyle: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .fontStyle,
+                              ),
+                              color: FlutterFlowTheme.of(context).primaryText,
+                              fontSize: 36.0,
                               letterSpacing: 0.0,
                               fontWeight: FontWeight.w600,
-                              useGoogleFonts: !FlutterFlowTheme.of(context)
-                                  .bodyMediumIsCustom,
+                              fontStyle: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .fontStyle,
                             ),
                       )
                     ],
                     style: FlutterFlowTheme.of(context).bodyMedium.override(
-                          fontFamily:
-                              FlutterFlowTheme.of(context).bodyMediumFamily,
-                          color: FlutterFlowTheme.of(context).primaryText,
-                          fontSize: 20.0,
+                          font: GoogleFonts.inter(
+                            fontWeight: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .fontWeight,
+                            fontStyle: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .fontStyle,
+                          ),
                           letterSpacing: 0.0,
-                          fontWeight: FontWeight.normal,
-                          useGoogleFonts:
-                              !FlutterFlowTheme.of(context).bodyMediumIsCustom,
+                          fontWeight: FlutterFlowTheme.of(context)
+                              .bodyMedium
+                              .fontWeight,
+                          fontStyle:
+                              FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                         ),
                   ),
                   textAlign: TextAlign.center,
-                ).animateOnPageLoad(
-                    animationsMap['richTextOnPageLoadAnimation']!),
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
+              child: Text(
+                'PRECISION CARE',
+                textAlign: TextAlign.center,
+                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                      font: GoogleFonts.inter(
+                        fontWeight: FontWeight.w300,
+                        fontStyle:
+                            FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                      ),
+                      color: Color(0xFF6B7280),
+                      fontSize: 10.0,
+                      letterSpacing: 2.0,
+                      fontWeight: FontWeight.w300,
+                      fontStyle:
+                          FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                    ),
               ),
             ),
           ],

@@ -23,6 +23,7 @@ void main() async {
 
   // Start initial custom actions code
   await actions.changeStatusBarColor();
+  await actions.initializeTranslations();
   // End initial custom actions code
 
   await SupaFlow.initialize();
@@ -134,6 +135,8 @@ class _MyAppState extends State<MyApp> {
       locale: _locale,
       supportedLocales: const [
         Locale('en'),
+        Locale('vi'),
+        Locale('hi'),
       ],
       theme: ThemeData(
         brightness: Brightness.light,

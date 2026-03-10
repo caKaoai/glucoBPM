@@ -114,7 +114,9 @@ class _LogoutWidgetState extends State<LogoutWidget>
               mainAxisSize: MainAxisSize.max,
               children: [
                 Text(
-                  'Sign out',
+                  FFLocalizations.of(context).getText(
+                    'lz5qihxi' /* Sign out */,
+                  ),
                   textAlign: TextAlign.center,
                   style: FlutterFlowTheme.of(context).bodyMedium.override(
                         fontFamily:
@@ -131,7 +133,9 @@ class _LogoutWidgetState extends State<LogoutWidget>
                   padding:
                       EdgeInsetsDirectional.fromSTEB(25.0, 0.0, 25.0, 25.0),
                   child: Text(
-                    'Staying signed in will help you track your health regularly. Are you want to sign out?',
+                    FFLocalizations.of(context).getText(
+                      'ekoxnjfw' /* Staying signed in will help yo... */,
+                    ),
                     textAlign: TextAlign.center,
                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                           fontFamily:
@@ -166,7 +170,9 @@ class _LogoutWidgetState extends State<LogoutWidget>
                           ]);
                           Navigator.pop(context);
                         },
-                        text: 'Cancel',
+                        text: FFLocalizations.of(context).getText(
+                          'xse1zzof' /* Cancel */,
+                        ),
                         options: FFButtonOptions(
                           width: 200.0,
                           height: 50.0,
@@ -222,7 +228,6 @@ class _LogoutWidgetState extends State<LogoutWidget>
                             }),
                             Future(() async {
                               FFAppState().userData = UserStruct();
-                              FFAppState().UserTracking = TrackingUserStruct();
                               safeSetState(() {});
                             }),
                           ]);
@@ -230,7 +235,9 @@ class _LogoutWidgetState extends State<LogoutWidget>
                           context.goNamedAuth(
                               SplashScreenWidget.routeName, context.mounted);
                         },
-                        text: 'Yes',
+                        text: FFLocalizations.of(context).getText(
+                          'qzjapw40' /* Yes */,
+                        ),
                         options: FFButtonOptions(
                           width: 200.0,
                           height: 50.0,

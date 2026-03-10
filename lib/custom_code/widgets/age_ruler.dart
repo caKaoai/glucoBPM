@@ -11,6 +11,9 @@ import 'package:flutter/material.dart';
 // Begin custom widget code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
+import 'package:flutter/physics.dart';
+import 'package:flutter/services.dart';
+
 class AgeRuler extends StatefulWidget {
   const AgeRuler({
     super.key,
@@ -34,180 +37,174 @@ class AgeRuler extends StatefulWidget {
 }
 
 class _AgeRulerState extends State<AgeRuler> {
-  late int minValue, maxValue, selectedValue;
-
-  late ScrollController _scrollController;
-  bool _isSnapping = false;
+  static const int minValue = 10;
+  static const int maxValue = 120;
   static const double tickSpacing = 24.0;
-  static const double rulerHeight = 70;
-  static const double majorTickHeight = 30;
-  static const double minorTickHeight = 14;
+  static const double rulerHeight = 70.0;
+  static const double majorTickHeight = 30.0;
+  static const double minorTickHeight = 14.0;
+  static const Color primaryColor = Color(0xFFE53935);
+
+  late int selectedValue;
+  late ScrollController _scrollController;
+  bool _initialScrollDone = false;
 
   @override
   void initState() {
     super.initState();
-
-    minValue = 10;
-    maxValue = 120;
-
-    selectedValue = widget.initVal?.clamp(minValue, maxValue) ?? minValue;
-    _scrollController = ScrollController(
-      initialScrollOffset: (selectedValue - minValue) * tickSpacing,
-    );
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      widget.age?.call(selectedValue);
-    });
+    selectedValue = (widget.initVal ?? minValue).clamp(minValue, maxValue);
+    _scrollController = ScrollController();
   }
 
+  double _offsetFor(int value) => (value - minValue) * tickSpacing;
+
   void _onScroll() {
-    int newValue = (minValue + (_scrollController.offset / tickSpacing).round())
-        .clamp(minValue, maxValue);
+    if (!_scrollController.hasClients) return;
+    final int newValue =
+        (minValue + (_scrollController.offset / tickSpacing).round())
+            .clamp(minValue, maxValue);
     if (newValue != selectedValue) {
       setState(() => selectedValue = newValue);
       widget.age?.call(selectedValue);
+
+      // ── Haptic feedback on every tick change ──────────────────────
+      // Heavy impact on every 5th value (major tick), light on minor ticks
+      if (newValue % 5 == 0) {
+        HapticFeedback.mediumImpact();
+      } else {
+        HapticFeedback.selectionClick();
+      }
     }
-  }
-
-  void _onEndDrag() {
-    if (_isSnapping) return;
-
-    _isSnapping = true;
-
-    final double offset = _scrollController.offset;
-    final int snapValue = (offset / tickSpacing).round();
-    final double snapOffset = snapValue * tickSpacing;
-
-    _scrollController
-        .animateTo(
-      snapOffset,
-      duration: const Duration(milliseconds: 80),
-      curve: Curves.easeOut,
-    )
-        .whenComplete(() {
-      _isSnapping = false;
-    });
   }
 
   @override
   Widget build(BuildContext context) {
-    final int divisions = maxValue - minValue;
-    final double screenWidth = MediaQuery.of(context).size.width;
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        // Selected Value Display
+        // ── Value label ───────────────────────────────────────────────
         RichText(
           text: TextSpan(
             text: '$selectedValue',
-            style: FlutterFlowTheme.of(context).titleSmall.override(
-                  fontFamily: FlutterFlowTheme.of(context).titleSmallFamily,
-                  color: Colors.black,
-                  letterSpacing: 0.0,
-                  fontSize: 24,
-                  useGoogleFonts:
-                      !FlutterFlowTheme.of(context).titleSmallIsCustom,
-                ),
-            children: [
+            style: const TextStyle(
+              color: primaryColor,
+              fontSize: 24,
+              fontWeight: FontWeight.w900,
+              height: 1,
+            ),
+            children: const [
               TextSpan(
-                text: 'year',
-                style: FlutterFlowTheme.of(context).titleSmall.override(
-                      fontFamily: FlutterFlowTheme.of(context).titleSmallFamily,
-                      color: Colors.black,
-                      letterSpacing: 0.0,
-                      useGoogleFonts:
-                          !FlutterFlowTheme.of(context).titleSmallIsCustom,
-                    ),
+                text: '  YRS',
+                style: TextStyle(
+                  color: Color(0xFF94A3B8),
+                  fontSize: 12,
+                  fontWeight: FontWeight.w700,
+                ),
               ),
             ],
           ),
         ),
 
-        // Ruler
-        SizedBox(
-          height: rulerHeight,
-          width: double.infinity,
-          child: Stack(
-            alignment: Alignment.center,
-            children: [
-              // The horizontal ruler
-              NotificationListener<ScrollNotification>(
-                onNotification: (notification) {
-                  if (notification is ScrollUpdateNotification) {
-                    _onScroll();
-                  } else if (notification is ScrollEndNotification) {
-                    _onEndDrag();
-                  }
-                  return false; // IMPORTANT: don’t swallow notifications
-                },
-                child: ListView.builder(
-                  controller: _scrollController,
-                  scrollDirection: Axis.horizontal,
-                  physics: const BouncingScrollPhysics(),
-                  itemCount: divisions + 1,
-                  padding: EdgeInsets.symmetric(
-                    horizontal: screenWidth / 2.14 - tickSpacing,
-                  ),
-                  itemBuilder: (context, index) {
-                    final value = minValue + index;
-                    final isMajor = value % 5 == 0;
-                    final isSelected = value == selectedValue;
-                    return Stack(
-                      alignment: Alignment.bottomCenter,
-                      children: [
-                        Container(
-                          width: tickSpacing,
+        const SizedBox(height: 6),
+
+        // ── Ruler ─────────────────────────────────────────────────────
+        LayoutBuilder(builder: (context, constraints) {
+          final double containerWidth = constraints.maxWidth;
+          final double sidePadding = containerWidth / 2 - tickSpacing / 2;
+
+          if (!_initialScrollDone) {
+            _initialScrollDone = true;
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              if (_scrollController.hasClients) {
+                _scrollController.jumpTo(_offsetFor(selectedValue));
+                widget.age?.call(selectedValue);
+              }
+            });
+          }
+
+          return SizedBox(
+            height: rulerHeight,
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                // ── Scrollable ticks ──────────────────────────────────
+                NotificationListener<ScrollNotification>(
+                  onNotification: (n) {
+                    if (n is ScrollUpdateNotification) _onScroll();
+                    return false;
+                  },
+                  child: ListView.builder(
+                    controller: _scrollController,
+                    scrollDirection: Axis.horizontal,
+                    physics: SnapScrollPhysics(
+                      itemExtent: tickSpacing,
+                      parent: const ClampingScrollPhysics(),
+                    ),
+                    itemCount: maxValue - minValue + 1,
+                    padding: EdgeInsets.symmetric(horizontal: sidePadding),
+                    itemBuilder: (context, index) {
+                      final int value = minValue + index;
+                      final bool isMajor = value % 5 == 0;
+                      final bool isSelected = value == selectedValue;
+
+                      return SizedBox(
+                        width: tickSpacing,
+                        child: Stack(
                           alignment: Alignment.bottomCenter,
-                          child: Padding(
-                            padding: const EdgeInsets.only(bottom: 22.0),
-                            child: Container(
-                                width: isMajor ? 2 : 2,
+                          children: [
+                            Positioned(
+                              bottom: 22,
+                              child: Container(
+                                width: isMajor ? 2.0 : 1.5,
                                 height:
                                     isMajor ? majorTickHeight : minorTickHeight,
-                                color: isSelected
-                                    ? Colors.grey.shade400
-                                    : Colors.grey.shade400),
-                          ),
-                        ),
-                        if (isMajor)
-                          Text(
-                            '$value',
-                            style: FlutterFlowTheme.of(context)
-                                .titleSmall
-                                .override(
-                                  fontFamily: FlutterFlowTheme.of(context)
-                                      .titleSmallFamily,
+                                decoration: BoxDecoration(
                                   color: isSelected
-                                      ? FlutterFlowTheme.of(context).primary
-                                      : Colors.grey.shade400,
-                                  fontSize: 12,
-                                  fontWeight: isSelected
-                                      ? FontWeight.w600
-                                      : FontWeight.normal,
-                                  letterSpacing: 0.0,
-                                  useGoogleFonts: !FlutterFlowTheme.of(context)
-                                      .titleSmallIsCustom,
+                                      ? primaryColor
+                                      : Colors.grey.shade300,
+                                  borderRadius: BorderRadius.circular(1),
                                 ),
-                          ),
-                      ],
-                    );
-                  },
-                ),
-              ),
-              // Center Red Bar Overlay
-              Positioned(
-                top: 12,
-                bottom: 20,
-                child: Container(
-                  width: 3.5,
-                  decoration: BoxDecoration(
-                    color: FlutterFlowTheme.of(context).primary,
-                    borderRadius: BorderRadius.circular(2),
+                              ),
+                            ),
+                            if (isMajor)
+                              Positioned(
+                                bottom: 4,
+                                child: Text(
+                                  '$value',
+                                  style: TextStyle(
+                                    fontSize: 9,
+                                    fontWeight: isSelected
+                                        ? FontWeight.w700
+                                        : FontWeight.w400,
+                                    color: isSelected
+                                        ? primaryColor
+                                        : Colors.grey.shade400,
+                                  ),
+                                ),
+                              ),
+                          ],
+                        ),
+                      );
+                    },
                   ),
                 ),
-              ),
-            ],
-          ),
-        ),
+
+                // ── Centre indicator bar ──────────────────────────────
+                Positioned(
+                  top: 8,
+                  bottom: 18,
+                  child: Container(
+                    width: 3.5,
+                    decoration: BoxDecoration(
+                      color: primaryColor,
+                      borderRadius: BorderRadius.circular(2),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          );
+        }),
       ],
     );
   }
@@ -217,4 +214,47 @@ class _AgeRulerState extends State<AgeRuler> {
     _scrollController.dispose();
     super.dispose();
   }
+}
+
+// ── Smooth snapping physics ──────────────────────────────────────────────────
+
+class SnapScrollPhysics extends ScrollPhysics {
+  final double itemExtent;
+
+  const SnapScrollPhysics({required this.itemExtent, super.parent});
+
+  @override
+  SnapScrollPhysics applyTo(ScrollPhysics? ancestor) =>
+      SnapScrollPhysics(itemExtent: itemExtent, parent: buildParent(ancestor));
+
+  double _snapOffset(double offset) =>
+      (offset / itemExtent).round() * itemExtent;
+
+  @override
+  Simulation? createBallisticSimulation(
+      ScrollMetrics position, double velocity) {
+    final double currentSnap = _snapOffset(position.pixels);
+    if (velocity.abs() < toleranceFor(position).velocity &&
+        (position.pixels - currentSnap).abs() <
+            toleranceFor(position).distance) {
+      return null;
+    }
+
+    final SpringDescription spring = SpringDescription.withDampingRatio(
+      mass: 0.5,
+      stiffness: 150.0,
+      ratio: 1.2,
+    );
+
+    final double frictionTarget = position.pixels + velocity * 0.15;
+    final double snapTarget = _snapOffset(frictionTarget).clamp(
+      position.minScrollExtent,
+      position.maxScrollExtent,
+    );
+
+    return SpringSimulation(spring, position.pixels, snapTarget, velocity);
+  }
+
+  @override
+  double get minFlingVelocity => 50.0;
 }

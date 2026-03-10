@@ -1,59 +1,11 @@
 import '/auth/supabase_auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
+import '/backend/supabase/supabase.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/actions/actions.dart' as action_blocks;
+import '/index.dart';
 import 'package:flutter/material.dart';
-
-Future aiAnalysisInfo(BuildContext context) async {
-  ApiCallResponse? info;
-
-  info = await AllCommandTableGroup.aIAnalysisCall.call();
-
-  if ((info.succeeded ?? true)) {
-    FFAppState().aiAnalysisInfo = ((info.jsonBody ?? '')
-            .toList()
-            .map<AIAnalysisStruct?>(AIAnalysisStruct.maybeFromMap)
-            .toList() as Iterable<AIAnalysisStruct?>)
-        .withoutNulls
-        .toList()
-        .cast<AIAnalysisStruct>();
-    FFAppState().update(() {});
-  }
-}
-
-Future heartHealth(BuildContext context) async {
-  ApiCallResponse? healthInfo;
-
-  healthInfo = await AllCommandTableGroup.heartHealthCall.call();
-
-  if ((healthInfo.succeeded ?? true)) {
-    FFAppState().hearthHealth = ((healthInfo.jsonBody ?? '')
-            .toList()
-            .map<AIAnalysisStruct?>(AIAnalysisStruct.maybeFromMap)
-            .toList() as Iterable<AIAnalysisStruct?>)
-        .withoutNulls
-        .toList()
-        .cast<AIAnalysisStruct>();
-    FFAppState().update(() {});
-  }
-}
-
-Future planFAQ(BuildContext context) async {
-  ApiCallResponse? planINfo;
-
-  planINfo = await AllCommandTableGroup.planFAQCall.call();
-
-  if ((planINfo.succeeded ?? true)) {
-    FFAppState().PlanFAQ = ((planINfo.jsonBody ?? '')
-            .toList()
-            .map<AIAnalysisStruct?>(AIAnalysisStruct.maybeFromMap)
-            .toList() as Iterable<AIAnalysisStruct?>)
-        .withoutNulls
-        .toList()
-        .cast<AIAnalysisStruct>();
-    FFAppState().update(() {});
-  }
-}
 
 Future userInfo(BuildContext context) async {
   ApiCallResponse? userInfo;
@@ -106,39 +58,66 @@ Future userInfo(BuildContext context) async {
   }
 }
 
-Future bloodInfo(BuildContext context) async {
-  ApiCallResponse? bloodInfo;
+Future config(BuildContext context) async {
+  ApiCallResponse? configInfo;
 
-  bloodInfo = await AllCommandTableGroup.bloodInfoCall.call(
-    id: currentUserUid,
-  );
+  configInfo = await AllCommandTableGroup.configCall.call();
 
-  if ((bloodInfo.succeeded ?? true)) {
-    FFAppState().bloodInfo = ((bloodInfo.jsonBody ?? '')
+  if ((configInfo.succeeded ?? true)) {
+    FFAppState().config = ((configInfo.jsonBody ?? '')
             .toList()
-            .map<BloodInfoStruct?>(BloodInfoStruct.maybeFromMap)
-            .toList() as Iterable<BloodInfoStruct?>)
+            .map<ConfigStruct?>(ConfigStruct.maybeFromMap)
+            .toList() as Iterable<ConfigStruct?>)
         .withoutNulls
-        .toList()
-        .cast<BloodInfoStruct>();
+        .firstOrNull!;
+    FFAppState().update(() {});
   }
 }
 
-Future bpmInfo(BuildContext context) async {
-  ApiCallResponse? bpmData;
-
-  bpmData = await UserGroup.bPMInfoCall.call(
-    id: currentUserUid,
+Future auth(
+  BuildContext context, {
+  String? userName,
+}) async {
+  await Future.delayed(
+    Duration(
+      milliseconds: 3000,
+    ),
   );
+  await UsersTable().update(
+    data: {
+      'gender': FFAppState().userData.gender,
+      'age': FFAppState().userData.age,
+      'height': FFAppState().userData.height,
+      'weight': FFAppState().userData.weight,
+      'heightUnit': FFAppState().userData.heightUnit,
+      'weightUnit': FFAppState().userData.weightUnit,
+      'emi': FFAppState().userData.emi,
+      'name': userName,
+      'ipAddress': FFAppState().userData.ipAddress,
+      'country': FFAppState().userData.country,
+      'goal': FFAppState().userData.goal,
+      'daibType': FFAppState().userData.daibType,
+    },
+    matchingRows: (rows) => rows.eqOrNull(
+      'user_id',
+      currentUserUid,
+    ),
+  );
+  await Future.delayed(
+    Duration(
+      milliseconds: 3000,
+    ),
+  );
+  await action_blocks.userInfo(context);
 
-  if ((bpmData.succeeded ?? true)) {
-    FFAppState().bpmInfos = ((bpmData.jsonBody ?? '')
-            .toList()
-            .map<BPMinfoStruct?>(BPMinfoStruct.maybeFromMap)
-            .toList() as Iterable<BPMinfoStruct?>)
-        .withoutNulls
-        .toList()
-        .cast<BPMinfoStruct>();
-    FFAppState().update(() {});
-  }
+  context.goNamed(
+    HomePageWidget.routeName,
+    extra: <String, dynamic>{
+      '__transition_info__': TransitionInfo(
+        hasTransition: true,
+        transitionType: PageTransitionType.fade,
+        duration: Duration(milliseconds: 0),
+      ),
+    },
+  );
 }
