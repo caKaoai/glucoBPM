@@ -1287,6 +1287,438 @@ String? languagefuncation(
       "pt": "REGISTRO DE ATIVIDADE",
       "it": "REGISTRO ATTIVITÀ",
       "id": "CATATAN AKTIVITAS"
+    },
+    "camera": {
+      "en": "CAMERA",
+      "vi": "MÁY ẢNH",
+      "ja": "カメラ",
+      "ar": "الكاميرا",
+      "hi": "कैमरा",
+      "th": "กล้อง",
+      "es": "CÁMARA",
+      "ko": "카메라",
+      "zh_Hans": "相机",
+      "fr": "CAMÉRA",
+      "tr": "KAMERA",
+      "ru": "КАМЕРА",
+      "de": "KAMERA",
+      "pt": "CÂMERA",
+      "it": "FOTOCAMERA",
+      "id": "KAMERA"
+    },
+    "recent": {
+      "en": "RECENT",
+      "vi": "GẦN ĐÂY",
+      "ja": "最近",
+      "ar": "الأخيرة",
+      "hi": "हाल ही में",
+      "th": "ล่าสุด",
+      "es": "RECIENTE",
+      "ko": "최근",
+      "zh_Hans": "最近",
+      "fr": "RÉCENT",
+      "tr": "SON",
+      "ru": "НЕДАВНИЕ",
+      "de": "KÜRZLICH",
+      "pt": "RECENTE",
+      "it": "RECENTE",
+      "id": "TERBARU"
+    },
+    "text": {
+      "en": "TEXT",
+      "vi": "VĂN BẢN",
+      "ja": "テキスト",
+      "ar": "نص",
+      "hi": "पाठ",
+      "th": "ข้อความ",
+      "es": "TEXTO",
+      "ko": "텍스트",
+      "zh_Hans": "文本",
+      "fr": "TEXTE",
+      "tr": "METİN",
+      "ru": "ТЕКСТ",
+      "de": "TEXT",
+      "pt": "TEXTO",
+      "it": "TESTO",
+      "id": "TEKS"
+    },
+    "ready_to_snap_your_meal": {
+      "en": "Ready to snap your meal?",
+      "vi": "Sẵn sàng chụp bữa ăn của bạn?",
+      "ja": "食事を撮影する準備はできましたか？",
+      "ar": "هل أنت مستعد لالتقاط صورة لوجبتك؟",
+      "hi": "क्या आप अपने भोजन की तस्वीर लेने के लिए तैयार हैं?",
+      "th": "พร้อมถ่ายรูปอาหารของคุณหรือยัง?",
+      "es": "¿Listo para tomar una foto de tu comida?",
+      "ko": "식사 사진을 찍을 준비가 되셨나요?",
+      "zh_Hans": "准备好拍下你的餐食了吗？",
+      "fr": "Prêt à prendre en photo votre repas ?",
+      "tr": "Yemeğinizin fotoğrafını çekmeye hazır mısınız?",
+      "ru": "Готовы сфотографировать свою еду?",
+      "de": "Bereit, dein Essen zu fotografieren?",
+      "pt": "Pronto para tirar uma foto da sua refeição?",
+      "it": "Pronto a scattare una foto al tuo pasto?",
+      "id": "Siap memotret makananmu?"
+    },
+    "gallery": {
+      "en": "GALLERY",
+      "vi": "THƯ VIỆN",
+      "ja": "ギャラリー",
+      "ar": "المعرض",
+      "hi": "गैलरी",
+      "th": "แกลเลอรี",
+      "es": "GALERÍA",
+      "ko": "갤러리",
+      "zh_Hans": "图库",
+      "fr": "GALERIE",
+      "tr": "GALERİ",
+      "ru": "ГАЛЕРЕЯ",
+      "de": "GALERIE",
+      "pt": "GALERIA",
+      "it": "GALLERIA",
+      "id": "GALERI"
+    },
+    "retake": {
+      "en": "RETAKE",
+      "vi": "CHỤP LẠI",
+      "ja": "再撮影",
+      "ar": "إعادة الالتقاط",
+      "hi": "फिर से लें",
+      "th": "ถ่ายใหม่",
+      "es": "VOLVER A TOMAR",
+      "ko": "다시 촬영",
+      "zh_Hans": "重新拍摄",
+      "fr": "REPRENDRE",
+      "tr": "TEKRAR ÇEK",
+      "ru": "ПЕРЕСНЯТЬ",
+      "de": "ERNEUT AUFNEHMEN",
+      "pt": "TIRAR NOVAMENTE",
+      "it": "SCATTA DI NUOVO",
+      "id": "AMBIL ULANG"
+    },
+    "process_image": {
+      "en": "Process Image",
+      "vi": "Xử lý hình ảnh",
+      "ja": "画像を処理",
+      "ar": "معالجة الصورة",
+      "hi": "छवि संसाधित करें",
+      "th": "ประมวลผลภาพ",
+      "es": "Procesar imagen",
+      "ko": "이미지 처리",
+      "zh_Hans": "处理图像",
+      "fr": "Traiter l'image",
+      "tr": "Görüntüyü işle",
+      "ru": "Обработать изображение",
+      "de": "Bild verarbeiten",
+      "pt": "Processar imagem",
+      "it": "Elabora immagine",
+      "id": "Proses gambar"
+    },
+    "agree_to_terms_prefix": {
+      "en": "By continuing, you agree to our",
+      "vi": "Bằng cách tiếp tục, bạn đồng ý với",
+      "ja": "続行することで、以下に同意したことになります",
+      "ar": "بمتابعتك، فإنك توافق على",
+      "hi": "जारी रखकर, आप हमारी शर्तों से सहमत होते हैं",
+      "th": "เมื่อดำเนินการต่อ คุณยอมรับ",
+      "es": "Al continuar, aceptas nuestros",
+      "ko": "계속 진행하면 다음에 동의하게 됩니다",
+      "zh_Hans": "继续即表示您同意我们的",
+      "fr": "En continuant, vous acceptez nos",
+      "tr": "Devam ederek şunları kabul etmiş olursunuz",
+      "ru": "Продолжая, вы соглашаетесь с нашими",
+      "de": "Durch Fortfahren stimmen Sie unseren",
+      "pt": "Ao continuar, você concorda com nossos",
+      "it": "Continuando, accetti i nostri",
+      "id": "Dengan melanjutkan, Anda menyetujui"
+    },
+    "terms_of_service": {
+      "en": "Terms of Service",
+      "vi": "Điều khoản dịch vụ",
+      "ja": "利用規約",
+      "ar": "شروط الخدمة",
+      "hi": "सेवा की शर्तें",
+      "th": "ข้อกำหนดการให้บริการ",
+      "es": "Términos de servicio",
+      "ko": "서비스 약관",
+      "zh_Hans": "服务条款",
+      "fr": "Conditions d'utilisation",
+      "tr": "Hizmet şartları",
+      "ru": "Условия обслуживания",
+      "de": "Nutzungsbedingungen",
+      "pt": "Termos de serviço",
+      "it": "Termini di servizio",
+      "id": "Ketentuan layanan"
+    },
+    "privacy_policy": {
+      "en": "Privacy Policy",
+      "vi": "Chính Sách Quyền Riêng Tư",
+      "ja": "プライバシーポリシー",
+      "ar": "سياسة الخصوصية",
+      "hi": "गोपनीयता नीति",
+      "th": "นโยบายความเป็นส่วนตัว",
+      "es": "Política De Privacidad",
+      "ko": "개인정보 처리방침",
+      "zh_Hans": "隐私政策",
+      "fr": "Politique De Confidentialité",
+      "tr": "Gizlilik Politikası",
+      "ru": "Политика Конфиденциальности",
+      "de": "Datenschutzrichtlinie",
+      "pt": "Política De Privacidade",
+      "it": "Informativa Sulla Privacy",
+      "id": "Kebijakan Privasi"
+    },
+    "and": {
+      "en": "and",
+      "vi": "và",
+      "ja": "と",
+      "ar": "و",
+      "hi": "और",
+      "th": "และ",
+      "es": "y",
+      "ko": "및",
+      "zh_Hans": "和",
+      "fr": "et",
+      "tr": "ve",
+      "ru": "и",
+      "de": "und",
+      "pt": "e",
+      "it": "e",
+      "id": "dan"
+    },
+    "low_glycemic": {
+      "en": "LOW GLYCEMIC",
+      "vi": "CHỈ SỐ ĐƯỜNG HUYẾT THẤP",
+      "ja": "低グリセミック",
+      "ar": "مؤشر جلايسيمي منخفض",
+      "hi": "कम ग्लाइसेमिक",
+      "th": "ดัชนีน้ำตาลต่ำ",
+      "es": "ÍNDICE GLUCÉMICO BAJO",
+      "ko": "저혈당 지수",
+      "zh_Hans": "低升糖指数",
+      "fr": "INDICE GLYCÉMIQUE BAS",
+      "tr": "DÜŞÜK GLİSEMİK",
+      "ru": "НИЗКИЙ ГЛИКЕМИЧЕСКИЙ ИНДЕКС",
+      "de": "NIEDRIGER GLYKÄMISCHER INDEX",
+      "pt": "BAIXO ÍNDICE GLICÊMICO",
+      "it": "BASSO INDICE GLICEMICO",
+      "id": "INDEKS GLIKEMIK RENDAH"
+    },
+    "medium_glycemic": {
+      "en": "MEDIUM GLYCEMIC",
+      "vi": "CHỈ SỐ ĐƯỜNG HUYẾT TRUNG BÌNH",
+      "ja": "中程度のグリセミック",
+      "ar": "مؤشر سكري متوسط",
+      "hi": "मध्यम ग्लाइसेमिक",
+      "th": "ดัชนีน้ำตาลปานกลาง",
+      "es": "GLUCÉMICO MEDIO",
+      "ko": "중간 혈당 지수",
+      "zh_Hans": "中等血糖指数",
+      "fr": "INDICE GLYCÉMIQUE MOYEN",
+      "tr": "ORTA GLISEMIK",
+      "ru": "СРЕДНИЙ ГЛИКЕМИЧЕСКИЙ ИНДЕКС",
+      "de": "MITTLERER GLYKÄMISCHER INDEX",
+      "pt": "ÍNDICE GLICÊMICO MÉDIO",
+      "it": "INDICE GLICEMICO MEDIO",
+      "id": "INDEKS GLIKEMIK SEDANG"
+    },
+    "high_glycemic": {
+      "en": "HIGH GLYCEMIC",
+      "vi": "CHỈ SỐ ĐƯỜNG HUYẾT CAO",
+      "ja": "高グリセミック",
+      "ar": "مؤشر سكري مرتفع",
+      "hi": "उच्च ग्लाइसेमिक",
+      "th": "ดัชนีน้ำตาลสูง",
+      "es": "ÍNDICE GLUCÉMICO ALTO",
+      "ko": "높은 혈당 지수",
+      "zh_Hans": "高升糖指数",
+      "fr": "INDICE GLYCÉMIQUE ÉLEVÉ",
+      "tr": "YÜKSEK GLİSEMİK",
+      "ru": "ВЫСОКИЙ ГЛИКЕМИЧЕСКИЙ ИНДЕКС",
+      "de": "HOHER GLYKÄMISCHER INDEX",
+      "pt": "ALTO ÍNDICE GLICÊMICO",
+      "it": "ALTO INDICE GLICEMICO",
+      "id": "INDEKS GLIKEMIK TINGGI"
+    },
+    "excellent": {
+      "en": "EXCELLENT",
+      "vi": "XUẤT SẮC",
+      "ja": "優秀",
+      "ar": "ممتاز",
+      "hi": "उत्कृष्ट",
+      "th": "ยอดเยี่ยม",
+      "es": "EXCELENTE",
+      "ko": "훌륭함",
+      "zh_Hans": "优秀",
+      "fr": "EXCELLENT",
+      "tr": "MÜKEMMEL",
+      "ru": "ОТЛИЧНО",
+      "de": "AUSGEZEICHNET",
+      "pt": "EXCELENTE",
+      "it": "ECCELLENTE",
+      "id": "LUAR BIASA"
+    },
+    "caution": {
+      "en": "CAUTION",
+      "vi": "CẢNH BÁO",
+      "ja": "注意",
+      "ar": "تحذير",
+      "hi": "सावधानी",
+      "th": "คำเตือน",
+      "es": "PRECAUCIÓN",
+      "ko": "주의",
+      "zh_Hans": "注意",
+      "fr": "PRUDENCE",
+      "tr": "DİKKAT",
+      "ru": "ОСТОРОЖНО",
+      "de": "VORSICHT",
+      "pt": "CUIDADO",
+      "it": "ATTENZIONE",
+      "id": "PERINGATAN"
+    },
+    "high_risk": {
+      "en": "HIGH RISK",
+      "vi": "NGUY CƠ CAO",
+      "ja": "高リスク",
+      "ar": "خطر مرتفع",
+      "hi": "उच्च जोखिम",
+      "th": "ความเสี่ยงสูง",
+      "es": "ALTO RIESGO",
+      "ko": "높은 위험",
+      "zh_Hans": "高风险",
+      "fr": "RISQUE ÉLEVÉ",
+      "tr": "YÜKSEK RISK",
+      "ru": "ВЫСОКИЙ РИСК",
+      "de": "HOHES RISIKO",
+      "pt": "ALTO RISCO",
+      "it": "ALTO RISCHIO",
+      "id": "RISIKO TINGGI"
+    },
+    "analyzing_your_meal": {
+      "en": "Analyzing your meal...",
+      "vi": "Đang phân tích bữa ăn của bạn...",
+      "ja": "あなたの食事を分析しています...",
+      "ar": "جارٍ تحليل وجبتك...",
+      "hi": "आपके भोजन का विश्लेषण किया जा रहा है...",
+      "th": "กำลังวิเคราะห์มื้ออาหารของคุณ...",
+      "es": "Analizando tu comida...",
+      "ko": "식사를 분석하는 중...",
+      "zh_Hans": "正在分析您的餐食...",
+      "fr": "Analyse de votre repas...",
+      "tr": "Yemeğiniz analiz ediliyor...",
+      "ru": "Анализируем ваш прием пищи...",
+      "de": "Ihre Mahlzeit wird analysiert...",
+      "pt": "Analisando sua refeição...",
+      "it": "Analisi del tuo pasto...",
+      "id": "Menganalisis makanan Anda..."
+    },
+    "calculating_macros_and_safety_scores": {
+      "en": "Calculating macros and safety scores...",
+      "vi": "Đang tính toán macro và điểm an toàn...",
+      "ja": "マクロと安全スコアを計算しています...",
+      "ar": "جارٍ حساب الماكروز ودرجات الأمان...",
+      "hi": "मैक्रो और सुरक्षा स्कोर की गणना की जा रही है...",
+      "th": "กำลังคำนวณมาโครและคะแนนความปลอดภัย...",
+      "es": "Calculando macros y puntuaciones de seguridad...",
+      "ko": "매크로와 안전 점수를 계산하는 중...",
+      "zh_Hans": "正在计算宏量营养和安全评分...",
+      "fr": "Calcul des macros et des scores de sécurité...",
+      "tr": "Makrolar ve güvenlik puanları hesaplanıyor...",
+      "ru": "Расчет макросов и показателей безопасности...",
+      "de": "Makros und Sicherheitsbewertungen werden berechnet...",
+      "pt": "Calculando macros e pontuações de segurança...",
+      "it": "Calcolo dei macro e dei punteggi di sicurezza...",
+      "id": "Menghitung makro dan skor keamanan..."
+    },
+    "portion_size": {
+      "en": "Portion Size",
+      "vi": "Khẩu phần ăn",
+      "ja": "ポーションサイズ",
+      "ar": "حجم الحصة",
+      "hi": "परोसने का आकार",
+      "th": "ขนาดส่วนอาหาร",
+      "es": "Tamaño de la porción",
+      "ko": "1회 제공량",
+      "zh_Hans": "份量大小",
+      "fr": "Taille de portion",
+      "tr": "Porsiyon Boyutu",
+      "ru": "Размер порции",
+      "de": "Portionsgröße",
+      "pt": "Tamanho da porção",
+      "it": "Dimensione della porzione",
+      "id": "Ukuran porsi"
+    },
+    "diabetic_insights": {
+      "en": "Diabetic Insights",
+      "vi": "Thông Tin Tiểu Đường",
+      "ja": "糖尿病インサイト",
+      "ar": "رؤى مرض السكري",
+      "hi": "मधुमेह अंतर्दृष्टि",
+      "th": "ข้อมูลเชิงลึกโรคเบาหวาน",
+      "es": "Información Sobre Diabetes",
+      "ko": "당뇨병 인사이트",
+      "zh_Hans": "糖尿病洞察",
+      "fr": "Aperçus Sur Le Diabète",
+      "tr": "Diyabet İçgörüleri",
+      "ru": "Аналитика Диабета",
+      "de": "Diabetes Erkenntnisse",
+      "pt": "Insights Sobre Diabetes",
+      "it": "Approfondimenti Sul Diabete",
+      "id": "Wawasan Diabetes"
+    },
+    "cancel": {
+      "en": "Cancel",
+      "vi": "Hủy",
+      "ja": "キャンセル",
+      "ar": "إلغاء",
+      "hi": "रद्द करें",
+      "th": "ยกเลิก",
+      "es": "Cancelar",
+      "ko": "취소",
+      "zh_Hans": "取消",
+      "fr": "Annuler",
+      "tr": "İptal",
+      "ru": "Отмена",
+      "de": "Abbrechen",
+      "pt": "Cancelar",
+      "it": "Annulla",
+      "id": "Batal"
+    },
+    "discard": {
+      "en": "Discard",
+      "vi": "Hủy bỏ",
+      "ja": "破棄",
+      "ar": "تجاهل",
+      "hi": "त्यागें",
+      "th": "ยกเลิก",
+      "es": "Descartar",
+      "ko": "삭제",
+      "zh_Hans": "丢弃",
+      "fr": "Ignorer",
+      "tr": "Vazgeç",
+      "ru": "Отменить",
+      "de": "Verwerfen",
+      "pt": "Descartar",
+      "it": "Scarta",
+      "id": "Buang"
+    },
+    "log_this_meal": {
+      "en": "Log This Meal",
+      "vi": "Ghi Lại Bữa Ăn Này",
+      "ja": "この食事を記録",
+      "ar": "تسجيل هذه الوجبة",
+      "hi": "इस भोजन को लॉग करें",
+      "th": "บันทึกมื้อนี้",
+      "es": "Registrar Esta Comida",
+      "ko": "이 식사 기록하기",
+      "zh_Hans": "记录此餐",
+      "fr": "Enregistrer Ce Repas",
+      "tr": "Bu Öğünü Kaydet",
+      "ru": "Записать Этот Прием Пищи",
+      "de": "Diese Mahlzeit Protokollieren",
+      "pt": "Registrar Esta Refeição",
+      "it": "Registra Questo Pasto",
+      "id": "Catat Makanan Ini"
     }
   };
 
@@ -1312,4 +1744,183 @@ String? languagefuncation(
   // ============================================
   // print("❌ No translation found for: [$cleanedLang][$cleanedKey] - returning original text");
   return text;
+}
+
+String? convertImage(String? userImg) {
+  return userImg;
+}
+
+/// 0=createdattime
+/// 1=time only
+String? utcTimeConvert(
+  DateTime? dateTime,
+  int? type,
+) {
+  String newDateTime = dateTime!.toUtc().toUtc().toString();
+
+  String _twoDigits(int n) => n.toString().padLeft(2, '0');
+
+  return type == 0
+      ? newDateTime
+      : '${_twoDigits(dateTime.copyWith(isUtc: false).toUtc().hour)}:${_twoDigits(dateTime.copyWith(isUtc: false).toUtc().minute)}';
+}
+
+/// callType=0=original color
+/// callType=1= color opacity 10
+Color? returnProgressColor(
+  String? foodStatus,
+  List<InfoStruct>? configColorListDiabInsight,
+  int? callType,
+) {
+  Color baseColor = const Color(0xFF10B981);
+
+  if (foodStatus != null && configColorListDiabInsight != null) {
+    for (final item in configColorListDiabInsight) {
+      if (item.title.toLowerCase() == foodStatus.toLowerCase()) {
+        final colorString = item.color ?? '';
+
+        if (colorString.startsWith('0x')) {
+          baseColor = Color(int.parse(colorString));
+          break;
+        }
+      }
+    }
+  }
+
+  if (callType == 1) {
+    return baseColor.withOpacity(0.1);
+  }
+
+  return baseColor;
+}
+
+double? diabProgreeabar(int? daibScore) {
+  if (daibScore == null) return 0;
+
+  return (daibScore / 130).clamp(0.0, 1.0);
+}
+
+String? twoDayAgoDate() {
+  return DateFormat('MMM dd')
+      .format(DateTime.now().subtract(const Duration(days: 2)));
+}
+
+MealStruct? portionSizeNutritionCal(
+  MealStruct? mealInfo,
+  double? portionSize,
+) {
+  if (mealInfo == null || portionSize == null) return mealInfo;
+
+  MealStruct updatedMeal = MealStruct.fromMap(mealInfo.toMap());
+
+  updatedMeal.calories = (mealInfo.calories * portionSize).round();
+  updatedMeal.protein = (mealInfo.protein * portionSize).round();
+  updatedMeal.carbs = (mealInfo.carbs * portionSize).round();
+  updatedMeal.fat = (mealInfo.fat * portionSize).round();
+  updatedMeal.sugar = (mealInfo.sugar * portionSize).round();
+
+  return updatedMeal;
+}
+
+MealStruct? returnActualPotionSize(
+  MealStruct? mealInfo,
+  double? portionSize,
+) {
+  if (mealInfo == null || portionSize == null || portionSize == 0) {
+    return mealInfo;
+  }
+
+  double factor = 1 / portionSize;
+
+  int scale(num value) => (value * factor).round();
+
+  MealStruct updatedMeal = MealStruct.fromMap(mealInfo.toMap());
+
+  updatedMeal.protein = scale(mealInfo.protein);
+  updatedMeal.carbs = scale(mealInfo.carbs);
+  updatedMeal.sugar = scale(mealInfo.sugar);
+  updatedMeal.fat = scale(mealInfo.fat);
+  updatedMeal.calories = scale(mealInfo.calories);
+
+  return updatedMeal;
+}
+
+String? formatDateTime(
+  String? dataBaseTime,
+  int? calltype,
+) {
+// calltype==0	Oct 13, 07:30 PM
+// calltype==1	8:30 AM
+  if (dataBaseTime == null || dataBaseTime.isEmpty) return null;
+
+  DateTime utcTime = DateTime.parse(dataBaseTime);
+  DateTime localTime = utcTime.toLocal();
+
+  DateTime now = DateTime.now();
+  DateTime yesterday = now.subtract(const Duration(days: 1));
+
+  // format time
+  int hour = localTime.hour;
+  String period = hour >= 12 ? 'PM' : 'AM';
+
+  if (hour > 12) hour -= 12;
+  if (hour == 0) hour = 12;
+
+  String minute = localTime.minute.toString().padLeft(2, '0');
+  String time = "$hour:$minute $period";
+
+  // If only time required
+  if (calltype == 1) {
+    return time;
+  }
+
+  bool isToday = localTime.year == now.year &&
+      localTime.month == now.month &&
+      localTime.day == now.day;
+
+  bool isYesterday = localTime.year == yesterday.year &&
+      localTime.month == yesterday.month &&
+      localTime.day == yesterday.day;
+
+  if (isToday) {
+    return "Today, $time";
+  } else if (isYesterday) {
+    return "Yesterday, $time";
+  } else {
+    const months = [
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec'
+    ];
+
+    String month = months[localTime.month - 1];
+    return "$month ${localTime.day}, $time";
+  }
+}
+
+List<MealStruct>? filterMeal(List<MealStruct>? mealInformation) {
+  if (mealInformation == null || mealInformation.isEmpty)
+    return mealInformation;
+
+  DateTime now = DateTime.now();
+
+  return mealInformation.where((meal) {
+    if (!meal.hasMealDate()) return false;
+
+    DateTime utcTime = DateTime.parse(meal.mealDate);
+    DateTime localTime = utcTime.toLocal();
+
+    return localTime.year == now.year &&
+        localTime.month == now.month &&
+        localTime.day == now.day;
+  }).toList();
 }

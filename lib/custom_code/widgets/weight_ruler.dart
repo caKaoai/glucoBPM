@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 // Begin custom widget code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
-import 'package:gluco_b_p_m/custom_code/widgets/age_ruler.dart';
+import 'package:gluco_pal/custom_code/widgets/age_ruler.dart';
 import 'package:flutter/services.dart';
 
 class WeightRuler extends StatefulWidget {

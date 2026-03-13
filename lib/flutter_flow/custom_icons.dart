@@ -7,14 +7,12 @@ class FFIcons {
   static const String _icon1Family = 'Icon1';
   static const String _settingFamily = 'Setting';
   static const String _peopleFamily = 'People';
-  static const String _profileFamily = 'Profile';
-  static const String _icon2Family = 'Icon2';
-  static const String _footFamily = 'Foot';
-  static const String _playbackFamily = 'Playback';
   static const String _ic1Family = 'Ic1';
   static const String _ic2Family = 'Ic2';
   static const String _ic3Family = 'Ic3';
   static const String _ic4Family = 'Ic4';
+  static const String _ic5Family = 'Ic5';
+  static const String _ic6Family = 'Ic6';
 
   // navicon
   static const IconData kclipboard =
@@ -50,26 +48,6 @@ class FFIcons {
 
   // people
   static const IconData kpeople = IconData(0xe900, fontFamily: _peopleFamily);
-
-  // profile
-  static const IconData kold = IconData(0xe900, fontFamily: _profileFamily);
-  static const IconData kheight = IconData(0xe901, fontFamily: _profileFamily);
-  static const IconData kgenders = IconData(0xe902, fontFamily: _profileFamily);
-  static const IconData kweights = IconData(0xe903, fontFamily: _profileFamily);
-
-  // icon2
-  static const IconData kthermometer =
-      IconData(0xe900, fontFamily: _icon2Family);
-  static const IconData kdailyHealthApp =
-      IconData(0xe901, fontFamily: _icon2Family);
-
-  // foot
-  static const IconData kfootsteps = IconData(0xe900, fontFamily: _footFamily);
-
-  // playback
-  static const IconData kprevious =
-      IconData(0xe900, fontFamily: _playbackFamily);
-  static const IconData knext = IconData(0xe901, fontFamily: _playbackFamily);
 
   // IC1
   static const IconData kicon4 = IconData(0xe900, fontFamily: _ic1Family);
@@ -109,4 +87,11 @@ class FFIcons {
 
   // IC4
   static const IconData kiI1 = IconData(0xe900, fontFamily: _ic4Family);
+
+  // IC5
+  static const IconData kiI21 = IconData(0xe900, fontFamily: _ic5Family);
+  static const IconData kiI22 = IconData(0xe901, fontFamily: _ic5Family);
+
+  // IC6
+  static const IconData kdonee = IconData(0xe900, fontFamily: _ic6Family);
 }

@@ -1,4 +1,5 @@
 import '/auth/supabase_auth/auth_util.dart';
+import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -6,6 +7,7 @@ import '/actions/actions.dart' as action_blocks;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -22,10 +24,13 @@ class LogInWidget extends StatefulWidget {
   State<LogInWidget> createState() => _LogInWidgetState();
 }
 
-class _LogInWidgetState extends State<LogInWidget> {
+class _LogInWidgetState extends State<LogInWidget>
+    with TickerProviderStateMixin {
   late LogInModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  final animationsMap = <String, AnimationInfo>{};
 
   @override
   void initState() {
@@ -34,6 +39,21 @@ class _LogInWidgetState extends State<LogInWidget> {
 
     _model.textController ??= TextEditingController();
     _model.textFieldFocusNode ??= FocusNode();
+
+    animationsMap.addAll({
+      'columnOnPageLoadAnimation': AnimationInfo(
+        trigger: AnimationTrigger.onPageLoad,
+        effectsBuilder: () => [
+          FadeEffect(
+            curve: Curves.easeOut,
+            delay: 120.0.ms,
+            duration: 600.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+        ],
+      ),
+    });
   }
 
   @override
@@ -155,123 +175,129 @@ class _LogInWidgetState extends State<LogInWidget> {
                           ),
                         ),
                       ),
-                      Text(
-                        FFLocalizations.of(context).getText(
-                          '3ruqx7uw' /* Full Name */,
-                        ),
-                        style: FlutterFlowTheme.of(context).bodyMedium.override(
-                              fontFamily:
-                                  FlutterFlowTheme.of(context).bodyMediumFamily,
-                              color: FlutterFlowTheme.of(context).secondaryText,
-                              fontSize: 11.0,
-                              letterSpacing: 1.1,
-                              fontWeight: FontWeight.bold,
-                              useGoogleFonts: !FlutterFlowTheme.of(context)
-                                  .bodyMediumIsCustom,
-                            ),
-                      ),
-                      Padding(
-                        padding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 60.0),
-                        child: Container(
-                          width: double.infinity,
-                          child: TextFormField(
-                            controller: _model.textController,
-                            focusNode: _model.textFieldFocusNode,
-                            autofocus: false,
-                            enabled: true,
-                            obscureText: false,
-                            decoration: InputDecoration(
-                              isDense: false,
-                              labelStyle: FlutterFlowTheme.of(context)
-                                  .labelMedium
-                                  .override(
-                                    fontFamily: FlutterFlowTheme.of(context)
-                                        .labelMediumFamily,
-                                    letterSpacing: 0.0,
-                                    useGoogleFonts:
-                                        !FlutterFlowTheme.of(context)
-                                            .labelMediumIsCustom,
-                                  ),
-                              hintText: FFLocalizations.of(context).getText(
-                                '19z0lruv' /* Enter your full name */,
+                      if (false)
+                        Text(
+                          FFLocalizations.of(context).getText(
+                            '3ruqx7uw' /* Full Name */,
+                          ),
+                          style: FlutterFlowTheme.of(context)
+                              .bodyMedium
+                              .override(
+                                fontFamily: FlutterFlowTheme.of(context)
+                                    .bodyMediumFamily,
+                                color:
+                                    FlutterFlowTheme.of(context).secondaryText,
+                                fontSize: 11.0,
+                                letterSpacing: 1.1,
+                                fontWeight: FontWeight.bold,
+                                useGoogleFonts: !FlutterFlowTheme.of(context)
+                                    .bodyMediumIsCustom,
                               ),
-                              hintStyle: FlutterFlowTheme.of(context)
-                                  .labelMedium
+                        ),
+                      if (false)
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              0.0, 8.0, 0.0, 60.0),
+                          child: Container(
+                            width: double.infinity,
+                            child: TextFormField(
+                              controller: _model.textController,
+                              focusNode: _model.textFieldFocusNode,
+                              autofocus: false,
+                              enabled: true,
+                              obscureText: false,
+                              decoration: InputDecoration(
+                                isDense: false,
+                                labelStyle: FlutterFlowTheme.of(context)
+                                    .labelMedium
+                                    .override(
+                                      fontFamily: FlutterFlowTheme.of(context)
+                                          .labelMediumFamily,
+                                      letterSpacing: 0.0,
+                                      useGoogleFonts:
+                                          !FlutterFlowTheme.of(context)
+                                              .labelMediumIsCustom,
+                                    ),
+                                hintText: FFLocalizations.of(context).getText(
+                                  '19z0lruv' /* Enter your full name */,
+                                ),
+                                hintStyle: FlutterFlowTheme.of(context)
+                                    .labelMedium
+                                    .override(
+                                      fontFamily: FlutterFlowTheme.of(context)
+                                          .labelMediumFamily,
+                                      color: FlutterFlowTheme.of(context).text1,
+                                      fontSize: 16.0,
+                                      letterSpacing: 0.0,
+                                      useGoogleFonts:
+                                          !FlutterFlowTheme.of(context)
+                                              .labelMediumIsCustom,
+                                    ),
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Color(0xFFE2E8F0),
+                                    width: 1.0,
+                                  ),
+                                  borderRadius: BorderRadius.circular(16.0),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Color(0xFFE2E8F0),
+                                    width: 1.0,
+                                  ),
+                                  borderRadius: BorderRadius.circular(16.0),
+                                ),
+                                errorBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: FlutterFlowTheme.of(context).error,
+                                    width: 1.0,
+                                  ),
+                                  borderRadius: BorderRadius.circular(16.0),
+                                ),
+                                focusedErrorBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: FlutterFlowTheme.of(context).error,
+                                    width: 1.0,
+                                  ),
+                                  borderRadius: BorderRadius.circular(16.0),
+                                ),
+                                filled: true,
+                                fillColor: FlutterFlowTheme.of(context)
+                                    .secondaryBackground,
+                              ),
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
                                   .override(
                                     fontFamily: FlutterFlowTheme.of(context)
-                                        .labelMediumFamily,
-                                    color: FlutterFlowTheme.of(context).text1,
+                                        .bodyMediumFamily,
+                                    color: FlutterFlowTheme.of(context)
+                                        .secondaryText,
                                     fontSize: 16.0,
                                     letterSpacing: 0.0,
+                                    fontWeight: FontWeight.w500,
                                     useGoogleFonts:
                                         !FlutterFlowTheme.of(context)
-                                            .labelMediumIsCustom,
+                                            .bodyMediumIsCustom,
                                   ),
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: Color(0xFFE2E8F0),
-                                  width: 1.0,
-                                ),
-                                borderRadius: BorderRadius.circular(16.0),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: Color(0xFFE2E8F0),
-                                  width: 1.0,
-                                ),
-                                borderRadius: BorderRadius.circular(16.0),
-                              ),
-                              errorBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: FlutterFlowTheme.of(context).error,
-                                  width: 1.0,
-                                ),
-                                borderRadius: BorderRadius.circular(16.0),
-                              ),
-                              focusedErrorBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: FlutterFlowTheme.of(context).error,
-                                  width: 1.0,
-                                ),
-                                borderRadius: BorderRadius.circular(16.0),
-                              ),
-                              filled: true,
-                              fillColor: FlutterFlowTheme.of(context)
-                                  .secondaryBackground,
+                              cursorColor:
+                                  FlutterFlowTheme.of(context).primaryText,
+                              enableInteractiveSelection: true,
+                              validator: _model.textControllerValidator
+                                  .asValidator(context),
                             ),
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                                  fontFamily: FlutterFlowTheme.of(context)
-                                      .bodyMediumFamily,
-                                  color: FlutterFlowTheme.of(context)
-                                      .secondaryText,
-                                  fontSize: 16.0,
-                                  letterSpacing: 0.0,
-                                  fontWeight: FontWeight.w500,
-                                  useGoogleFonts: !FlutterFlowTheme.of(context)
-                                      .bodyMediumIsCustom,
-                                ),
-                            cursorColor:
-                                FlutterFlowTheme.of(context).primaryText,
-                            enableInteractiveSelection: true,
-                            validator: _model.textControllerValidator
-                                .asValidator(context),
                           ),
                         ),
-                      ),
                       Padding(
                         padding:
                             EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 14.0),
                         child: Stack(
+                          alignment: AlignmentDirectional(-1.0, 0.0),
                           children: [
                             Container(
                               width: double.infinity,
                               height: 60.0,
                               decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context)
-                                    .secondaryBackground,
+                                color: FlutterFlowTheme.of(context).secondary,
                                 boxShadow: [
                                   BoxShadow(
                                     blurRadius: 2.0,
@@ -286,39 +312,63 @@ class _LogInWidgetState extends State<LogInWidget> {
                                 borderRadius: BorderRadius.circular(100.0),
                               ),
                             ),
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  25.0, 0.0, 25.0, 0.0),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Align(
+                                    alignment: AlignmentDirectional(-0.55, 0.0),
+                                    child: Image.asset(
+                                      'assets/images/google.png',
+                                      width: 22.2,
+                                      height: 23.1,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                  Text(
+                                    FFLocalizations.of(context).getText(
+                                      '8ldmiv4k' /* Sign up with Google */,
+                                    ),
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyMediumFamily,
+                                          color: Color(0xFF1E293B),
+                                          letterSpacing: 0.0,
+                                          fontWeight: FontWeight.w600,
+                                          useGoogleFonts:
+                                              !FlutterFlowTheme.of(context)
+                                                  .bodyMediumIsCustom,
+                                        ),
+                                  ),
+                                ].divide(SizedBox(width: 12.0)),
+                              ),
+                            ),
                             Align(
                               alignment: AlignmentDirectional(0.0, 0.0),
                               child: FFButtonWidget(
                                 onPressed: () async {
-                                  await Future.wait([
-                                    Future(() async {
-                                      HapticFeedback.lightImpact();
-                                    }),
-                                    Future(() async {
-                                      if (_model.formKey.currentState == null ||
-                                          !_model.formKey.currentState!
-                                              .validate()) {
-                                        return;
-                                      }
-                                    }),
-                                  ]);
+                                  HapticFeedback.lightImpact();
+                                  if (_model.formKey.currentState == null ||
+                                      !_model.formKey.currentState!
+                                          .validate()) {
+                                    return;
+                                  }
                                   GoRouter.of(context).prepareAuthEvent();
                                   final user = await authManager
                                       .signInWithGoogle(context);
                                   if (user == null) {
                                     return;
                                   }
-                                  await action_blocks.auth(
-                                    context,
-                                    userName: _model.textController.text,
-                                  );
+                                  await action_blocks.auth(context);
                                 },
                                 text: FFLocalizations.of(context).getText(
-                                  '7bdr8u78' /* Sign up with Google */,
-                                ),
-                                icon: FaIcon(
-                                  FontAwesomeIcons.google,
-                                  size: 24.0,
+                                  '7bdr8u78' /*  */,
                                 ),
                                 options: FFButtonOptions(
                                   width: double.infinity,
@@ -327,14 +377,14 @@ class _LogInWidgetState extends State<LogInWidget> {
                                       16.0, 0.0, 16.0, 0.0),
                                   iconPadding: EdgeInsetsDirectional.fromSTEB(
                                       0.0, 0.0, 0.0, 0.0),
-                                  color: FlutterFlowTheme.of(context).secondary,
+                                  color: Colors.transparent,
                                   textStyle: FlutterFlowTheme.of(context)
                                       .titleSmall
                                       .override(
                                         fontFamily: FlutterFlowTheme.of(context)
                                             .titleSmallFamily,
                                         color: Color(0xFF1E293B),
-                                        fontSize: 14.0,
+                                        fontSize: 0.0,
                                         letterSpacing: 0.0,
                                         useGoogleFonts:
                                             !FlutterFlowTheme.of(context)
@@ -374,29 +424,19 @@ class _LogInWidgetState extends State<LogInWidget> {
                               ? Container()
                               : FFButtonWidget(
                                   onPressed: () async {
-                                    await Future.wait([
-                                      Future(() async {
-                                        HapticFeedback.lightImpact();
-                                      }),
-                                      Future(() async {
-                                        if (_model.formKey.currentState ==
-                                                null ||
-                                            !_model.formKey.currentState!
-                                                .validate()) {
-                                          return;
-                                        }
-                                      }),
-                                    ]);
+                                    HapticFeedback.lightImpact();
+                                    if (_model.formKey.currentState == null ||
+                                        !_model.formKey.currentState!
+                                            .validate()) {
+                                      return;
+                                    }
                                     GoRouter.of(context).prepareAuthEvent();
                                     final user = await authManager
                                         .signInWithApple(context);
                                     if (user == null) {
                                       return;
                                     }
-                                    await action_blocks.auth(
-                                      context,
-                                      userName: _model.textController.text,
-                                    );
+                                    await action_blocks.auth(context);
                                   },
                                   text: FFLocalizations.of(context).getText(
                                     'k7xjshgr' /* Sign up with Apple */,
@@ -437,14 +477,19 @@ class _LogInWidgetState extends State<LogInWidget> {
                         alignment: AlignmentDirectional(0.0, 0.0),
                         child: Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
-                              0.0, 70.0, 0.0, 0.0),
+                              15.0, 70.0, 15.0, 0.0),
                           child: RichText(
                             textScaler: MediaQuery.of(context).textScaler,
                             text: TextSpan(
                               children: [
                                 TextSpan(
-                                  text: FFLocalizations.of(context).getText(
-                                    's0n7cx0u' /* By continuing, you agree to ou... */,
+                                  text: valueOrDefault<String>(
+                                    functions.languagefuncation(
+                                        'agree_to_terms_prefix',
+                                        FFLocalizations.of(context)
+                                            .languageCode,
+                                        FFAppState().translationsCSV),
+                                    'By continuing, you agree to our  ',
                                   ),
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
@@ -472,8 +517,13 @@ class _LogInWidgetState extends State<LogInWidget> {
                                       ),
                                 ),
                                 TextSpan(
-                                  text: FFLocalizations.of(context).getText(
-                                    'q2xgubv7' /* Terms of Service  */,
+                                  text: valueOrDefault<String>(
+                                    functions.languagefuncation(
+                                        'terms_of_service',
+                                        FFLocalizations.of(context)
+                                            .languageCode,
+                                        FFAppState().translationsCSV),
+                                    'Terms of Service ',
                                   ),
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
@@ -490,9 +540,14 @@ class _LogInWidgetState extends State<LogInWidget> {
                                       ),
                                 ),
                                 TextSpan(
-                                  text: FFLocalizations.of(context).getText(
-                                    'xmwjsji3' /*  and  */,
-                                  ),
+                                  text: ' ${valueOrDefault<String>(
+                                    functions.languagefuncation(
+                                        'and',
+                                        FFLocalizations.of(context)
+                                            .languageCode,
+                                        FFAppState().translationsCSV),
+                                    'and',
+                                  )} ',
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
@@ -508,10 +563,13 @@ class _LogInWidgetState extends State<LogInWidget> {
                                       ),
                                 ),
                                 TextSpan(
-                                  text: FFLocalizations.of(context).getText(
-                                    'mb1whdtt' /* 
-Privacy Policy. */
-                                    ,
+                                  text: valueOrDefault<String>(
+                                    functions.languagefuncation(
+                                        'privacy_policy',
+                                        FFLocalizations.of(context)
+                                            .languageCode,
+                                        FFAppState().translationsCSV),
+                                    'Privacy Policy',
                                   ),
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
@@ -545,7 +603,8 @@ Privacy Policy. */
                       ),
                     ],
                   ),
-                ),
+                ).animateOnPageLoad(
+                    animationsMap['columnOnPageLoadAnimation']!),
               ),
             ),
           ),

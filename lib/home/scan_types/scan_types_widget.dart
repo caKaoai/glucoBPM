@@ -2,7 +2,9 @@ import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
+import '/index.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -122,91 +124,130 @@ class _ScanTypesWidgetState extends State<ScanTypesWidget>
                           itemCount: scnType.length,
                           itemBuilder: (context, scnTypeIndex) {
                             final scnTypeItem = scnType[scnTypeIndex];
-                            return Container(
-                              width: 153.0,
-                              height: 153.0,
-                              decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context)
-                                    .secondaryBackground,
-                                boxShadow: [
-                                  BoxShadow(
-                                    blurRadius: 12.0,
-                                    color: Color(0x15C8C6C6),
-                                    offset: Offset(
-                                      0.0,
-                                      4.0,
-                                    ),
-                                    spreadRadius: 0.0,
-                                  )
-                                ],
-                                borderRadius: BorderRadius.circular(40.0),
-                              ),
-                              child: Padding(
-                                padding: EdgeInsets.all(25.0),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Container(
-                                      width: 64.0,
-                                      height: 64.0,
-                                      decoration: BoxDecoration(
-                                        color: Color(0xFFFFE5EB),
-                                        boxShadow: [
-                                          BoxShadow(
-                                            blurRadius: 4.0,
-                                            color: Color(0x1A000000),
-                                            offset: Offset(
-                                              0.0,
-                                              6.0,
-                                            ),
-                                          )
-                                        ],
-                                        shape: BoxShape.circle,
+                            return InkWell(
+                              splashColor: Colors.transparent,
+                              focusColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              onTap: () async {
+                                HapticFeedback.heavyImpact();
+                                if (scnTypeItem.title == 'scan_food') {
+                                  _model.uploadImage =
+                                      await actions.customCamera(
+                                    context,
+                                  );
+                                  if (_model.uploadImage != null &&
+                                      _model.uploadImage != '') {
+                                    context.safePop();
+
+                                    context.pushNamed(
+                                      AnalyzeFoodWidget.routeName,
+                                      queryParameters: {
+                                        'image': serializeParam(
+                                          _model.uploadImage,
+                                          ParamType.String,
+                                        ),
+                                      }.withoutNulls,
+                                      extra: <String, dynamic>{
+                                        '__transition_info__': TransitionInfo(
+                                          hasTransition: true,
+                                          transitionType:
+                                              PageTransitionType.fade,
+                                          duration: Duration(milliseconds: 0),
+                                        ),
+                                      },
+                                    );
+                                  }
+                                }
+
+                                safeSetState(() {});
+                              },
+                              child: Container(
+                                width: 153.0,
+                                height: 153.0,
+                                decoration: BoxDecoration(
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryBackground,
+                                  boxShadow: [
+                                    BoxShadow(
+                                      blurRadius: 12.0,
+                                      color: Color(0x15C8C6C6),
+                                      offset: Offset(
+                                        0.0,
+                                        4.0,
                                       ),
-                                      child: Padding(
-                                        padding: EdgeInsets.all(4.0),
-                                        child: Container(
-                                          width: 200.0,
-                                          height: 200.0,
-                                          clipBehavior: Clip.antiAlias,
-                                          decoration: BoxDecoration(
-                                            shape: BoxShape.circle,
-                                          ),
-                                          child: CachedNetworkImage(
-                                            fadeInDuration:
-                                                Duration(milliseconds: 300),
-                                            fadeOutDuration:
-                                                Duration(milliseconds: 300),
-                                            imageUrl: scnTypeItem.image,
-                                            fit: BoxFit.cover,
+                                      spreadRadius: 0.0,
+                                    )
+                                  ],
+                                  borderRadius: BorderRadius.circular(40.0),
+                                ),
+                                child: Padding(
+                                  padding: EdgeInsets.all(25.0),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      Container(
+                                        width: 64.0,
+                                        height: 64.0,
+                                        decoration: BoxDecoration(
+                                          color: Color(0xFFFFE5EB),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              blurRadius: 4.0,
+                                              color: Color(0x1A000000),
+                                              offset: Offset(
+                                                0.0,
+                                                6.0,
+                                              ),
+                                            )
+                                          ],
+                                          shape: BoxShape.circle,
+                                        ),
+                                        child: Padding(
+                                          padding: EdgeInsets.all(4.0),
+                                          child: Container(
+                                            width: 200.0,
+                                            height: 200.0,
+                                            clipBehavior: Clip.antiAlias,
+                                            decoration: BoxDecoration(
+                                              shape: BoxShape.circle,
+                                            ),
+                                            child: CachedNetworkImage(
+                                              fadeInDuration:
+                                                  Duration(milliseconds: 300),
+                                              fadeOutDuration:
+                                                  Duration(milliseconds: 300),
+                                              imageUrl: scnTypeItem.image,
+                                              fit: BoxFit.cover,
+                                            ),
                                           ),
                                         ),
                                       ),
-                                    ),
-                                    Text(
-                                      valueOrDefault<String>(
-                                        functions.languagefuncation(
-                                            scnTypeItem.title,
-                                            FFLocalizations.of(context)
-                                                .languageCode,
-                                            FFAppState().translationsCSV),
-                                        'SCAN FOOD',
+                                      Text(
+                                        valueOrDefault<String>(
+                                          functions.languagefuncation(
+                                              scnTypeItem.title,
+                                              FFLocalizations.of(context)
+                                                  .languageCode,
+                                              FFAppState().translationsCSV),
+                                          'SCAN FOOD',
+                                        ),
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMediumFamily,
+                                              fontSize: 13.0,
+                                              letterSpacing: 0.65,
+                                              fontWeight: FontWeight.w800,
+                                              useGoogleFonts:
+                                                  !FlutterFlowTheme.of(context)
+                                                      .bodyMediumIsCustom,
+                                            ),
                                       ),
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyMediumFamily,
-                                            fontSize: 13.0,
-                                            letterSpacing: 0.65,
-                                            fontWeight: FontWeight.w800,
-                                            useGoogleFonts:
-                                                !FlutterFlowTheme.of(context)
-                                                    .bodyMediumIsCustom,
-                                          ),
-                                    ),
-                                  ].divide(SizedBox(height: 14.0)),
+                                    ].divide(SizedBox(height: 14.0)),
+                                  ),
                                 ),
                               ),
                             );

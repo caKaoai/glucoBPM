@@ -412,6 +412,10 @@ class _PrimaryGoalPageWidgetState extends State<PrimaryGoalPageWidget> {
                               );
                             } else if (_model.pageViewCurrentIndex == 2) {
                               return FFButtonWidget(
+                                key: ValueKey(FFAppState()
+                                    .HealthPermission
+                                    .steps
+                                    .toString()),
                                 onPressed: () async {
                                   HapticFeedback.heavyImpact();
                                   if (!FFAppState().HealthPermission.steps) {

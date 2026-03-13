@@ -1,6 +1,6 @@
 NSCameraUsageDescription = "कैमरे को भोजन की तस्वीर लेने दें और पोषण संबंधी जानकारी देखें।";
-NSMicrophoneUsageDescription = "यह ऐप ऑडियो रिकॉर्ड नहीं करता है। इसमें माइक्रोफ़ोन का उपयोग नहीं किया जाता है।";
 NSPhotoLibraryUsageDescription = "गैलरी को भोजन की तस्वीर खींचने या चुनने और पोषण संबंधी जानकारी देखने की अनुमति दें।";
+NSMicrophoneUsageDescription = "यह ऐप ऑडियो रिकॉर्ड नहीं करता है। इसमें माइक्रोफ़ोन का उपयोग नहीं किया जाता है।";
 NSHealthShareUsageDescriptionActiveEnergyBurned = "अपनी ऊर्जा खपत पर नज़र रखने के लिए शारीरिक गतिविधियों के दौरान खर्च की गई सक्रिय कैलोरी को ट्रैक करें।";
 NSHealthShareUsageDescriptionBloodGlucose = "अपने मधुमेह को नियंत्रित करने और स्वस्थ रक्त शर्करा स्तर बनाए रखने के लिए अपने रक्त शर्करा के स्तर की निगरानी करें।";
 NSHealthShareUsageDescriptionBloodPressureSystolic = "अपने हृदय संबंधी स्वास्थ्य पर नज़र रखने के लिए अपने सिस्टोलिक रक्तचाप की निगरानी करें।";

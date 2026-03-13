@@ -1,10 +1,12 @@
 import '/auth/nav/nav_widget.dart';
+import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/home/scan_types/scan_types_widget.dart';
 import '/custom_code/widgets/index.dart' as custom_widgets;
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
+import 'package:flutter_animate/flutter_animate.dart';
+import 'package:provider/provider.dart';
 import 'home_page_model.dart';
 export 'home_page_model.dart';
 
@@ -18,19 +20,32 @@ class HomePageWidget extends StatefulWidget {
   State<HomePageWidget> createState() => _HomePageWidgetState();
 }
 
-class _HomePageWidgetState extends State<HomePageWidget> {
+class _HomePageWidgetState extends State<HomePageWidget>
+    with TickerProviderStateMixin {
   late HomePageModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  final animationsMap = <String, AnimationInfo>{};
 
   @override
   void initState() {
     super.initState();
     _model = createModel(context, () => HomePageModel());
 
-    // On page load action.
-    SchedulerBinding.instance.addPostFrameCallback((_) async {
-      setAppLanguage(context, 'en');
+    animationsMap.addAll({
+      'columnOnPageLoadAnimation': AnimationInfo(
+        trigger: AnimationTrigger.onPageLoad,
+        effectsBuilder: () => [
+          FadeEffect(
+            curve: Curves.easeOut,
+            delay: 120.0.ms,
+            duration: 600.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+        ],
+      ),
     });
   }
 
@@ -43,6 +58,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -126,9 +143,10 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                               ),
                         ),
                         Text(
-                          FFLocalizations.of(context).getText(
-                            '1vhoqbvj' /* Hi, Alex */,
-                          ),
+                          'Hi, ${valueOrDefault<String>(
+                            FFAppState().userData.name,
+                            'Alex',
+                          )}',
                           style: FlutterFlowTheme.of(context)
                               .bodyMedium
                               .override(
@@ -201,7 +219,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                           EdgeInsetsDirectional.fromSTEB(24.0, 15.0, 24.0, 0.0),
                       child: Container(
                         width: double.infinity,
-                        height: 378.0,
                         decoration: BoxDecoration(
                           color: Color(0xFFFAFBFD),
                           boxShadow: [
@@ -1314,7 +1331,7 @@ PRESSURE */
               ),
             ),
           ],
-        ),
+        ).animateOnPageLoad(animationsMap['columnOnPageLoadAnimation']!),
       ),
     );
   }

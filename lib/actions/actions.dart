@@ -74,10 +74,7 @@ Future config(BuildContext context) async {
   }
 }
 
-Future auth(
-  BuildContext context, {
-  String? userName,
-}) async {
+Future auth(BuildContext context) async {
   await Future.delayed(
     Duration(
       milliseconds: 3000,
@@ -92,7 +89,6 @@ Future auth(
       'heightUnit': FFAppState().userData.heightUnit,
       'weightUnit': FFAppState().userData.weightUnit,
       'emi': FFAppState().userData.emi,
-      'name': userName,
       'ipAddress': FFAppState().userData.ipAddress,
       'country': FFAppState().userData.country,
       'goal': FFAppState().userData.goal,
@@ -120,4 +116,23 @@ Future auth(
       ),
     },
   );
+}
+
+Future mealGet(BuildContext context) async {
+  ApiCallResponse? getMealInfo;
+
+  getMealInfo = await MealGroup.getMealInfoCall.call(
+    id: currentUserUid,
+  );
+
+  if ((getMealInfo.succeeded ?? true)) {
+    FFAppState().MealInfo = ((getMealInfo.jsonBody ?? '')
+            .toList()
+            .map<MealStruct?>(MealStruct.maybeFromMap)
+            .toList() as Iterable<MealStruct?>)
+        .withoutNulls
+        .toList()
+        .cast<MealStruct>();
+    FFAppState().update(() {});
+  }
 }

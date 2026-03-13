@@ -10,9 +10,13 @@ class InfoStruct extends BaseStruct {
     String? title,
     String? description,
     String? image,
+    String? ranking,
+    String? color,
   })  : _title = title,
         _description = description,
-        _image = image;
+        _image = image,
+        _ranking = ranking,
+        _color = color;
 
   // "title" field.
   String? _title;
@@ -35,10 +39,26 @@ class InfoStruct extends BaseStruct {
 
   bool hasImage() => _image != null;
 
+  // "ranking" field.
+  String? _ranking;
+  String get ranking => _ranking ?? '';
+  set ranking(String? val) => _ranking = val;
+
+  bool hasRanking() => _ranking != null;
+
+  // "color" field.
+  String? _color;
+  String get color => _color ?? '';
+  set color(String? val) => _color = val;
+
+  bool hasColor() => _color != null;
+
   static InfoStruct fromMap(Map<String, dynamic> data) => InfoStruct(
         title: data['title'] as String?,
         description: data['description'] as String?,
         image: data['image'] as String?,
+        ranking: data['ranking'] as String?,
+        color: data['color'] as String?,
       );
 
   static InfoStruct? maybeFromMap(dynamic data) =>
@@ -48,6 +68,8 @@ class InfoStruct extends BaseStruct {
         'title': _title,
         'description': _description,
         'image': _image,
+        'ranking': _ranking,
+        'color': _color,
       }.withoutNulls;
 
   @override
@@ -62,6 +84,14 @@ class InfoStruct extends BaseStruct {
         ),
         'image': serializeParam(
           _image,
+          ParamType.String,
+        ),
+        'ranking': serializeParam(
+          _ranking,
+          ParamType.String,
+        ),
+        'color': serializeParam(
+          _color,
           ParamType.String,
         ),
       }.withoutNulls;
@@ -83,6 +113,16 @@ class InfoStruct extends BaseStruct {
           ParamType.String,
           false,
         ),
+        ranking: deserializeParam(
+          data['ranking'],
+          ParamType.String,
+          false,
+        ),
+        color: deserializeParam(
+          data['color'],
+          ParamType.String,
+          false,
+        ),
       );
 
   @override
@@ -93,20 +133,27 @@ class InfoStruct extends BaseStruct {
     return other is InfoStruct &&
         title == other.title &&
         description == other.description &&
-        image == other.image;
+        image == other.image &&
+        ranking == other.ranking &&
+        color == other.color;
   }
 
   @override
-  int get hashCode => const ListEquality().hash([title, description, image]);
+  int get hashCode =>
+      const ListEquality().hash([title, description, image, ranking, color]);
 }
 
 InfoStruct createInfoStruct({
   String? title,
   String? description,
   String? image,
+  String? ranking,
+  String? color,
 }) =>
     InfoStruct(
       title: title,
       description: description,
       image: image,
+      ranking: ranking,
+      color: color,
     );

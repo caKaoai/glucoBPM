@@ -198,7 +198,7 @@ class _LogoutWidgetState extends State<LogoutWidget>
                           borderSide: BorderSide(
                             color: FlutterFlowTheme.of(context).primary,
                           ),
-                          borderRadius: BorderRadius.circular(12.0),
+                          borderRadius: BorderRadius.circular(100.0),
                         ),
                       ),
                     ),
@@ -259,7 +259,7 @@ class _LogoutWidgetState extends State<LogoutWidget>
                                     .titleSmallIsCustom,
                               ),
                           elevation: 0.0,
-                          borderRadius: BorderRadius.circular(12.0),
+                          borderRadius: BorderRadius.circular(100.0),
                         ),
                       ),
                     ),

@@ -11,11 +11,19 @@ class ConfigStruct extends BaseStruct {
     String? policy,
     int? translationTableVersion,
     List<InfoStruct>? scanTypeImages,
+
+    /// only 2 field use color and name
+    List<InfoStruct>? diabeticInsightColor,
+    int? recentMealCount,
+    List<String>? mealTime,
   })  : _id = id,
         _onboardingGoalText = onboardingGoalText,
         _policy = policy,
         _translationTableVersion = translationTableVersion,
-        _scanTypeImages = scanTypeImages;
+        _scanTypeImages = scanTypeImages,
+        _diabeticInsightColor = diabeticInsightColor,
+        _recentMealCount = recentMealCount,
+        _mealTime = mealTime;
 
   // "id" field.
   int? _id;
@@ -65,6 +73,40 @@ class ConfigStruct extends BaseStruct {
 
   bool hasScanTypeImages() => _scanTypeImages != null;
 
+  // "diabetic_insight_color" field.
+  List<InfoStruct>? _diabeticInsightColor;
+  List<InfoStruct> get diabeticInsightColor =>
+      _diabeticInsightColor ?? const [];
+  set diabeticInsightColor(List<InfoStruct>? val) =>
+      _diabeticInsightColor = val;
+
+  void updateDiabeticInsightColor(Function(List<InfoStruct>) updateFn) {
+    updateFn(_diabeticInsightColor ??= []);
+  }
+
+  bool hasDiabeticInsightColor() => _diabeticInsightColor != null;
+
+  // "recent_meal_count" field.
+  int? _recentMealCount;
+  int get recentMealCount => _recentMealCount ?? 0;
+  set recentMealCount(int? val) => _recentMealCount = val;
+
+  void incrementRecentMealCount(int amount) =>
+      recentMealCount = recentMealCount + amount;
+
+  bool hasRecentMealCount() => _recentMealCount != null;
+
+  // "meal_time" field.
+  List<String>? _mealTime;
+  List<String> get mealTime => _mealTime ?? const [];
+  set mealTime(List<String>? val) => _mealTime = val;
+
+  void updateMealTime(Function(List<String>) updateFn) {
+    updateFn(_mealTime ??= []);
+  }
+
+  bool hasMealTime() => _mealTime != null;
+
   static ConfigStruct fromMap(Map<String, dynamic> data) => ConfigStruct(
         id: castToType<int>(data['id']),
         onboardingGoalText: getStructList(
@@ -78,6 +120,12 @@ class ConfigStruct extends BaseStruct {
           data['scanTypeImages'],
           InfoStruct.fromMap,
         ),
+        diabeticInsightColor: getStructList(
+          data['diabetic_insight_color'],
+          InfoStruct.fromMap,
+        ),
+        recentMealCount: castToType<int>(data['recent_meal_count']),
+        mealTime: getDataList(data['meal_time']),
       );
 
   static ConfigStruct? maybeFromMap(dynamic data) =>
@@ -90,6 +138,10 @@ class ConfigStruct extends BaseStruct {
         'policy': _policy,
         'translation_table_version': _translationTableVersion,
         'scanTypeImages': _scanTypeImages?.map((e) => e.toMap()).toList(),
+        'diabetic_insight_color':
+            _diabeticInsightColor?.map((e) => e.toMap()).toList(),
+        'recent_meal_count': _recentMealCount,
+        'meal_time': _mealTime,
       }.withoutNulls;
 
   @override
@@ -114,6 +166,20 @@ class ConfigStruct extends BaseStruct {
         'scanTypeImages': serializeParam(
           _scanTypeImages,
           ParamType.DataStruct,
+          isList: true,
+        ),
+        'diabetic_insight_color': serializeParam(
+          _diabeticInsightColor,
+          ParamType.DataStruct,
+          isList: true,
+        ),
+        'recent_meal_count': serializeParam(
+          _recentMealCount,
+          ParamType.int,
+        ),
+        'meal_time': serializeParam(
+          _mealTime,
+          ParamType.String,
           isList: true,
         ),
       }.withoutNulls;
@@ -147,6 +213,22 @@ class ConfigStruct extends BaseStruct {
           true,
           structBuilder: InfoStruct.fromSerializableMap,
         ),
+        diabeticInsightColor: deserializeStructParam<InfoStruct>(
+          data['diabetic_insight_color'],
+          ParamType.DataStruct,
+          true,
+          structBuilder: InfoStruct.fromSerializableMap,
+        ),
+        recentMealCount: deserializeParam(
+          data['recent_meal_count'],
+          ParamType.int,
+          false,
+        ),
+        mealTime: deserializeParam<String>(
+          data['meal_time'],
+          ParamType.String,
+          true,
+        ),
       );
 
   @override
@@ -160,7 +242,10 @@ class ConfigStruct extends BaseStruct {
         listEquality.equals(onboardingGoalText, other.onboardingGoalText) &&
         policy == other.policy &&
         translationTableVersion == other.translationTableVersion &&
-        listEquality.equals(scanTypeImages, other.scanTypeImages);
+        listEquality.equals(scanTypeImages, other.scanTypeImages) &&
+        listEquality.equals(diabeticInsightColor, other.diabeticInsightColor) &&
+        recentMealCount == other.recentMealCount &&
+        listEquality.equals(mealTime, other.mealTime);
   }
 
   @override
@@ -169,7 +254,10 @@ class ConfigStruct extends BaseStruct {
         onboardingGoalText,
         policy,
         translationTableVersion,
-        scanTypeImages
+        scanTypeImages,
+        diabeticInsightColor,
+        recentMealCount,
+        mealTime
       ]);
 }
 
@@ -177,9 +265,11 @@ ConfigStruct createConfigStruct({
   int? id,
   String? policy,
   int? translationTableVersion,
+  int? recentMealCount,
 }) =>
     ConfigStruct(
       id: id,
       policy: policy,
       translationTableVersion: translationTableVersion,
+      recentMealCount: recentMealCount,
     );

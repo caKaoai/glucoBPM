@@ -1,6 +1,6 @@
 NSCameraUsageDescription = "Allow camera to snap food and see nutrition info.";
-NSMicrophoneUsageDescription = "This app does not record audio. Microphone access is not used.";
 NSPhotoLibraryUsageDescription = "Allow gallery to snap or pick food and see nutrition info.";
+NSMicrophoneUsageDescription = "This app does not record audio. Microphone access is not used.";
 NSHealthShareUsageDescriptionActiveEnergyBurned = "Track your active calories burned during physical activities to monitor your energy expenditure.";
 NSHealthShareUsageDescriptionBloodGlucose = "Monitor your blood glucose levels to help manage your diabetes and maintain healthy blood sugar.";
 NSHealthShareUsageDescriptionBloodPressureSystolic = "Monitor your systolic blood pressure to track your cardiovascular health.";

@@ -14,7 +14,7 @@ class LogInModel extends FlutterFlowModel<LogInWidget> {
   String? _textControllerValidator(BuildContext context, String? val) {
     if (val == null || val.isEmpty) {
       return FFLocalizations.of(context).getText(
-        'm4n964s2' /* Enter your full name is requir... */,
+        'm4n964s2' /* Enter your name is required */,
       );
     }
 

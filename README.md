@@ -1,4 +1,4 @@
-# GlucoBPM
+# GlucoPal
 
 A new Flutter project.
 

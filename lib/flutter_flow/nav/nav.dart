@@ -123,6 +123,64 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: FoodPageWidget.routeName,
           path: FoodPageWidget.routePath,
           builder: (context, params) => FoodPageWidget(),
+        ),
+        FFRoute(
+          name: RecentMealWidget.routeName,
+          path: RecentMealWidget.routePath,
+          builder: (context, params) => RecentMealWidget(),
+        ),
+        FFRoute(
+          name: TextMealWidget.routeName,
+          path: TextMealWidget.routePath,
+          builder: (context, params) => TextMealWidget(),
+        ),
+        FFRoute(
+          name: AnalyzeFoodWidget.routeName,
+          path: AnalyzeFoodWidget.routePath,
+          builder: (context, params) => AnalyzeFoodWidget(
+            image: params.getParam(
+              'image',
+              ParamType.String,
+            ),
+          ),
+        ),
+        FFRoute(
+          name: DetailsAnlyzeScreenWidget.routeName,
+          path: DetailsAnlyzeScreenWidget.routePath,
+          builder: (context, params) => DetailsAnlyzeScreenWidget(
+            mealInfo: params.getParam(
+              'mealInfo',
+              ParamType.DataStruct,
+              isList: false,
+              structBuilder: MealStruct.fromSerializableMap,
+            ),
+          ),
+        ),
+        FFRoute(
+          name: AnalyzedFailedWidget.routeName,
+          path: AnalyzedFailedWidget.routePath,
+          builder: (context, params) => AnalyzedFailedWidget(),
+        ),
+        FFRoute(
+          name: DetailsAnlyzeEditWidget.routeName,
+          path: DetailsAnlyzeEditWidget.routePath,
+          builder: (context, params) => DetailsAnlyzeEditWidget(
+            mealInfo: params.getParam(
+              'mealInfo',
+              ParamType.DataStruct,
+              isList: false,
+              structBuilder: MealStruct.fromSerializableMap,
+            ),
+            callType: params.getParam(
+              'callType',
+              ParamType.int,
+            ),
+          ),
+        ),
+        FFRoute(
+          name: GlucoseHomeWidget.routeName,
+          path: GlucoseHomeWidget.routePath,
+          builder: (context, params) => GlucoseHomeWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

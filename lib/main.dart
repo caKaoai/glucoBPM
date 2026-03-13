@@ -75,7 +75,7 @@ class _MyAppState extends State<MyApp> {
 
     _appStateNotifier = AppStateNotifier.instance;
     _router = createRouter(_appStateNotifier);
-    userStream = glucoBPMSupabaseUserStream()
+    userStream = glucoPalSupabaseUserStream()
       ..listen((user) {
         _appStateNotifier.update(user);
       });
@@ -123,7 +123,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      title: 'GlucoBPM',
+      title: 'GlucoPal',
       localizationsDelegates: [
         FFLocalizationsDelegate(),
         GlobalMaterialLocalizations.delegate,
@@ -137,6 +137,18 @@ class _MyAppState extends State<MyApp> {
         Locale('en'),
         Locale('vi'),
         Locale('hi'),
+        Locale('ja'),
+        Locale('ar'),
+        Locale('th'),
+        Locale('es'),
+        Locale('ko'),
+        Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hans'),
+        Locale('fr'),
+        Locale('tr'),
+        Locale('ru'),
+        Locale('de'),
+        Locale('pt'),
+        Locale('it'),
       ],
       theme: ThemeData(
         brightness: Brightness.light,

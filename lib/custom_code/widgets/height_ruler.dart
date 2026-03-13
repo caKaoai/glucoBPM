@@ -12,7 +12,7 @@ import 'package:flutter/material.dart';
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
 import 'package:flutter/services.dart';
-import 'package:gluco_b_p_m/custom_code/widgets/age_ruler.dart';
+import 'package:gluco_pal/custom_code/widgets/age_ruler.dart';
 
 class HeightRuler extends StatefulWidget {
   const HeightRuler({

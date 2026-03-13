@@ -21,7 +21,7 @@ class PrimaryGoal2Model extends FlutterFlowModel<PrimaryGoal2Widget> {
   void updateDiabetTypeAtIndex(int index, Function(String) updateFn) =>
       diabetType[index] = updateFn(diabetType[index]);
 
-  String? selectedDaib = 'Type 2';
+  String selectedDaib = 'type_2';
 
   int? age;
 

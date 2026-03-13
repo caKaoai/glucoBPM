@@ -73,6 +73,19 @@ class _SplashScreenWidgetState extends State<SplashScreenWidget> {
         }),
         Future(() async {
           await action_blocks.config(context);
+          await Future.wait([
+            Future(() async {
+              await actions.preLoadNetworkImage(
+                context,
+                FFAppState()
+                    .config
+                    .scanTypeImages
+                    .map((e) => e.image)
+                    .toList()
+                    .toList(),
+              );
+            }),
+          ]);
         }),
       ]);
       await Future.wait([

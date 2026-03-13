@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import '/backend/schema/structs/index.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'flutter_flow/flutter_flow_util.dart';
-import 'dart:convert';
 
 class FFAppState extends ChangeNotifier {
   static FFAppState _instance = FFAppState._internal();
@@ -75,6 +74,21 @@ class FFAppState extends ChangeNotifier {
           print("Can't decode persisted data type. Error: $e.");
         }
       }
+    });
+    _safeInit(() {
+      _MealInfo = prefs
+              .getStringList('ff_MealInfo')
+              ?.map((x) {
+                try {
+                  return MealStruct.fromSerializableMap(jsonDecode(x));
+                } catch (e) {
+                  print("Can't decode persisted data type. Error: $e.");
+                  return null;
+                }
+              })
+              .withoutNulls
+              .toList() ??
+          _MealInfo;
     });
   }
 
@@ -177,6 +191,47 @@ class FFAppState extends ChangeNotifier {
   void updateConfigStruct(Function(ConfigStruct) updateFn) {
     updateFn(_config);
     prefs.setString('ff_config', _config.serialize());
+  }
+
+  List<MealStruct> _MealInfo = [];
+  List<MealStruct> get MealInfo => _MealInfo;
+  set MealInfo(List<MealStruct> value) {
+    _MealInfo = value;
+    prefs.setStringList(
+        'ff_MealInfo', value.map((x) => x.serialize()).toList());
+  }
+
+  void addToMealInfo(MealStruct value) {
+    MealInfo.add(value);
+    prefs.setStringList(
+        'ff_MealInfo', _MealInfo.map((x) => x.serialize()).toList());
+  }
+
+  void removeFromMealInfo(MealStruct value) {
+    MealInfo.remove(value);
+    prefs.setStringList(
+        'ff_MealInfo', _MealInfo.map((x) => x.serialize()).toList());
+  }
+
+  void removeAtIndexFromMealInfo(int index) {
+    MealInfo.removeAt(index);
+    prefs.setStringList(
+        'ff_MealInfo', _MealInfo.map((x) => x.serialize()).toList());
+  }
+
+  void updateMealInfoAtIndex(
+    int index,
+    MealStruct Function(MealStruct) updateFn,
+  ) {
+    MealInfo[index] = updateFn(_MealInfo[index]);
+    prefs.setStringList(
+        'ff_MealInfo', _MealInfo.map((x) => x.serialize()).toList());
+  }
+
+  void insertAtIndexInMealInfo(int index, MealStruct value) {
+    MealInfo.insert(index, value);
+    prefs.setStringList(
+        'ff_MealInfo', _MealInfo.map((x) => x.serialize()).toList());
   }
 }
 

@@ -738,7 +738,7 @@ class _OnBoardingWidgetState extends State<OnBoardingWidget>
                 ),
                 Padding(
                   padding:
-                      EdgeInsetsDirectional.fromSTEB(32.0, 0.0, 23.0, 60.0),
+                      EdgeInsetsDirectional.fromSTEB(32.0, 0.0, 32.0, 60.0),
                   child: Stack(
                     children: [
                       Container(

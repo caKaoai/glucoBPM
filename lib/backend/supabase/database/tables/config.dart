@@ -26,4 +26,13 @@ class ConfigRow extends SupabaseDataRow {
 
   String? get policy => getField<String>('policy');
   set policy(String? value) => setField<String>('policy', value);
+
+  int? get translationTableVersion =>
+      getField<int>('translation_table_version');
+  set translationTableVersion(int? value) =>
+      setField<int>('translation_table_version', value);
+
+  dynamic get scanTypeImages => getField<dynamic>('scanTypeImages');
+  set scanTypeImages(dynamic value) =>
+      setField<dynamic>('scanTypeImages', value);
 }

@@ -8,3 +8,6 @@ export 'healthpermission_check.dart' show HealthpermissionCheck;
 export 'animated_logo.dart' show AnimatedLogo;
 export 'home_live_chart.dart' show HomeLiveChart;
 export 'scroll_circle.dart' show ScrollCircle;
+export 'custom_slider.dart' show CustomSlider;
+export 'custom_image.dart' show CustomImage;
+export 'spinning_time_picker.dart' show SpinningTimePicker;

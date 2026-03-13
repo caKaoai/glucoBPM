@@ -1,11 +1,13 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/actions/actions.dart' as action_blocks;
+import '/custom_code/actions/index.dart' as actions;
 import '/custom_code/widgets/index.dart' as custom_widgets;
 import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'splash_screen_copy_model.dart';
 export 'splash_screen_copy_model.dart';
 
@@ -35,12 +37,28 @@ class _SplashScreenCopyWidgetState extends State<SplashScreenCopyWidget> {
         Future(() async {
           await Future.delayed(
             Duration(
-              milliseconds: 3000,
+              milliseconds: 1500,
             ),
           );
         }),
         Future(() async {
           await action_blocks.config(context);
+          await Future.wait([
+            Future(() async {
+              await actions.preLoadNetworkImage(
+                context,
+                FFAppState()
+                    .config
+                    .scanTypeImages
+                    .map((e) => e.image)
+                    .toList()
+                    .toList(),
+              );
+            }),
+          ]);
+        }),
+        Future(() async {
+          await action_blocks.mealGet(context);
         }),
       ]);
 
@@ -66,6 +84,8 @@ class _SplashScreenCopyWidgetState extends State<SplashScreenCopyWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
