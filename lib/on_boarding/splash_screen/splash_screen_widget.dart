@@ -53,14 +53,28 @@ class _SplashScreenWidgetState extends State<SplashScreenWidget> {
               );
 
               if ((_model.getContryInfo?.succeeded ?? true)) {
-                FFAppState().currentUserLang =
-                    ((_model.getContryInfo?.jsonBody ?? '')
+                if ((((_model.getContryInfo?.jsonBody ?? '')
                             .toList()
                             .map<MealStruct?>(MealStruct.maybeFromMap)
                             .toList() as Iterable<MealStruct?>)
                         .withoutNulls
-                        .firstOrNull!;
-                safeSetState(() {});
+                        .isNotEmpty) &&
+                    (((_model.getContryInfo?.jsonBody ?? '')
+                                .toList()
+                                .map<MealStruct?>(MealStruct.maybeFromMap)
+                                .toList() as Iterable<MealStruct?>)
+                            .withoutNulls
+                            .length !=
+                        0)) {
+                  FFAppState().currentUserLang =
+                      ((_model.getContryInfo?.jsonBody ?? '')
+                              .toList()
+                              .map<MealStruct?>(MealStruct.maybeFromMap)
+                              .toList() as Iterable<MealStruct?>)
+                          .withoutNulls
+                          .firstOrNull!;
+                  safeSetState(() {});
+                }
               }
             }),
             Future(() async {

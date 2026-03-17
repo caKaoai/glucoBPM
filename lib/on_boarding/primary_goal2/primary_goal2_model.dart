@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class PrimaryGoal2Model extends FlutterFlowModel<PrimaryGoal2Widget> {
   ///  Local state fields for this component.
 
-  String? selectedGender = 'Male';
+  String? selectedGender = 'male';
 
   List<String> diabetType = [
     'type_1',

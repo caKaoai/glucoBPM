@@ -181,6 +181,36 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: GlucoseHomeWidget.routeName,
           path: GlucoseHomeWidget.routePath,
           builder: (context, params) => GlucoseHomeWidget(),
+        ),
+        FFRoute(
+          name: EditIngredientWidget.routeName,
+          path: EditIngredientWidget.routePath,
+          builder: (context, params) => EditIngredientWidget(
+            dishname: params.getParam(
+              'dishname',
+              ParamType.String,
+            ),
+            ingredients: params.getParam<String>(
+              'ingredients',
+              ParamType.String,
+              isList: true,
+            ),
+          ),
+        ),
+        FFRoute(
+          name: GlucoseDetailsWidget.routeName,
+          path: GlucoseDetailsWidget.routePath,
+          builder: (context, params) => GlucoseDetailsWidget(),
+        ),
+        FFRoute(
+          name: GLHistoryWidget.routeName,
+          path: GLHistoryWidget.routePath,
+          builder: (context, params) => GLHistoryWidget(),
+        ),
+        FFRoute(
+          name: LogHomeWidget.routeName,
+          path: LogHomeWidget.routePath,
+          builder: (context, params) => LogHomeWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

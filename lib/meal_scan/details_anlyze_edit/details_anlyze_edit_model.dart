@@ -2,6 +2,7 @@ import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/meal_scan/diabetic_insight/diabetic_insight_widget.dart';
+import '/index.dart';
 import 'details_anlyze_edit_widget.dart' show DetailsAnlyzeEditWidget;
 import 'package:flutter/material.dart';
 

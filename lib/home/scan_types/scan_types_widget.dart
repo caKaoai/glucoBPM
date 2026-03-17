@@ -158,6 +158,9 @@ class _ScanTypesWidgetState extends State<ScanTypesWidget>
                                       },
                                     );
                                   }
+                                } else if (scnTypeItem.title == 'log_glucose') {
+                                  context
+                                      .pushNamed(GlucoseHomeWidget.routeName);
                                 }
 
                                 safeSetState(() {});

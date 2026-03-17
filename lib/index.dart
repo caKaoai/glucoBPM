@@ -20,3 +20,9 @@ export '/home/analyzed_failed/analyzed_failed_widget.dart'
 export '/meal_scan/details_anlyze_edit/details_anlyze_edit_widget.dart'
     show DetailsAnlyzeEditWidget;
 export '/glucose/glucose_home/glucose_home_widget.dart' show GlucoseHomeWidget;
+export '/meal_scan/edit_ingredient/edit_ingredient_widget.dart'
+    show EditIngredientWidget;
+export '/glucose/glucose_details/glucose_details_widget.dart'
+    show GlucoseDetailsWidget;
+export '/glucose/g_l_history/g_l_history_widget.dart' show GLHistoryWidget;
+export '/log/log_home/log_home_widget.dart' show LogHomeWidget;

@@ -3,8 +3,10 @@ import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/home/scan_types/scan_types_widget.dart';
+import '/actions/actions.dart' as action_blocks;
 import '/custom_code/widgets/index.dart' as custom_widgets;
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:provider/provider.dart';
 import 'home_page_model.dart';
@@ -32,6 +34,18 @@ class _HomePageWidgetState extends State<HomePageWidget>
   void initState() {
     super.initState();
     _model = createModel(context, () => HomePageModel());
+
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      await Future.wait([
+        Future(() async {
+          setAppLanguage(context, 'en');
+        }),
+        Future(() async {
+          await action_blocks.mealGet(context);
+        }),
+      ]);
+    });
 
     animationsMap.addAll({
       'columnOnPageLoadAnimation': AnimationInfo(

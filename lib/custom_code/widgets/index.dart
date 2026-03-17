@@ -11,3 +11,4 @@ export 'scroll_circle.dart' show ScrollCircle;
 export 'custom_slider.dart' show CustomSlider;
 export 'custom_image.dart' show CustomImage;
 export 'spinning_time_picker.dart' show SpinningTimePicker;
+export 'glucose_range.dart' show GlucoseRange;

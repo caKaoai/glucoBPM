@@ -7,7 +7,6 @@ import '/on_boarding/primary_goal2/primary_goal2_widget.dart';
 import '/on_boarding/primary_goal3/primary_goal3_widget.dart';
 import '/on_boarding/primary_goal4/primary_goal4_widget.dart';
 import '/custom_code/actions/index.dart' as actions;
-import '/custom_code/widgets/index.dart' as custom_widgets;
 import '/flutter_flow/custom_functions.dart' as functions;
 import '/flutter_flow/permissions_util.dart';
 import '/index.dart';
@@ -89,6 +88,7 @@ class _PrimaryGoalPageWidgetState extends State<PrimaryGoalPageWidget> {
                       );
                       _model.progressVal =
                           (_model.pageViewCurrentIndex + 1) * 0.25;
+                      _model.isTapHealthKIt = false;
                       safeSetState(() {});
                     }
                   },
@@ -133,14 +133,6 @@ class _PrimaryGoalPageWidgetState extends State<PrimaryGoalPageWidget> {
                 ),
                 barRadius: Radius.circular(100.0),
                 padding: EdgeInsets.zero,
-              ),
-              Container(
-                width: 0.0,
-                height: 0.0,
-                child: custom_widgets.HealthpermissionCheck(
-                  width: 0.0,
-                  height: 0.0,
-                ),
               ),
             ].divide(SizedBox(height: 6.0)),
           ),
@@ -212,7 +204,10 @@ class _PrimaryGoalPageWidgetState extends State<PrimaryGoalPageWidget> {
                           wrapWithModel(
                             model: _model.primaryGoal3Model,
                             updateCallback: () => safeSetState(() {}),
-                            child: PrimaryGoal3Widget(),
+                            updateOnChange: true,
+                            child: PrimaryGoal3Widget(
+                              isTap: _model.isTapHealthKIt!,
+                            ),
                           ),
                           wrapWithModel(
                             model: _model.primaryGoal4Model,
@@ -230,7 +225,7 @@ class _PrimaryGoalPageWidgetState extends State<PrimaryGoalPageWidget> {
                       children: [
                         Container(
                           width: double.infinity,
-                          height: 60.0,
+                          height: 56.0,
                           decoration: BoxDecoration(
                             color: FlutterFlowTheme.of(context)
                                 .secondaryBackground,
@@ -297,7 +292,7 @@ class _PrimaryGoalPageWidgetState extends State<PrimaryGoalPageWidget> {
                                 ),
                                 options: FFButtonOptions(
                                   width: double.infinity,
-                                  height: 60.0,
+                                  height: 56.0,
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       16.0, 0.0, 16.0, 0.0),
                                   iconAlignment: IconAlignment.end,
@@ -385,7 +380,7 @@ class _PrimaryGoalPageWidgetState extends State<PrimaryGoalPageWidget> {
                                 ),
                                 options: FFButtonOptions(
                                   width: double.infinity,
-                                  height: 60.0,
+                                  height: 56.0,
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       16.0, 0.0, 16.0, 0.0),
                                   iconAlignment: IconAlignment.end,
@@ -417,12 +412,15 @@ class _PrimaryGoalPageWidgetState extends State<PrimaryGoalPageWidget> {
                                     .steps
                                     .toString()),
                                 onPressed: () async {
-                                  HapticFeedback.heavyImpact();
-                                  if (!FFAppState().HealthPermission.steps) {
-                                    await actions.redirectSetting(
-                                      1,
-                                    );
-                                  }
+                                  await Future.wait([
+                                    Future(() async {
+                                      HapticFeedback.heavyImpact();
+                                    }),
+                                    Future(() async {
+                                      _model.isTapHealthKIt = true;
+                                      safeSetState(() {});
+                                    }),
+                                  ]);
                                   if (FFAppState().HealthPermission.steps) {
                                     await _model.pageViewController?.nextPage(
                                       duration: Duration(milliseconds: 300),
@@ -443,7 +441,7 @@ class _PrimaryGoalPageWidgetState extends State<PrimaryGoalPageWidget> {
                                 ),
                                 options: FFButtonOptions(
                                   width: double.infinity,
-                                  height: 60.0,
+                                  height: 56.0,
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       16.0, 0.0, 16.0, 0.0),
                                   iconAlignment: IconAlignment.end,
@@ -505,7 +503,7 @@ class _PrimaryGoalPageWidgetState extends State<PrimaryGoalPageWidget> {
                                 ),
                                 options: FFButtonOptions(
                                   width: double.infinity,
-                                  height: 60.0,
+                                  height: 56.0,
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       16.0, 0.0, 16.0, 0.0),
                                   iconAlignment: IconAlignment.start,
@@ -611,6 +609,7 @@ class _PrimaryGoalPageWidgetState extends State<PrimaryGoalPageWidget> {
                                         FFAppState().translationsCSV),
                                     'YOUR PRIVACY IS OUR PRIORITY.',
                                   ),
+                                  textAlign: TextAlign.center,
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(

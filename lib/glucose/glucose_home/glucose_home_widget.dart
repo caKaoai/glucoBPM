@@ -3,6 +3,9 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/custom_code/widgets/index.dart' as custom_widgets;
+import '/flutter_flow/custom_functions.dart' as functions;
+import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -111,8 +114,10 @@ class _GlucoseHomeWidgetState extends State<GlucoseHomeWidget>
                 color: FlutterFlowTheme.of(context).primaryText,
                 size: 24.0,
               ),
-              onPressed: () {
-                print('IconButton pressed ...');
+              onPressed: () async {
+                HapticFeedback.heavyImpact();
+
+                context.pushNamed(GLHistoryWidget.routeName);
               },
             ),
           ],
@@ -159,8 +164,9 @@ class _GlucoseHomeWidgetState extends State<GlucoseHomeWidget>
                             text: TextSpan(
                               children: [
                                 TextSpan(
-                                  text: FFLocalizations.of(context).getText(
-                                    'z98s7fy5' /* 56 */,
+                                  text: valueOrDefault<String>(
+                                    _model.rangeVal?.toString(),
+                                    '0',
                                   ),
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
@@ -255,6 +261,18 @@ class _GlucoseHomeWidgetState extends State<GlucoseHomeWidget>
                       ),
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(
+                            16.0, 0.0, 16.0, 32.0),
+                        child: custom_widgets.GlucoseRange(
+                          width: double.infinity,
+                          height: 150.0,
+                          selectedValue: (returnVal) async {
+                            _model.rangeVal = returnVal;
+                            safeSetState(() {});
+                          },
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(
                             24.0, 0.0, 24.0, 0.0),
                         child: Text(
                           FFLocalizations.of(context).getText(
@@ -302,7 +320,7 @@ class _GlucoseHomeWidgetState extends State<GlucoseHomeWidget>
                                     safeSetState(() {});
                                   },
                                   child: Container(
-                                    width: 100.0,
+                                    width: 110.0,
                                     decoration: BoxDecoration(
                                       color: valueOrDefault<Color>(
                                         mealTimeItem == _model.selectMealTime
@@ -313,6 +331,22 @@ class _GlucoseHomeWidgetState extends State<GlucoseHomeWidget>
                                         FlutterFlowTheme.of(context)
                                             .secondaryBackground,
                                       ),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          blurRadius: 4.0,
+                                          color: valueOrDefault<Color>(
+                                            mealTimeItem ==
+                                                    _model.selectMealTime
+                                                ? Color(0x34F20D0D)
+                                                : Colors.transparent,
+                                            Colors.transparent,
+                                          ),
+                                          offset: Offset(
+                                            0.0,
+                                            2.0,
+                                          ),
+                                        )
+                                      ],
                                       borderRadius:
                                           BorderRadius.circular(100.0),
                                       border: Border.all(
@@ -329,11 +363,17 @@ class _GlucoseHomeWidgetState extends State<GlucoseHomeWidget>
                                       alignment: AlignmentDirectional(0.0, 0.0),
                                       child: Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
-                                            16.0, 8.0, 16.0, 8.0),
+                                            0.0, 8.0, 0.0, 8.0),
                                         child: Text(
-                                          FFLocalizations.of(context).getText(
-                                            'xoeij6do' /* Fasting */,
+                                          valueOrDefault<String>(
+                                            functions.languagefuncation(
+                                                mealTimeItem,
+                                                FFLocalizations.of(context)
+                                                    .languageCode,
+                                                FFAppState().translationsCSV),
+                                            'Fasting',
                                           ),
+                                          textAlign: TextAlign.center,
                                           style: FlutterFlowTheme.of(context)
                                               .bodyMedium
                                               .override(
@@ -559,17 +599,19 @@ class _GlucoseHomeWidgetState extends State<GlucoseHomeWidget>
                           ),
                         ),
                       ),
-                    ].addToStart(SizedBox(height: 21.0)),
+                    ]
+                        .addToStart(SizedBox(height: 21.0))
+                        .addToEnd(SizedBox(height: 30.0)),
                   ),
                 ),
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(32.0, 0.0, 32.0, 0.0),
+                padding: EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
                 child: Stack(
                   children: [
                     Container(
                       width: double.infinity,
-                      height: 60.0,
+                      height: 56.0,
                       decoration: BoxDecoration(
                         color: FlutterFlowTheme.of(context).secondaryBackground,
                         boxShadow: [
@@ -589,6 +631,8 @@ class _GlucoseHomeWidgetState extends State<GlucoseHomeWidget>
                     FFButtonWidget(
                       onPressed: () async {
                         HapticFeedback.heavyImpact();
+
+                        context.pushNamed(GlucoseDetailsWidget.routeName);
                       },
                       text: FFLocalizations.of(context).getText(
                         'y3fzreyw' /* Save Log */,
@@ -599,7 +643,7 @@ class _GlucoseHomeWidgetState extends State<GlucoseHomeWidget>
                       ),
                       options: FFButtonOptions(
                         width: double.infinity,
-                        height: 60.0,
+                        height: 56.0,
                         padding: EdgeInsetsDirectional.fromSTEB(
                             16.0, 0.0, 16.0, 0.0),
                         iconAlignment: IconAlignment.start,

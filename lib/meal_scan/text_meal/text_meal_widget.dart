@@ -237,7 +237,7 @@ class _TextMealWidgetState extends State<TextMealWidget>
                       children: [
                         Container(
                           width: double.infinity,
-                          height: 60.0,
+                          height: 56.0,
                           decoration: BoxDecoration(
                             color: FlutterFlowTheme.of(context)
                                 .secondaryBackground,
@@ -266,7 +266,7 @@ class _TextMealWidgetState extends State<TextMealWidget>
                           ),
                           options: FFButtonOptions(
                             width: double.infinity,
-                            height: 60.0,
+                            height: 56.0,
                             padding: EdgeInsetsDirectional.fromSTEB(
                                 16.0, 0.0, 16.0, 0.0),
                             iconAlignment: IconAlignment.end,

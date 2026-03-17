@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 class PrimaryGoalPageModel extends FlutterFlowModel<PrimaryGoalPageWidget> {
   ///  Local state fields for this page.
 
-  List<String> genderList = ['Male', 'Female', 'prefer_not_to_say'];
+  List<String> genderList = ['male', 'female', 'prefer_not_to_say'];
   void addToGenderList(String item) => genderList.add(item);
   void removeFromGenderList(String item) => genderList.remove(item);
   void removeAtIndexFromGenderList(int index) => genderList.removeAt(index);
@@ -20,6 +20,8 @@ class PrimaryGoalPageModel extends FlutterFlowModel<PrimaryGoalPageWidget> {
       genderList[index] = updateFn(genderList[index]);
 
   double? progressVal = 0.25;
+
+  bool? isTapHealthKIt = false;
 
   ///  State fields for stateful widgets in this page.
 

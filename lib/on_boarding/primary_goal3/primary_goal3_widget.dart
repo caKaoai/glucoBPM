@@ -1,6 +1,7 @@
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/custom_code/widgets/index.dart' as custom_widgets;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -10,7 +11,12 @@ import 'primary_goal3_model.dart';
 export 'primary_goal3_model.dart';
 
 class PrimaryGoal3Widget extends StatefulWidget {
-  const PrimaryGoal3Widget({super.key});
+  const PrimaryGoal3Widget({
+    super.key,
+    required this.isTap,
+  });
+
+  final bool? isTap;
 
   @override
   State<PrimaryGoal3Widget> createState() => _PrimaryGoal3WidgetState();
@@ -449,6 +455,15 @@ class _PrimaryGoal3WidgetState extends State<PrimaryGoal3Widget>
               ].divide(SizedBox(width: 16.0)),
             ),
           ),
+          if (widget.isTap ?? true)
+            Container(
+              width: 0.0,
+              height: 0.0,
+              child: custom_widgets.HealthpermissionCheck(
+                width: 0.0,
+                height: 0.0,
+              ),
+            ),
         ],
       ),
     ).animateOnPageLoad(animationsMap['columnOnPageLoadAnimation']!);

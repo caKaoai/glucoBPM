@@ -11,6 +11,7 @@ import 'dart:ui';
 import '/actions/actions.dart' as action_blocks;
 import '/custom_code/widgets/index.dart' as custom_widgets;
 import '/flutter_flow/custom_functions.dart' as functions;
+import '/index.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -216,28 +217,122 @@ class _DetailsAnlyzeEditWidgetState extends State<DetailsAnlyzeEditWidget>
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          Text(
-                                            FFLocalizations.of(context).getText(
-                                              'my4t5u6i' /* IDENTIFIED INGREDIENTS */,
-                                            ),
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .bodyMediumFamily,
-                                                  color: FlutterFlowTheme.of(
+                                          Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: [
+                                              Expanded(
+                                                child: Text(
+                                                  FFLocalizations.of(context)
+                                                      .getText(
+                                                    'my4t5u6i' /* IDENTIFIED INGREDIENTS */,
+                                                  ),
+                                                  style: FlutterFlowTheme.of(
                                                           context)
-                                                      .secondary,
-                                                  fontSize: 10.0,
-                                                  letterSpacing: 1.0,
-                                                  fontWeight: FontWeight.bold,
-                                                  useGoogleFonts:
-                                                      !FlutterFlowTheme.of(
-                                                              context)
-                                                          .bodyMediumIsCustom,
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMediumFamily,
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .secondary,
+                                                        fontSize: 10.0,
+                                                        letterSpacing: 1.0,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        useGoogleFonts:
+                                                            !FlutterFlowTheme
+                                                                    .of(context)
+                                                                .bodyMediumIsCustom,
+                                                      ),
                                                 ),
+                                              ),
+                                              Expanded(
+                                                child: InkWell(
+                                                  splashColor:
+                                                      Colors.transparent,
+                                                  focusColor:
+                                                      Colors.transparent,
+                                                  hoverColor:
+                                                      Colors.transparent,
+                                                  highlightColor:
+                                                      Colors.transparent,
+                                                  onTap: () async {
+                                                    context.pushNamed(
+                                                      EditIngredientWidget
+                                                          .routeName,
+                                                      queryParameters: {
+                                                        'dishname':
+                                                            serializeParam(
+                                                          widget
+                                                              .mealInfo?.name,
+                                                          ParamType.String,
+                                                        ),
+                                                        'ingredients':
+                                                            serializeParam(
+                                                          widget.mealInfo
+                                                              ?.ingredients,
+                                                          ParamType.String,
+                                                          isList: true,
+                                                        ),
+                                                      }.withoutNulls,
+                                                    );
+                                                  },
+                                                  child: Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.end,
+                                                    children: [
+                                                      Icon(
+                                                        Icons.edit_outlined,
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .info,
+                                                        size: 14.0,
+                                                      ),
+                                                      Align(
+                                                        alignment:
+                                                            AlignmentDirectional(
+                                                                1.0, 0.0),
+                                                        child: Text(
+                                                          FFLocalizations.of(
+                                                                  context)
+                                                              .getText(
+                                                            'zb5wfgp3' /* EDIT INGREDIENTS */,
+                                                          ),
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodyMedium
+                                                              .override(
+                                                                fontFamily: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMediumFamily,
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .info,
+                                                                fontSize: 10.0,
+                                                                letterSpacing:
+                                                                    1.0,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                useGoogleFonts:
+                                                                    !FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyMediumIsCustom,
+                                                              ),
+                                                        ),
+                                                      ),
+                                                    ].divide(
+                                                        SizedBox(width: 2.0)),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                           Padding(
                                             padding:
@@ -1253,7 +1348,7 @@ Score */
                       children: [
                         Container(
                           width: double.infinity,
-                          height: 60.0,
+                          height: 56.0,
                           decoration: BoxDecoration(
                             color: FlutterFlowTheme.of(context)
                                 .secondaryBackground,
@@ -1323,7 +1418,7 @@ Score */
                           ),
                           options: FFButtonOptions(
                             width: double.infinity,
-                            height: 60.0,
+                            height: 56.0,
                             padding: EdgeInsetsDirectional.fromSTEB(
                                 16.0, 0.0, 16.0, 0.0),
                             iconAlignment: IconAlignment.start,

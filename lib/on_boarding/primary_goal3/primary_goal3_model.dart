@@ -3,6 +3,10 @@ import 'primary_goal3_widget.dart' show PrimaryGoal3Widget;
 import 'package:flutter/material.dart';
 
 class PrimaryGoal3Model extends FlutterFlowModel<PrimaryGoal3Widget> {
+  ///  Local state fields for this component.
+
+  bool show = false;
+
   @override
   void initState(BuildContext context) {}
 

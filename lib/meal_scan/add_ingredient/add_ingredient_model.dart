@@ -1,17 +1,11 @@
 import '/flutter_flow/flutter_flow_util.dart';
-import '/index.dart';
-import 'glucose_home_widget.dart' show GlucoseHomeWidget;
+import 'add_ingredient_widget.dart' show AddIngredientWidget;
 import 'package:flutter/material.dart';
 
-class GlucoseHomeModel extends FlutterFlowModel<GlucoseHomeWidget> {
-  ///  Local state fields for this page.
+class AddIngredientModel extends FlutterFlowModel<AddIngredientWidget> {
+  ///  State fields for stateful widgets in this component.
 
-  String? selectMealTime = 'fasting';
-
-  int? rangeVal;
-
-  ///  State fields for stateful widgets in this page.
-
+  final formKey = GlobalKey<FormState>();
   // State field(s) for TextField widget.
   FocusNode? textFieldFocusNode;
   TextEditingController? textController;

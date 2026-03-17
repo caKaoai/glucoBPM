@@ -121,7 +121,7 @@ class _PrimaryGoal2WidgetState extends State<PrimaryGoal2Widget>
                         ),
                   ),
                   TextSpan(
-                    text: 'glucoPal',
+                    text: ' glucoPal',
                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                           fontFamily:
                               FlutterFlowTheme.of(context).bodyMediumFamily,

@@ -1719,6 +1719,78 @@ String? languagefuncation(
       "pt": "Registrar Esta Refeição",
       "it": "Registra Questo Pasto",
       "id": "Catat Makanan Ini"
+    },
+    "fasting": {
+      "en": "Fasting",
+      "vi": "Nhịn ăn",
+      "ja": "断食",
+      "ar": "الصيام",
+      "hi": "उपवास",
+      "th": "การอดอาหาร",
+      "es": "Ayuno",
+      "ko": "단식",
+      "zh_Hans": "禁食",
+      "fr": "Jeûne",
+      "tr": "Oruç",
+      "ru": "Голодание",
+      "de": "Fasten",
+      "pt": "Jejum",
+      "it": "Digiuno",
+      "id": "Puasa"
+    },
+    "pre_meal": {
+      "en": "Pre-meal",
+      "vi": "Trước bữa ăn",
+      "ja": "食前",
+      "ar": "قبل الوجبة",
+      "hi": "भोजन से पहले",
+      "th": "ก่อนมื้ออาหาร",
+      "es": "Antes de la comida",
+      "ko": "식사 전",
+      "zh_Hans": "餐前",
+      "fr": "Avant le repas",
+      "tr": "Yemek öncesi",
+      "ru": "Перед едой",
+      "de": "Vor der Mahlzeit",
+      "pt": "Antes da refeição",
+      "it": "Prima del pasto",
+      "id": "Sebelum makan"
+    },
+    "post-meal": {
+      "en": "Post-meal",
+      "vi": "Sau bữa ăn",
+      "ja": "食後",
+      "ar": "بعد الوجبة",
+      "hi": "भोजन के बाद",
+      "th": "หลังมื้ออาหาร",
+      "es": "Después de la comida",
+      "ko": "식후",
+      "zh_Hans": "餐后",
+      "fr": "Après le repas",
+      "tr": "Yemek sonrası",
+      "ru": "После еды",
+      "de": "Nach dem Essen",
+      "pt": "Após a refeição",
+      "it": "Dopo il pasto",
+      "id": "Setelah makan"
+    },
+    "bedtime": {
+      "en": "Bedtime",
+      "vi": "Giờ Đi Ngủ",
+      "ja": "就寝時間",
+      "ar": "وقت النوم",
+      "hi": "सोने का समय",
+      "th": "เวลาเข้านอน",
+      "es": "Hora De Dormir",
+      "ko": "취침 시간",
+      "zh_Hans": "就寝时间",
+      "fr": "Heure Du Coucher",
+      "tr": "Uyku Zamanı",
+      "ru": "Время Сна",
+      "de": "Schlafenszeit",
+      "pt": "Hora De Dormir",
+      "it": "Ora Di Dormire",
+      "id": "Waktu Tidur"
     }
   };
 
@@ -1923,4 +1995,24 @@ List<MealStruct>? filterMeal(List<MealStruct>? mealInformation) {
         localTime.month == now.month &&
         localTime.day == now.day;
   }).toList();
+}
+
+String? caseConverter(String? info) {
+  if (info == null || info.isEmpty) return info;
+
+  // Languages where casing should NOT be modified
+  final noCaseLanguages = ['ja', 'zh', 'ko', 'th', 'ar'];
+
+  // Detect if string contains characters from these languages
+  final hasNoCaseChars =
+      RegExp(r'[\u3040-\u30ff\u3400-\u9fff\uac00-\ud7af\u0600-\u06ff]')
+          .hasMatch(info);
+
+  if (hasNoCaseChars) {
+    return info;
+  }
+
+  String trimmed = info.trim();
+
+  return trimmed[0].toUpperCase() + trimmed.substring(1).toLowerCase();
 }

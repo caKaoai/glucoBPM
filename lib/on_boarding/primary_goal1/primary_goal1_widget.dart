@@ -134,7 +134,6 @@ class _PrimaryGoal1WidgetState extends State<PrimaryGoal1Widget>
                       },
                       child: Container(
                         width: double.infinity,
-                        height: 130.0,
                         decoration: BoxDecoration(
                           color:
                               FlutterFlowTheme.of(context).secondaryBackground,
