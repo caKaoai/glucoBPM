@@ -22,6 +22,8 @@ class WeightRuler extends StatefulWidget {
     this.initVal,
     this.returnWeight,
     this.type,
+    this.min,
+    this.max,
   });
 
   final double? width;
@@ -29,6 +31,8 @@ class WeightRuler extends StatefulWidget {
   final int? initVal;
   final Future Function(int weighttInfo)? returnWeight;
   final int? type;
+  final int? min;
+  final int? max;
 
   @override
   State<WeightRuler> createState() => _WeightRulerState();

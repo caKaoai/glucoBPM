@@ -136,3 +136,19 @@ Future mealGet(BuildContext context) async {
     FFAppState().update(() {});
   }
 }
+
+Future getActivity(BuildContext context) async {
+  ApiCallResponse? activity;
+
+  activity = await AllCommandTableGroup.activityCall.call();
+
+  if ((activity.succeeded ?? true)) {
+    FFAppState().activityName = ((activity.jsonBody ?? '')
+            .toList()
+            .map<ActivityStruct?>(ActivityStruct.maybeFromMap)
+            .toList() as Iterable<ActivityStruct?>)
+        .withoutNulls
+        .toList()
+        .cast<ActivityStruct>();
+  }
+}

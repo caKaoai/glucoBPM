@@ -37,8 +37,8 @@ class AgeRuler extends StatefulWidget {
 }
 
 class _AgeRulerState extends State<AgeRuler> {
-  static const int minValue = 10;
-  static const int maxValue = 120;
+  late int minValue;
+  late int maxValue;
   static const double tickSpacing = 24.0;
   static const double rulerHeight = 70.0;
   static const double majorTickHeight = 30.0;
@@ -52,6 +52,8 @@ class _AgeRulerState extends State<AgeRuler> {
   @override
   void initState() {
     super.initState();
+    minValue = widget.min ?? 10;
+    maxValue = widget.max ?? 120;
     selectedValue = (widget.initVal ?? minValue).clamp(minValue, maxValue);
     _scrollController = ScrollController();
   }

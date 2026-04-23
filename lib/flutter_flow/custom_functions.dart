@@ -1791,6 +1791,204 @@ String? languagefuncation(
       "pt": "Hora De Dormir",
       "it": "Ora Di Dormire",
       "id": "Waktu Tidur"
+    },
+    "walking": {
+      "en": "Walking",
+      "vi": "Đi bộ",
+      "ja": "歩く",
+      "ar": "المشي",
+      "hi": "चलना",
+      "th": "เดิน",
+      "es": "Caminar",
+      "ko": "걷기",
+      "zh_Hans": "步行",
+      "fr": "Marcher",
+      "tr": "Yürümek",
+      "ru": "Ходьба",
+      "de": "Gehen",
+      "pt": "Caminhar",
+      "it": "Camminare",
+      "id": "Berjalan"
+    },
+    "running": {
+      "en": "Running",
+      "vi": "Chạy bộ",
+      "ja": "ランニング",
+      "ar": "الجري",
+      "hi": "दौड़ना",
+      "th": "วิ่ง",
+      "es": "Correr",
+      "ko": "달리기",
+      "zh_Hans": "跑步",
+      "fr": "Course",
+      "tr": "Koşu",
+      "ru": "Бег",
+      "de": "Laufen",
+      "pt": "Corrida",
+      "it": "Corsa",
+      "id": "Lari"
+    },
+    "cycling": {
+      "en": "Cycling",
+      "vi": "Đạp xe",
+      "ja": "サイクリング",
+      "ar": "ركوب الدراجة",
+      "hi": "साइक्लिंग",
+      "th": "ปั่นจักรยาน",
+      "es": "Ciclismo",
+      "ko": "사이클링",
+      "zh_Hans": "骑行",
+      "fr": "Cyclisme",
+      "tr": "Bisiklet sürme",
+      "ru": "Езда на велосипеде",
+      "de": "Radfahren",
+      "pt": "Ciclismo",
+      "it": "Ciclismo",
+      "id": "Bersepeda"
+    },
+    "swimming": {
+      "en": "Swimming",
+      "vi": "Bơi lội",
+      "ja": "水泳",
+      "ar": "السباحة",
+      "hi": "तैराकी",
+      "th": "ว่ายน้ำ",
+      "es": "Natación",
+      "ko": "수영",
+      "zh_Hans": "游泳",
+      "fr": "Natation",
+      "tr": "Yüzme",
+      "ru": "Плавание",
+      "de": "Schwimmen",
+      "pt": "Natação",
+      "it": "Nuoto",
+      "id": "Berenang"
+    },
+    "yoga": {
+      "en": "Yoga",
+      "vi": "Yoga",
+      "ja": "ヨガ",
+      "ar": "يوغا",
+      "hi": "योग",
+      "th": "โยคะ",
+      "es": "Yoga",
+      "ko": "요가",
+      "zh_Hans": "瑜伽",
+      "fr": "Yoga",
+      "tr": "Yoga",
+      "ru": "Йога",
+      "de": "Yoga",
+      "pt": "Yoga",
+      "it": "Yoga",
+      "id": "Yoga"
+    },
+    "low": {
+      "en": "Low",
+      "vi": "Thấp",
+      "ja": "低い",
+      "ar": "منخفض",
+      "hi": "कम",
+      "th": "ต่ำ",
+      "es": "Bajo",
+      "ko": "낮음",
+      "zh_Hans": "低",
+      "fr": "Faible",
+      "tr": "Düşük",
+      "ru": "Низкий",
+      "de": "Niedrig",
+      "pt": "Baixo",
+      "it": "Basso",
+      "id": "Rendah"
+    },
+    "high": {
+      "en": "High",
+      "vi": "Cao",
+      "ja": "高い",
+      "ar": "مرتفع",
+      "hi": "उच्च",
+      "th": "สูง",
+      "es": "Alto",
+      "ko": "높음",
+      "zh_Hans": "高",
+      "fr": "Élevé",
+      "tr": "Yüksek",
+      "ru": "Высокий",
+      "de": "Hoch",
+      "pt": "Alto",
+      "it": "Alto",
+      "id": "Tinggi"
+    },
+    "moderate": {
+      "en": "Moderate",
+      "vi": "Trung bình",
+      "ja": "中程度",
+      "ar": "متوسط",
+      "hi": "मध्यम",
+      "th": "ปานกลาง",
+      "es": "Moderado",
+      "ko": "중간",
+      "zh_Hans": "中等",
+      "fr": "Modéré",
+      "tr": "Orta",
+      "ru": "Умеренный",
+      "de": "Mittel",
+      "pt": "Moderado",
+      "it": "Moderato",
+      "id": "Sedang"
+    },
+    "now": {
+      "en": "Now",
+      "vi": "Bây giờ",
+      "ja": "今",
+      "ar": "الآن",
+      "hi": "अभी",
+      "th": "ตอนนี้",
+      "es": "Ahora",
+      "ko": "지금",
+      "zh_Hans": "现在",
+      "fr": "Maintenant",
+      "tr": "Şimdi",
+      "ru": "Сейчас",
+      "de": "Jetzt",
+      "pt": "Agora",
+      "it": "Ora",
+      "id": "Sekarang"
+    },
+    "custom_time": {
+      "en": "Custom time",
+      "vi": "Thời gian tùy chỉnh",
+      "ja": "カスタム時間",
+      "ar": "وقت مخصص",
+      "hi": "कस्टम समय",
+      "th": "เวลาที่กำหนดเอง",
+      "es": "Tiempo personalizado",
+      "ko": "사용자 지정 시간",
+      "zh_Hans": "自定义时间",
+      "fr": "Heure personnalisée",
+      "tr": "Özel zaman",
+      "ru": "Пользовательское время",
+      "de": "Benutzerdefinierte Zeit",
+      "pt": "Tempo personalizado",
+      "it": "Tempo personalizzato",
+      "id": "Waktu khusus"
+    },
+    "hour_ago": {
+      "en": "hour ago",
+      "vi": "giờ trước",
+      "ja": "時間前",
+      "ar": "منذ ساعة",
+      "hi": "घंटा पहले",
+      "th": "ชั่วโมงที่แล้ว",
+      "es": "hace una hora",
+      "ko": "시간 전",
+      "zh_Hans": "小时前",
+      "fr": "il y a une heure",
+      "tr": "bir saat önce",
+      "ru": "час назад",
+      "de": "vor einer Stunde",
+      "pt": "há uma hora",
+      "it": "un'ora fa",
+      "id": "satu jam yang lalu"
     }
   };
 
@@ -1869,7 +2067,8 @@ Color? returnProgressColor(
 double? diabProgreeabar(int? daibScore) {
   if (daibScore == null) return 0;
 
-  return (daibScore / 130).clamp(0.0, 1.0);
+  return (daibScore / 100)
+      .clamp(0.0, 1.0); //  return (daibScore / 130).clamp(0.0, 1.0);
 }
 
 String? twoDayAgoDate() {
@@ -2015,4 +2214,81 @@ String? caseConverter(String? info) {
   String trimmed = info.trim();
 
   return trimmed[0].toUpperCase() + trimmed.substring(1).toLowerCase();
+}
+
+/// typeOfFormat = 0 = mealHour
+/// typeOfFormat = 1 = mealDate
+String? timeFormat(
+  String? mealInput,
+  String? typeOfFormat,
+) {
+  if (mealInput == null || typeOfFormat == null) return mealInput;
+
+  try {
+    if (typeOfFormat == "0") {
+      // Format mealHour (e.g., "14:30:00") to "02:30 PM"
+      DateTime utc = DateTime.parse(mealInput).toUtc();
+      DateTime local = utc.toLocal();
+      return DateFormat("hh:mm a").format(local);
+    } else if (typeOfFormat == "1") {
+      // Format mealDate (e.g., "2025-04-15") to "April 15"
+      final date = DateTime.parse(mealInput).toUtc().toLocal();
+      final now = DateTime.now();
+
+      // Compare only year, month, day (not time)
+      final isToday = date.year == now.year &&
+          date.month == now.month &&
+          date.day == now.day;
+
+      if (isToday) {
+        return 'today';
+      }
+
+      return DateFormat('EEE, MMMM d').format(date);
+    } else if (typeOfFormat == "2") {
+      // Format mealDate (e.g., "2025-04-15") to "Monday"
+      final date = DateTime.parse(mealInput).toUtc().toLocal();
+      return DateFormat('EEE').format(date).toUpperCase();
+    } else if (typeOfFormat == "3") {
+      DateTime utc = DateTime.parse(mealInput).toUtc();
+      DateTime local = utc.toLocal();
+      return DateFormat("d MMM").format(local).toUpperCase();
+    } else if (typeOfFormat == "4") {
+      DateTime utc = DateTime.parse(mealInput).toUtc();
+      DateTime local = utc.toLocal();
+      return DateFormat("MMM d").format(local).toUpperCase();
+    } else if (typeOfFormat == "5") {
+      DateTime utc = DateTime.parse(mealInput).toUtc();
+      DateTime local = utc.toLocal();
+      return DateFormat("MMMM d").format(local);
+    } else if (typeOfFormat == "6") {
+      DateTime utc = DateTime.parse(mealInput).toUtc();
+      DateTime local = utc.toLocal();
+      return DateFormat("EEE, MMM d").format(local);
+    } else if (typeOfFormat == "7") {
+      DateTime utc = DateTime.parse(mealInput).toUtc();
+      DateTime local = utc.toLocal();
+      return DateFormat("dd/MM").format(local);
+    } else if (typeOfFormat == "8") {
+      DateTime utc = DateTime.parse(mealInput).toUtc();
+      DateTime local = utc.toLocal();
+      return DateFormat("MM/dd").format(local);
+    } else if (typeOfFormat == "9") {
+      DateTime utc = DateTime.parse(mealInput).toUtc();
+      DateTime local = utc.toLocal();
+      return DateFormat("EEEE").format(local).toUpperCase();
+    } else if (typeOfFormat == "10") {
+      DateTime utc = DateTime.parse(mealInput).toUtc();
+      DateTime local = utc.toLocal();
+      return DateFormat("y-MM-dd").format(local).toUpperCase();
+    } else if (typeOfFormat == "11") {
+      DateTime utc = DateTime.parse(mealInput).toUtc();
+      DateTime local = utc.toLocal();
+      return DateFormat("MMM dd, yyyy").format(local);
+    } else {
+      return null;
+    }
+  } catch (e) {
+    return null;
+  }
 }

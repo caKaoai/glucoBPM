@@ -60,6 +60,9 @@ class _SplashScreenCopyWidgetState extends State<SplashScreenCopyWidget> {
         Future(() async {
           await action_blocks.mealGet(context);
         }),
+        Future(() async {
+          await action_blocks.getActivity(context);
+        }),
       ]);
 
       context.goNamed(

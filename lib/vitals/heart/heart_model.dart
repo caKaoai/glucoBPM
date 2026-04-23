@@ -1,9 +1,8 @@
 import '/flutter_flow/flutter_flow_util.dart';
-import '/index.dart';
-import 'log_home_widget.dart' show LogHomeWidget;
+import 'heart_widget.dart' show HeartWidget;
 import 'package:flutter/material.dart';
 
-class LogHomeModel extends FlutterFlowModel<LogHomeWidget> {
+class HeartModel extends FlutterFlowModel<HeartWidget> {
   @override
   void initState(BuildContext context) {}
 

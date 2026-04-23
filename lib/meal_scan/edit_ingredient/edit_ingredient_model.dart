@@ -3,7 +3,7 @@ import 'edit_ingredient_widget.dart' show EditIngredientWidget;
 import 'package:flutter/material.dart';
 
 class EditIngredientModel extends FlutterFlowModel<EditIngredientWidget> {
-  ///  Local state fields for this page.
+  ///  Local state fields for this component.
 
   bool isEdit = false;
 
@@ -19,7 +19,7 @@ class EditIngredientModel extends FlutterFlowModel<EditIngredientWidget> {
   void updateIngredientLocalAtIndex(int index, Function(String) updateFn) =>
       ingredientLocal[index] = updateFn(ingredientLocal[index]);
 
-  ///  State fields for stateful widgets in this page.
+  ///  State fields for stateful widgets in this component.
 
   // State field(s) for TextField widget.
   FocusNode? textFieldFocusNode;

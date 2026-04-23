@@ -1,6 +1,8 @@
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import 'dart:async';
+import '/actions/actions.dart' as action_blocks;
 import '/custom_code/widgets/index.dart' as custom_widgets;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
@@ -43,6 +45,11 @@ class _PrimaryGoal2WidgetState extends State<PrimaryGoal2Widget>
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       _model.weightType = 1;
       safeSetState(() {});
+      unawaited(
+        () async {
+          await action_blocks.getActivity(context);
+        }(),
+      );
     });
 
     animationsMap.addAll({
@@ -421,8 +428,8 @@ class _PrimaryGoal2WidgetState extends State<PrimaryGoal2Widget>
           custom_widgets.AgeRuler(
             width: double.infinity,
             height: 64.0,
-            min: 10,
-            max: 100,
+            min: FFAppState().config.age.min,
+            max: FFAppState().config.age.max,
             initVal: 30,
             age: (ageVal) async {
               _model.age = ageVal;
@@ -574,6 +581,12 @@ class _PrimaryGoal2WidgetState extends State<PrimaryGoal2Widget>
               width: double.infinity,
               height: 64.0,
               type: _model.heightType,
+              minval: _model.heightType == 1
+                  ? FFAppState().config.height.firstOrNull?.min
+                  : FFAppState().config.height.lastOrNull?.min,
+              maxval: _model.heightType == 1
+                  ? FFAppState().config.height.firstOrNull?.max
+                  : FFAppState().config.height.lastOrNull?.max,
               returnHeight: (heightInfo) async {
                 _model.height = heightInfo;
                 safeSetState(() {});
@@ -729,6 +742,12 @@ class _PrimaryGoal2WidgetState extends State<PrimaryGoal2Widget>
                 _model.weightType,
                 1,
               ),
+              min: _model.heightType == 0
+                  ? FFAppState().config.weight.firstOrNull?.min
+                  : FFAppState().config.height.firstOrNull?.min,
+              max: _model.heightType == 0
+                  ? FFAppState().config.weight.firstOrNull?.max
+                  : FFAppState().config.height.firstOrNull?.max,
               returnWeight: (weighttInfo) async {
                 _model.weight = weighttInfo;
                 safeSetState(() {});

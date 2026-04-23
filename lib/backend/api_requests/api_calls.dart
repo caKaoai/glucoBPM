@@ -25,6 +25,7 @@ class AllCommandTableGroup {
   };
   static LanguageCall languageCall = LanguageCall();
   static ConfigCall configCall = ConfigCall();
+  static ActivityCall activityCall = ActivityCall();
 }
 
 class LanguageCall {
@@ -69,6 +70,35 @@ class ConfigCall {
     return ApiManager.instance.makeApiCall(
       callName: 'Config',
       apiUrl: '${baseUrl}/config',
+      callType: ApiCallType.GET,
+      headers: {
+        'Content-type': 'application/json',
+        'Authorization': 'Bearer ${token}',
+        'apikey': '${token}',
+      },
+      params: {},
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
+class ActivityCall {
+  Future<ApiCallResponse> call({
+    String? token =
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRteXBnY29panJrZXpjc211b2d5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njg3OTgzMDcsImV4cCI6MjA4NDM3NDMwN30.6X7i6W_-qReXpcQghKn8oRv1QaPOYD3MvUETstEksak',
+  }) async {
+    final baseUrl = AllCommandTableGroup.getBaseUrl(
+      token: token,
+    );
+
+    return ApiManager.instance.makeApiCall(
+      callName: 'activity',
+      apiUrl: '${baseUrl}/activity',
       callType: ApiCallType.GET,
       headers: {
         'Content-type': 'application/json',
@@ -204,6 +234,7 @@ class EdgeFunctionGroup {
   };
   static AnalyzeFoodMultiLanguageCall analyzeFoodMultiLanguageCall =
       AnalyzeFoodMultiLanguageCall();
+  static MoveActiveScoreCall moveActiveScoreCall = MoveActiveScoreCall();
 }
 
 class AnalyzeFoodMultiLanguageCall {
@@ -247,6 +278,77 @@ class AnalyzeFoodMultiLanguageCall {
       MealStruct.maybeFromMap(getJsonField(
         response,
         r'''$.meal''',
+      ));
+}
+
+class MoveActiveScoreCall {
+  Future<ApiCallResponse> call({
+    String? activity = '',
+    int? durationMinutes,
+    String? gender = '',
+    int? age,
+    int? weightKg,
+    int? heightCm,
+    String? language = '',
+    int? level,
+    String? token =
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRteXBnY29panJrZXpjc211b2d5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njg3OTgzMDcsImV4cCI6MjA4NDM3NDMwN30.6X7i6W_-qReXpcQghKn8oRv1QaPOYD3MvUETstEksak',
+  }) async {
+    final baseUrl = EdgeFunctionGroup.getBaseUrl(
+      token: token,
+    );
+
+    final ffApiRequestBody = '''
+{
+  "activity": "${escapeStringForJson(activity)}",
+  "duration_minutes": ${durationMinutes},
+  "intensity": {
+    "level": ${level},
+    "scale": {
+      "min": 1,
+      "max": 10
+    }
+  },
+  "person": {
+    "gender": "${escapeStringForJson(gender)}",
+    "age": ${age},
+    "weight_kg": ${weightKg},
+    "height_cm": ${heightCm},
+    "language": "${escapeStringForJson(language)}"
+  }
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'Move Active Score',
+      apiUrl: '${baseUrl}/move_active_score',
+      callType: ApiCallType.POST,
+      headers: {
+        'Content-type': 'application/json',
+        'Authorization': 'Bearer ${token}',
+        'apikey': '${token}',
+      },
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  int? caloriesBurned(dynamic response) => castToType<int>(getJsonField(
+        response,
+        r'''$.estimated_calories_burned''',
+      ));
+  String? summary(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.summary''',
+      ));
+  int? healthScore(dynamic response) => castToType<int>(getJsonField(
+        response,
+        r'''$.health_score''',
       ));
 }
 

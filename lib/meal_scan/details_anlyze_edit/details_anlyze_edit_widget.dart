@@ -6,12 +6,12 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/meal_scan/diabetic_insight/diabetic_insight_widget.dart';
+import '/meal_scan/edit_ingredient/edit_ingredient_widget.dart';
 import '/meal_scan/meal_time/meal_time_widget.dart';
 import 'dart:ui';
 import '/actions/actions.dart' as action_blocks;
 import '/custom_code/widgets/index.dart' as custom_widgets;
 import '/flutter_flow/custom_functions.dart' as functions;
-import '/index.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -249,89 +249,134 @@ class _DetailsAnlyzeEditWidgetState extends State<DetailsAnlyzeEditWidget>
                                                       ),
                                                 ),
                                               ),
-                                              Expanded(
-                                                child: InkWell(
-                                                  splashColor:
-                                                      Colors.transparent,
-                                                  focusColor:
-                                                      Colors.transparent,
-                                                  hoverColor:
-                                                      Colors.transparent,
-                                                  highlightColor:
-                                                      Colors.transparent,
-                                                  onTap: () async {
-                                                    context.pushNamed(
-                                                      EditIngredientWidget
-                                                          .routeName,
-                                                      queryParameters: {
-                                                        'dishname':
-                                                            serializeParam(
-                                                          widget
-                                                              .mealInfo?.name,
-                                                          ParamType.String,
-                                                        ),
-                                                        'ingredients':
-                                                            serializeParam(
-                                                          widget.mealInfo
-                                                              ?.ingredients,
-                                                          ParamType.String,
-                                                          isList: true,
-                                                        ),
-                                                      }.withoutNulls,
-                                                    );
-                                                  },
-                                                  child: Row(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment.end,
-                                                    children: [
-                                                      Icon(
-                                                        Icons.edit_outlined,
-                                                        color:
+                                              if (widget.callType == 0)
+                                                Expanded(
+                                                  child: InkWell(
+                                                    splashColor:
+                                                        Colors.transparent,
+                                                    focusColor:
+                                                        Colors.transparent,
+                                                    hoverColor:
+                                                        Colors.transparent,
+                                                    highlightColor:
+                                                        Colors.transparent,
+                                                    onTap: () async {
+                                                      await showModalBottomSheet(
+                                                        isScrollControlled:
+                                                            true,
+                                                        backgroundColor:
                                                             FlutterFlowTheme.of(
                                                                     context)
-                                                                .info,
-                                                        size: 14.0,
-                                                      ),
-                                                      Align(
-                                                        alignment:
-                                                            AlignmentDirectional(
-                                                                1.0, 0.0),
-                                                        child: Text(
-                                                          FFLocalizations.of(
-                                                                  context)
-                                                              .getText(
-                                                            'zb5wfgp3' /* EDIT INGREDIENTS */,
-                                                          ),
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .bodyMedium
-                                                              .override(
-                                                                fontFamily: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMediumFamily,
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .info,
-                                                                fontSize: 10.0,
-                                                                letterSpacing:
-                                                                    1.0,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                                useGoogleFonts:
-                                                                    !FlutterFlowTheme.of(
+                                                                .secondaryBackground,
+                                                        barrierColor:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .secondaryBackground,
+                                                        isDismissible: false,
+                                                        enableDrag: false,
+                                                        useSafeArea: true,
+                                                        context: context,
+                                                        builder: (context) {
+                                                          return GestureDetector(
+                                                            onTap: () {
+                                                              FocusScope.of(
+                                                                      context)
+                                                                  .unfocus();
+                                                              FocusManager
+                                                                  .instance
+                                                                  .primaryFocus
+                                                                  ?.unfocus();
+                                                            },
+                                                            child: Padding(
+                                                              padding: MediaQuery
+                                                                  .viewInsetsOf(
+                                                                      context),
+                                                              child: Container(
+                                                                height: MediaQuery.sizeOf(
                                                                             context)
-                                                                        .bodyMediumIsCustom,
+                                                                        .height *
+                                                                    1.0,
+                                                                child:
+                                                                    EditIngredientWidget(
+                                                                  dishname: widget
+                                                                      .mealInfo!
+                                                                      .name,
+                                                                  ingredients: widget
+                                                                      .mealInfo!
+                                                                      .ingredients,
+                                                                ),
                                                               ),
+                                                            ),
+                                                          );
+                                                        },
+                                                      ).then((value) =>
+                                                          safeSetState(() =>
+                                                              _model.newIngedients =
+                                                                  value));
+
+                                                      _model
+                                                          .updateMealParsInfoStruct(
+                                                        (e) => e
+                                                          ..ingredients = _model
+                                                              .newIngedients!
+                                                              .toList(),
+                                                      );
+                                                      safeSetState(() {});
+
+                                                      safeSetState(() {});
+                                                    },
+                                                    child: Row(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment.end,
+                                                      children: [
+                                                        Icon(
+                                                          Icons.edit_outlined,
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .info,
+                                                          size: 14.0,
                                                         ),
-                                                      ),
-                                                    ].divide(
-                                                        SizedBox(width: 2.0)),
+                                                        Align(
+                                                          alignment:
+                                                              AlignmentDirectional(
+                                                                  1.0, 0.0),
+                                                          child: Text(
+                                                            FFLocalizations.of(
+                                                                    context)
+                                                                .getText(
+                                                              'zb5wfgp3' /* EDIT INGREDIENTS */,
+                                                            ),
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .bodyMedium
+                                                                .override(
+                                                                  fontFamily: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMediumFamily,
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .info,
+                                                                  fontSize:
+                                                                      10.0,
+                                                                  letterSpacing:
+                                                                      1.0,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  useGoogleFonts:
+                                                                      !FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyMediumIsCustom,
+                                                                ),
+                                                          ),
+                                                        ),
+                                                      ].divide(
+                                                          SizedBox(width: 2.0)),
+                                                    ),
                                                   ),
                                                 ),
-                                              ),
                                             ],
                                           ),
                                           Padding(
@@ -340,13 +385,11 @@ class _DetailsAnlyzeEditWidgetState extends State<DetailsAnlyzeEditWidget>
                                                     0.0, 8.0, 0.0, 0.0),
                                             child: Builder(
                                               builder: (context) {
-                                                final ingridents = (_model
-                                                            .mealParsInfo
-                                                            ?.ingredients
-                                                            .toList() ??
-                                                        [])
-                                                    .take(6)
-                                                    .toList();
+                                                final ingridents = _model
+                                                        .mealParsInfo
+                                                        ?.ingredients
+                                                        .toList() ??
+                                                    [];
 
                                                 return Wrap(
                                                   spacing: 8.0,
@@ -1343,7 +1386,7 @@ Score */
                 if (widget.callType == 0)
                   Padding(
                     padding:
-                        EdgeInsetsDirectional.fromSTEB(16.0, 24.0, 16.0, 20.0),
+                        EdgeInsetsDirectional.fromSTEB(16.0, 24.0, 16.0, 0.0),
                     child: Stack(
                       children: [
                         Container(
@@ -1452,29 +1495,33 @@ Score */
                   ),
                 Align(
                   alignment: AlignmentDirectional(0.0, 0.0),
-                  child: InkWell(
-                    splashColor: Colors.transparent,
-                    focusColor: Colors.transparent,
-                    hoverColor: Colors.transparent,
-                    highlightColor: Colors.transparent,
-                    onTap: () async {
-                      HapticFeedback.heavyImpact();
-                      Navigator.pop(context);
-                    },
-                    child: Text(
-                      FFLocalizations.of(context).getText(
-                        'mtwx75x2' /* Discard & Cancel */,
+                  child: Padding(
+                    padding:
+                        EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
+                    child: InkWell(
+                      splashColor: Colors.transparent,
+                      focusColor: Colors.transparent,
+                      hoverColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      onTap: () async {
+                        HapticFeedback.heavyImpact();
+                        Navigator.pop(context);
+                      },
+                      child: Text(
+                        FFLocalizations.of(context).getText(
+                          'mtwx75x2' /* Discard & Cancel */,
+                        ),
+                        textAlign: TextAlign.center,
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                              fontFamily:
+                                  FlutterFlowTheme.of(context).bodyMediumFamily,
+                              color: Color(0xFF64748B),
+                              letterSpacing: 0.0,
+                              fontWeight: FontWeight.bold,
+                              useGoogleFonts: !FlutterFlowTheme.of(context)
+                                  .bodyMediumIsCustom,
+                            ),
                       ),
-                      textAlign: TextAlign.center,
-                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            fontFamily:
-                                FlutterFlowTheme.of(context).bodyMediumFamily,
-                            color: Color(0xFF64748B),
-                            letterSpacing: 0.0,
-                            fontWeight: FontWeight.bold,
-                            useGoogleFonts: !FlutterFlowTheme.of(context)
-                                .bodyMediumIsCustom,
-                          ),
                     ),
                   ),
                 ),

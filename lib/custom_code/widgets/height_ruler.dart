@@ -22,6 +22,8 @@ class HeightRuler extends StatefulWidget {
     this.initVal,
     this.returnHeight,
     this.type,
+    this.minval,
+    this.maxval,
   });
 
   final double? width;
@@ -29,6 +31,8 @@ class HeightRuler extends StatefulWidget {
   final int? initVal;
   final Future Function(int heightInfo)? returnHeight;
   final int? type;
+  final int? minval;
+  final int? maxval;
 
   @override
   State<HeightRuler> createState() => _HeightRulerState();
@@ -56,8 +60,8 @@ class _HeightRulerState extends State<HeightRuler> {
     // ── Original logic — only ranges updated ─────────────────────
     if (widget.type == 1) {
       // cm mode
-      minValue = 120;
-      maxValue = 260;
+      minValue = widget.minval ?? 120;
+      maxValue = widget.maxval ?? 260;
       unit = 'cm';
 
       selectedValue = minValue + 20;
@@ -67,8 +71,9 @@ class _HeightRulerState extends State<HeightRuler> {
       }
     } else {
       // ft/in mode (stored as total inches)
-      minValue = 48; // 4 ft
-      maxValue = 108; // 9 ft
+      minValue = widget.minval ?? 48; // 4 ft
+      maxValue = widget.maxval ?? 108; // 9 ft
+
       unit = 'ft';
 
       selectedValue = minValue;

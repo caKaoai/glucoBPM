@@ -183,21 +183,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => GlucoseHomeWidget(),
         ),
         FFRoute(
-          name: EditIngredientWidget.routeName,
-          path: EditIngredientWidget.routePath,
-          builder: (context, params) => EditIngredientWidget(
-            dishname: params.getParam(
-              'dishname',
-              ParamType.String,
-            ),
-            ingredients: params.getParam<String>(
-              'ingredients',
-              ParamType.String,
-              isList: true,
-            ),
-          ),
-        ),
-        FFRoute(
           name: GlucoseDetailsWidget.routeName,
           path: GlucoseDetailsWidget.routePath,
           builder: (context, params) => GlucoseDetailsWidget(),
@@ -211,6 +196,16 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: LogHomeWidget.routeName,
           path: LogHomeWidget.routePath,
           builder: (context, params) => LogHomeWidget(),
+        ),
+        FFRoute(
+          name: CaloriesBurnWidget.routeName,
+          path: CaloriesBurnWidget.routePath,
+          builder: (context, params) => CaloriesBurnWidget(),
+        ),
+        FFRoute(
+          name: HeartWidget.routeName,
+          path: HeartWidget.routePath,
+          builder: (context, params) => HeartWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

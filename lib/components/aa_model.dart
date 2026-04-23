@@ -1,9 +1,8 @@
 import '/flutter_flow/flutter_flow_util.dart';
-import '/index.dart';
-import 'log_home_widget.dart' show LogHomeWidget;
+import 'aa_widget.dart' show AaWidget;
 import 'package:flutter/material.dart';
 
-class LogHomeModel extends FlutterFlowModel<LogHomeWidget> {
+class AaModel extends FlutterFlowModel<AaWidget> {
   @override
   void initState(BuildContext context) {}
 

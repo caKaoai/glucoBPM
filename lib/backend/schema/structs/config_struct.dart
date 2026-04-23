@@ -17,6 +17,9 @@ class ConfigStruct extends BaseStruct {
     int? recentMealCount,
     List<String>? mealTime,
     List<RangeStruct>? glucoseRange,
+    RangeStruct? age,
+    List<RangeStruct>? height,
+    List<RangeStruct>? weight,
   })  : _id = id,
         _onboardingGoalText = onboardingGoalText,
         _policy = policy,
@@ -25,7 +28,10 @@ class ConfigStruct extends BaseStruct {
         _diabeticInsightColor = diabeticInsightColor,
         _recentMealCount = recentMealCount,
         _mealTime = mealTime,
-        _glucoseRange = glucoseRange;
+        _glucoseRange = glucoseRange,
+        _age = age,
+        _height = height,
+        _weight = weight;
 
   // "id" field.
   int? _id;
@@ -120,6 +126,39 @@ class ConfigStruct extends BaseStruct {
 
   bool hasGlucoseRange() => _glucoseRange != null;
 
+  // "age" field.
+  RangeStruct? _age;
+  RangeStruct get age => _age ?? RangeStruct();
+  set age(RangeStruct? val) => _age = val;
+
+  void updateAge(Function(RangeStruct) updateFn) {
+    updateFn(_age ??= RangeStruct());
+  }
+
+  bool hasAge() => _age != null;
+
+  // "height" field.
+  List<RangeStruct>? _height;
+  List<RangeStruct> get height => _height ?? const [];
+  set height(List<RangeStruct>? val) => _height = val;
+
+  void updateHeight(Function(List<RangeStruct>) updateFn) {
+    updateFn(_height ??= []);
+  }
+
+  bool hasHeight() => _height != null;
+
+  // "weight" field.
+  List<RangeStruct>? _weight;
+  List<RangeStruct> get weight => _weight ?? const [];
+  set weight(List<RangeStruct>? val) => _weight = val;
+
+  void updateWeight(Function(List<RangeStruct>) updateFn) {
+    updateFn(_weight ??= []);
+  }
+
+  bool hasWeight() => _weight != null;
+
   static ConfigStruct fromMap(Map<String, dynamic> data) => ConfigStruct(
         id: castToType<int>(data['id']),
         onboardingGoalText: getStructList(
@@ -143,6 +182,17 @@ class ConfigStruct extends BaseStruct {
           data['glucoseRange'],
           RangeStruct.fromMap,
         ),
+        age: data['age'] is RangeStruct
+            ? data['age']
+            : RangeStruct.maybeFromMap(data['age']),
+        height: getStructList(
+          data['height'],
+          RangeStruct.fromMap,
+        ),
+        weight: getStructList(
+          data['weight'],
+          RangeStruct.fromMap,
+        ),
       );
 
   static ConfigStruct? maybeFromMap(dynamic data) =>
@@ -160,6 +210,9 @@ class ConfigStruct extends BaseStruct {
         'recent_meal_count': _recentMealCount,
         'meal_time': _mealTime,
         'glucoseRange': _glucoseRange?.map((e) => e.toMap()).toList(),
+        'age': _age?.toMap(),
+        'height': _height?.map((e) => e.toMap()).toList(),
+        'weight': _weight?.map((e) => e.toMap()).toList(),
       }.withoutNulls;
 
   @override
@@ -202,6 +255,20 @@ class ConfigStruct extends BaseStruct {
         ),
         'glucoseRange': serializeParam(
           _glucoseRange,
+          ParamType.DataStruct,
+          isList: true,
+        ),
+        'age': serializeParam(
+          _age,
+          ParamType.DataStruct,
+        ),
+        'height': serializeParam(
+          _height,
+          ParamType.DataStruct,
+          isList: true,
+        ),
+        'weight': serializeParam(
+          _weight,
           ParamType.DataStruct,
           isList: true,
         ),
@@ -258,6 +325,24 @@ class ConfigStruct extends BaseStruct {
           true,
           structBuilder: RangeStruct.fromSerializableMap,
         ),
+        age: deserializeStructParam(
+          data['age'],
+          ParamType.DataStruct,
+          false,
+          structBuilder: RangeStruct.fromSerializableMap,
+        ),
+        height: deserializeStructParam<RangeStruct>(
+          data['height'],
+          ParamType.DataStruct,
+          true,
+          structBuilder: RangeStruct.fromSerializableMap,
+        ),
+        weight: deserializeStructParam<RangeStruct>(
+          data['weight'],
+          ParamType.DataStruct,
+          true,
+          structBuilder: RangeStruct.fromSerializableMap,
+        ),
       );
 
   @override
@@ -275,7 +360,10 @@ class ConfigStruct extends BaseStruct {
         listEquality.equals(diabeticInsightColor, other.diabeticInsightColor) &&
         recentMealCount == other.recentMealCount &&
         listEquality.equals(mealTime, other.mealTime) &&
-        listEquality.equals(glucoseRange, other.glucoseRange);
+        listEquality.equals(glucoseRange, other.glucoseRange) &&
+        age == other.age &&
+        listEquality.equals(height, other.height) &&
+        listEquality.equals(weight, other.weight);
   }
 
   @override
@@ -288,7 +376,10 @@ class ConfigStruct extends BaseStruct {
         diabeticInsightColor,
         recentMealCount,
         mealTime,
-        glucoseRange
+        glucoseRange,
+        age,
+        height,
+        weight
       ]);
 }
 
@@ -297,10 +388,12 @@ ConfigStruct createConfigStruct({
   String? policy,
   int? translationTableVersion,
   int? recentMealCount,
+  RangeStruct? age,
 }) =>
     ConfigStruct(
       id: id,
       policy: policy,
       translationTableVersion: translationTableVersion,
       recentMealCount: recentMealCount,
+      age: age ?? RangeStruct(),
     );

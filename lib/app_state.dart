@@ -90,6 +90,21 @@ class FFAppState extends ChangeNotifier {
               .toList() ??
           _MealInfo;
     });
+    _safeInit(() {
+      _activityName = prefs
+              .getStringList('ff_activityName')
+              ?.map((x) {
+                try {
+                  return ActivityStruct.fromSerializableMap(jsonDecode(x));
+                } catch (e) {
+                  print("Can't decode persisted data type. Error: $e.");
+                  return null;
+                }
+              })
+              .withoutNulls
+              .toList() ??
+          _activityName;
+    });
   }
 
   void update(VoidCallback callback) {
@@ -232,6 +247,47 @@ class FFAppState extends ChangeNotifier {
     MealInfo.insert(index, value);
     prefs.setStringList(
         'ff_MealInfo', _MealInfo.map((x) => x.serialize()).toList());
+  }
+
+  List<ActivityStruct> _activityName = [];
+  List<ActivityStruct> get activityName => _activityName;
+  set activityName(List<ActivityStruct> value) {
+    _activityName = value;
+    prefs.setStringList(
+        'ff_activityName', value.map((x) => x.serialize()).toList());
+  }
+
+  void addToActivityName(ActivityStruct value) {
+    activityName.add(value);
+    prefs.setStringList(
+        'ff_activityName', _activityName.map((x) => x.serialize()).toList());
+  }
+
+  void removeFromActivityName(ActivityStruct value) {
+    activityName.remove(value);
+    prefs.setStringList(
+        'ff_activityName', _activityName.map((x) => x.serialize()).toList());
+  }
+
+  void removeAtIndexFromActivityName(int index) {
+    activityName.removeAt(index);
+    prefs.setStringList(
+        'ff_activityName', _activityName.map((x) => x.serialize()).toList());
+  }
+
+  void updateActivityNameAtIndex(
+    int index,
+    ActivityStruct Function(ActivityStruct) updateFn,
+  ) {
+    activityName[index] = updateFn(_activityName[index]);
+    prefs.setStringList(
+        'ff_activityName', _activityName.map((x) => x.serialize()).toList());
+  }
+
+  void insertAtIndexInActivityName(int index, ActivityStruct value) {
+    activityName.insert(index, value);
+    prefs.setStringList(
+        'ff_activityName', _activityName.map((x) => x.serialize()).toList());
   }
 }
 

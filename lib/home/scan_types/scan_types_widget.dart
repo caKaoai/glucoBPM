@@ -161,6 +161,11 @@ class _ScanTypesWidgetState extends State<ScanTypesWidget>
                                 } else if (scnTypeItem.title == 'log_glucose') {
                                   context
                                       .pushNamed(GlucoseHomeWidget.routeName);
+                                } else if (scnTypeItem.title ==
+                                    'log_activity') {
+                                  context.pushNamed(LogHomeWidget.routeName);
+                                } else {
+                                  context.pushNamed(HeartWidget.routeName);
                                 }
 
                                 safeSetState(() {});

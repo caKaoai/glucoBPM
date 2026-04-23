@@ -85,7 +85,7 @@ class _GlucoseDetailsWidgetState extends State<GlucoseDetailsWidget>
           ),
           title: Text(
             FFLocalizations.of(context).getText(
-              'frtq27az' /* Log Success */,
+              '9d3tbau9' /* Log Success */,
             ),
             style: FlutterFlowTheme.of(context).headlineMedium.override(
                   fontFamily: FlutterFlowTheme.of(context).headlineMediumFamily,

@@ -82,7 +82,7 @@ class _GLHistoryWidgetState extends State<GLHistoryWidget>
           ),
           title: Text(
             FFLocalizations.of(context).getText(
-              'b8dketme' /* Glucose History */,
+              'xpcmfcfg' /* Glucose History */,
             ),
             style: FlutterFlowTheme.of(context).headlineMedium.override(
                   fontFamily: FlutterFlowTheme.of(context).headlineMediumFamily,

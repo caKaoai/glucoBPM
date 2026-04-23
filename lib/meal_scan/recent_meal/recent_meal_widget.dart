@@ -3,6 +3,7 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/custom_code/actions/index.dart' as actions;
+import '/flutter_flow/custom_functions.dart' as functions;
 import '/index.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -222,9 +223,11 @@ class _RecentMealWidgetState extends State<RecentMealWidget>
                                                   ),
                                             ),
                                             Text(
-                                              FFLocalizations.of(context)
-                                                  .getText(
-                                                'eja8x5r4' /* Yesterday, 7:15 PM */,
+                                              valueOrDefault<String>(
+                                                functions.timeFormat(
+                                                    recentMealItem.createdAt,
+                                                    '11'),
+                                                'Today, 8:30 AM',
                                               ),
                                               style: FlutterFlowTheme.of(
                                                       context)

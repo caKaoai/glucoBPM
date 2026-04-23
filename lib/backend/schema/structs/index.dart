@@ -1,5 +1,6 @@
 export '/backend/schema/util/schema_util.dart';
 
+export 'activity_struct.dart';
 export 'diabetic_score_struct.dart';
 export 'health_struct.dart';
 export 'health_info_struct.dart';
